@@ -1,7 +1,7 @@
 const montorData = [
   {
     text: '概览', // 'menu.overview', // 概览
-    link: '/monitor/overview',
+    link: '/monitor',
     icon: 'iconfont icon-allnormal',
   },
   {
@@ -13,10 +13,6 @@ const montorData = [
         text: '电池信息', // 'menu.batteryInfo', // 电池信息
         link: '11',
         children: [
-          {
-            text: '电池列表', // 'menu.batteryList', // 电池列表
-            link: '/monitor/battery',
-          },
           {
             text: '电池地图', // 'menu.batteryList', // 电池地图
             link: 'map',
@@ -30,6 +26,10 @@ const montorData = [
                 link: '/monitor/battery/history',
               },
             ],
+          },
+          {
+            text: '电池列表', // 'menu.batteryList', // 电池列表
+            link: '/monitor/battery',
           },
           {
             text: '恢复拉黑设备', // 'menu.defriend', // 恢复拉黑设备

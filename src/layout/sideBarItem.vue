@@ -30,6 +30,7 @@ export default {
   name: 'MenuTree',
   methods: {
     barClickHandle(item) {
+      sessionStorage.setItem('projectType', item.type);
       this.$store.commit('setProjectType', item.type);
       this.$router.push(`${item.link}`);
     },

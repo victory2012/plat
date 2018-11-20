@@ -97,12 +97,13 @@ module.exports = {
   externals: {
     AMap: 'window.AMap',
     AMapUI: 'window.AMapUI',
-    echarts: 'echarts'
+    echarts: 'echarts',
+    xlsx: 'XLSX',
+    Paho: 'window.Paho'
     // axios: 'axios',
     // 'vuex': 'Vuex',
     // 'vue-router': 'VueRouter',
     // 'lodash': '_',
     // 'xlsx': 'XLSX',
-    // Paho: 'window.Paho'
   }
 };

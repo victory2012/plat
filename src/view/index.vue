@@ -39,12 +39,9 @@ export default {
     box-sizing: border-box;
     padding: 15px;
     color: #333333;
-    // .scrollwarrp {
-    //   height: 100%;
-    //   color: #333333;
-    // box-sizing: border-box;
-    // padding: 15px;
-    // }
+    height: calc(100vh - 50px);
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 }
 </style>

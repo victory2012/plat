@@ -8,19 +8,27 @@ import router from '@/router';
 import ElementUI from '@/UI-component/element';
 import CreateStore from '@/store';
 import i18n from '@/i18n';
+import api from '@/api/index';
+import './assets/font/iconfont.css';
 
 Vue.config.productionTip = false;
 ElementUI();
 promise.polyfill();
 Vue.use(Vuex);
+Vue.prototype.$api = api;
 const store = CreateStore();
 router.beforeEach((to, from, next) => {
   const loginData = sessionStorage.getItem('loginData');
-  if (!loginData) {
-    next('/login');
-    return;
-  }
   next();
+  if (to.fullPath !== '/login') {
+    if (!loginData) {
+      next('/login');
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 /* eslint-disable no-new */
 new Vue({

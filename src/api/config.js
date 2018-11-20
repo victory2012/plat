@@ -4,7 +4,8 @@ import { Message } from 'element-ui';
 import t from '@/utils/translate';
 import router from '@/router';
 
-const baseURL = process.env.API_HOST;
+// const baseURL = process.env.API_HOST;
+const baseURL = '/api'; // 'http://47.96.8.239:8000';
 const timeout = 30000; // 超时时间
 axios.interceptors.request.use(
   config => {

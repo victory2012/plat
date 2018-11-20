@@ -6,14 +6,39 @@ import mutations from './mutations/mutation';
 import getters from './getters/getters';
 import actions from './actions/actions';
 
-// const isDev = process.env.NODE_ENV === "development";
+import monMutations from './mutations/mon-mutation';
+import monGetters from './getters/mon-getters';
+import monActions from './actions/mon-actions';
+import monState from './state/mon-state';
+
+import trackMutations from './mutations/track-mutation';
+import trackGetters from './getters/track-getters';
+import trackActions from './actions/track-actions';
+import trackState from './state/track-state';
+
+const isDev = process.env.NODE_ENV === 'development';
 export default () => {
   return new Vuex.Store({
-    // strict: isDev,
+    strict: isDev,
     state: defaultState,
     mutations,
     getters,
     actions,
-    modules: {}
+    modules: {
+      monitor: {
+        namespaced: true,
+        state: monState,
+        mutations: monMutations,
+        getters: monGetters,
+        actions: monActions
+      },
+      track: {
+        namespaced: true,
+        state: trackState,
+        mutations: trackMutations,
+        getters: trackGetters,
+        actions: trackActions
+      }
+    }
   });
 };

@@ -34,8 +34,8 @@ const routes = [
         component: monitorComponent,
         children: [
           {
-            path: '/monitor/overview',
-            name: 'monitorOverview',
+            path: '',
+            name: '',
             component: monitorOverview,
           },
           {
