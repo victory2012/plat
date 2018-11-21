@@ -15,4 +15,8 @@ export default {
   setLoginLoading(state, data) {
     state.loginLoading = data;
   },
+  // 用户权限
+  setUserPremission(state, data) {
+    state.userPermission = data;
+  },
 };

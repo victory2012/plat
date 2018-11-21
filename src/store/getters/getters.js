@@ -10,4 +10,12 @@ export default {
     }
     return state.trackMenu;
   },
+  /* 获取登录的 loading状态 */
+  getloginData(state) {
+    return state.userData;
+  },
+  /* 获取用户权限 */
+  getUserPermisson(state) {
+    return state.userPermission;
+  },
 };

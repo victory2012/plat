@@ -178,7 +178,28 @@ export default {
             account: this.LoginForm.account,
             password: this.LoginForm.password,
           };
-          this.$store.dispatch('Login', person);
+          // this.$store.dispatch('Login', person);
+          this.$api.login(person).then((res) => {
+            console.log(res);
+            this.doLogin = false;
+            if (res.data && res.data.code === 0) {
+              const userData = res.data.data;
+              sessionStorage.setItem('token', res.headers.token);
+              sessionStorage.setItem('loginData', JSON.stringify(userData));
+              this.$store.commit('setUserData', userData);
+              this.$api.permissions(res.data.data.id).then((opts) => {
+                if (opts.data && opts.data.code === 0) {
+                  const permission = opts.data.data;
+                  sessionStorage.setItem('setUserRole', permission);
+                  this.$store.commit(
+                    'setUserPremission',
+                    permission,
+                  );
+                  this.$router.push('/main');
+                }
+              });
+            }
+          });
         }
       });
     },

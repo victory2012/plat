@@ -39,11 +39,11 @@ const montorData = [
       },
       {
         text: '运行状况', // 'menu.runStatus', // 运行状况
-        link: '/battery/run',
+        link: '/monitor/battery/run',
       },
       {
         text: '数据对比', // 'menu.compare', // 数据对比
-        link: '/battery/compare',
+        link: '/monitor/battery/compare',
       },
       {
         text: '告警数据', // 'menu.alarm', // 告警数据

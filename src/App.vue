@@ -13,6 +13,9 @@ export default {
 
 <style lang="scss">
 @import './style/common';
+.el-dialog__header {
+  text-align: left;
+}
 .el-menu {
   .el-menu-item:not(.is-active) {
     &:hover {

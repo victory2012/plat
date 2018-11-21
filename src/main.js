@@ -3,6 +3,9 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import promise from 'es6-promise';
+import { Message, MessageBox } from 'element-ui';
+// eslint-disable-next-line
+import XLSX from 'xlsx';
 import App from '@/App';
 import router from '@/router';
 import ElementUI from '@/UI-component/element';
@@ -15,7 +18,18 @@ Vue.config.productionTip = false;
 ElementUI();
 promise.polyfill();
 Vue.use(Vuex);
+Vue.prototype.$message = Message;
+Vue.prototype.$messageBox = MessageBox;
 Vue.prototype.$api = api;
+
+const outputXlsxFile = (data, xlsxName) => {
+  const ws = XLSX.utils.aoa_to_sheet(data);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, xlsxName);
+  XLSX.writeFile(wb, `${xlsxName}.xlsx`);
+};
+Vue.prototype.$outputXlsxFile = outputXlsxFile;
+
 const store = CreateStore();
 router.beforeEach((to, from, next) => {
   const loginData = sessionStorage.getItem('loginData');

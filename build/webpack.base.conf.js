@@ -103,7 +103,5 @@ module.exports = {
     // axios: 'axios',
     // 'vuex': 'Vuex',
     // 'vue-router': 'VueRouter',
-    // 'lodash': '_',
-    // 'xlsx': 'XLSX',
   }
 };

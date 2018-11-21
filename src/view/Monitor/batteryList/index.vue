@@ -2,6 +2,8 @@
   <div class="batteryList">
     <div class="topTab">
       <div class="icons">
+        <add-battery class="item"
+          @hasCreated="reloadBattery"></add-battery>
         <up-loade></up-loade>
       </div>
       <div class="select">
@@ -205,37 +207,36 @@
           type="primary">{{$t('batteryList.sure')}}</el-button>
       </div>
     </el-dialog>
-    <add-battery @hasCreated="reloadBattery"></add-battery>
     <battery-detail @hasCreated="reloadBattery"></battery-detail>
   </div>
 </template>
 
 <script>
 import permissionFun from '@/utils/valated';
-
-import { mapState } from 'vuex';
-import utils from '@/utils/utils';
+import { mapState, mapActions, mapGetters } from 'vuex';
+import { Message } from 'element-ui';
+// import utils from '@/utils/utils';
 import mqttConfig from '@/api/mqtt.config';
 /* eslint-disable */
 import Paho from 'Paho';
 import t from '@/utils/translate';
 import upLoade from './upload';
-import addBattery from './addBattery';
 import batteryDetail from './details';
+import addBattery from './addBattery';
 
 // let wb; // 读取完成的数据
 // let rABS = false; // 是否将文件读取为二进制字符串
 let mqttClient = {};
 export default {
   components: {
-    addBattery,
     batteryDetail,
     upLoade,
+    addBattery
   },
   data () {
     return {
       AdminRoles: permissionFun(),
-      companyArr: [], // 生产企业公司名称
+      // companyArr: [], // 生产企业公司名称
       manufacter: '', // 选中的生产企业
       bindings: false,
       deviceModel: {},
@@ -248,12 +249,11 @@ export default {
       total: 0,
       batteryForm: {},
       batteryFormRules: {},
-      Modeloptions: [],
+      // Modeloptions: [],
       batteryModel: '',
       batCustom: '',
       bindStatus: '',
-      batCustomOpts: [],
-      deviceIdOpts: [],
+      // deviceIdOpts: [],
       bindRole: [
         {
           required: true,
@@ -279,8 +279,36 @@ export default {
   },
   computed: {
     ...mapState(['userData']),
+    ...mapGetters({
+      deviceIdOpts: 'monitor/GETdeviceList',
+      Modeloptions: 'monitor/GETbatteryModelList',
+      companyArr: 'monitor/GETManufacturer',
+      batCustomOpts: 'monitor/GETCustomerList'
+    })
+  },
+  mounted () {
+    this.init();
+    if (
+      this.userData.type === 1 ||
+      (this.userData.type === 3 && this.userData.layerName === '平台')
+    ) {
+      this.getCompany(); // 查询生产企业
+    }
+    this.getBatteryList();
+    this.connectMqtt();
   },
   methods: {
+    ...mapActions({
+      getCompanyId: 'monitor/getCompanyList',
+      getBatteryModelList: 'monitor/getBatteryModelList',
+      getDeviceList: 'monitor/getDeviceList',
+      getCompany: 'monitor/getManufacturer'
+    }),
+    init () {
+      this.getCompanyId(); // 获取客户企业表
+      this.getBatteryModelList(); // 获取电池型号列表
+      this.getDeviceList(); // 获取设备列表
+    },
     connectMqtt () {
       const config = mqttConfig();
       mqttClient = new Paho.MQTT.Client(
@@ -317,7 +345,7 @@ export default {
       this.$api.betteryBlack(deviceObj).then((res) => {
         console.log(res);
         if (res.data && res.data.code === 0) {
-          this.$message({
+          Message({
             type: 'success',
             message: t('successTips.addBlackSucc'),
           });
@@ -331,15 +359,12 @@ export default {
     },
     /* 查看详情 */
     details (data) {
-      console.log(data);
       this.$api.betteryDetails(data.id).then((res) => {
-        console.log(res);
         if (res.data && res.data.code === 0) {
           const result = res.data.data;
           result.deviceCode = data.deviceCode;
-          this.$store.commit('SETBATTERYDETAIL', true);
-          this.$store.commit('SETBATTERYDETAILDATA', JSON.stringify(result));
-          // this.detailData = result;
+          this.$store.commit('monitor/showBatteryDetail', true);
+          this.$store.commit('monitor/setBatteryDetail', result);
         }
       });
     },
@@ -367,7 +392,7 @@ export default {
           this.$api.betteryBind(bindObj).then((res) => {
             this.bindings = false;
             if (res.data && res.data.code === 0) {
-              this.$message({
+              Message({
                 type: 'success',
                 message: t('successTips.bindSuccess'),
               });
@@ -419,7 +444,7 @@ export default {
           if (action === 'confirm') {
             this.$api.batteryDetele(row.id).then((res) => {
               if (res.data && res.data.code === 0) {
-                this.$message({
+                Message({
                   type: 'success',
                   message: t('successTips.delSuccess'),
                 });
@@ -432,8 +457,6 @@ export default {
     },
     /* 绑定按钮 */
     bindDeviceClick (row) {
-      console.log(row);
-      this.getDeviceList();
       this.bindDevice = true;
       this.bindRows = row;
     },
@@ -441,11 +464,11 @@ export default {
     unbindClick (row) {
       this.$api.batteryUnBind(row.hostId).then((res) => {
         if (res.data && res.data.code === 0) {
-          // console.log(res);
-          this.$message({
+          Message({
             type: 'success',
             message: t('successTips.unbindSuccess'),
           });
+          this.getDeviceList();
           this.getBatteryList();
         }
       });
@@ -512,32 +535,7 @@ export default {
       });
     },
 
-    /* 获取电池组客户企业表 */
-    getCompanyId () {
-      this.$api.purchaseNames().then((res) => {
-        console.log('获取电池组客户企业表', res);
-        if (res.data && res.data.code === 0) {
-          this.batCustomOpts = res.data.data;
-          this.$store.commit('SETCustomOpts', JSON.stringify(res.data.data));
-          utils.setStorage('batCustomOpts', JSON.stringify(res.data.data));
-        }
-      });
-    },
-    getDeviceList () {
-      this.$api
-        .DeviceList('/device/code?status=0&bindingStatus=0')
-        .then((res) => {
-          console.log('设备编号', res);
-          if (res.data && res.data.code === 0) {
-            this.deviceIdOpts = res.data.data;
-            utils.setStorage('deviceIdOpts', JSON.stringify(res.data.data));
-            this.$store.commit(
-              'SETdeviceIdOpts',
-              JSON.stringify(res.data.data),
-            );
-          }
-        });
-    },
+
     /* 用户权限 */
     userRole () {
       const userObj = {};
@@ -570,19 +568,6 @@ export default {
       // }
       return userObj;
     },
-    init () {
-      this.getCompanyId(); // 获取客户企业表
-
-      this.getDeviceList(); // 获取设备列表
-    },
-    getCompany () {
-      this.$api.manufacturerNames().then((res) => {
-        console.log('companyArr', res);
-        if (res.data && res.data.code === 0) {
-          this.companyArr = res.data.data;
-        }
-      });
-    },
   },
   destroyed () {
     if (
@@ -592,17 +577,6 @@ export default {
       mqttClient.disconnect();
       mqttClient = null;
     }
-  },
-  mounted () {
-    this.init();
-    if (
-      this.userData.type === 1 ||
-      (this.userData.type === 3 && this.userData.layerName === '平台')
-    ) {
-      this.getCompany(); // 查询生产企业
-    }
-    this.getBatteryList();
-    this.connectMqtt();
   },
 };
 </script>
@@ -621,7 +595,11 @@ export default {
 
     .icons {
       flex: 0 0 35%;
-
+      overflow: hidden;
+      & > div {
+        text-align: center;
+        float: left;
+      }
       .items {
         width: 116px;
         float: left;

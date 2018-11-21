@@ -230,6 +230,7 @@ export default {
     this.getCardData();
     this.getModelData();
     this.getProvenceData();
+    this.getListData();
     if (
       (this.userData.type === 3 && this.userData.layerName === '平台') ||
       (this.userData.type === 2 && this.userData.layerName === '生产企业') ||
@@ -421,7 +422,7 @@ export default {
     // flex: 0 0 500px;
     min-height: 228px;
     box-sizing: border-box;
-    margin-bottom: 13px;
+    margin-bottom: 22px;
     padding: 10px;
     padding-top: 0;
     background: #ffffff;

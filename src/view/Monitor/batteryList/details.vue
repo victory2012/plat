@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="$t('batteryList.batteryDetail')"
     @close="closeDetails"
-    :visible="getBatteryDetailShow"
+    :visible="showBatteryDetail"
     width="770px">
     <div class="detailCenter">
       <div class="edit"
@@ -186,13 +186,23 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      "getBatteryDetailShow",
-      "BATTERYDETAILDATA",
-      "getGroupModelOpts",
-      "getBatGroupSpecifOpts",
-      "getSingleBatteryOpts"
-    ])
+    // ...mapState({
+    //   showBatteryDetail: 'showBatteryDetail'
+    // }),
+    ...mapGetters({
+      showBatteryDetail: 'monitor/GETshowBatteryDetail',
+      getGroupModelOpts: 'monitor/GETbatteryModelList',
+      getBatGroupSpecifOpts: 'monitor/GETbatteryGroupSpecif',
+      getSingleBatteryOpts: 'monitor/GETbatterySingleModel',
+      BATTERYDETAILDATA: 'monitor/GETbatteryDetail'
+    })
+    // ...mapGetters([
+    //   "getBatteryDetailShow",
+    //   "BATTERYDETAILDATA",
+    //   "getGroupModelOpts",
+    //   "getBatGroupSpecifOpts",
+    //   "getSingleBatteryOpts"
+    // ])
   },
   data () {
     return {
@@ -204,7 +214,7 @@ export default {
   methods: {
     closeDetails () {
       this.Edit = false;
-      this.$store.commit("SETBATTERYDETAIL", false);
+      this.$store.commit('monitor/showBatteryDetail', false);
     },
     /* 编辑 */
     editDetails () {

@@ -1,31 +1,9 @@
 <template>
   <div>
-    <div class="items"
+    <!-- <div class="items"
       v-if="AdminRoles.AddBatteries">
-      <el-dropdown trigger="click"
-        placement="bottom"
-        @command="handleCommand">
-        <span>
-          <img src="../../../../static/img/device_reg.png"
-            alt=""><br />
-          <span class="el-dropdown-link">{{$t('batteryList.batteries')}}</span>
-        </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="addBattery">
-            {{$t('batteryList.batteryAddBtn')}}
-          </el-dropdown-item>
-          <el-dropdown-item command="addModel">
-            {{$t('batteryList.addModel')}}
-          </el-dropdown-item>
-          <el-dropdown-item command="addSpfic">
-            {{$t('batteryList.addSpecif')}}
-          </el-dropdown-item>
-          <el-dropdown-item command="addSingel">
-            {{$t('batteryList.addSinggleSpecif')}}
-          </el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+      <add-battery></add-battery>
+    </div> -->
     <div class="items"
       v-if="AdminRoles.AddBatteries"
       style="position: relative">
@@ -46,63 +24,31 @@
         alt="">
       <p>{{$t('batteryList.defriend')}}</p>
     </div>
-    <el-dialog width="600px"
-      :title="titles"
-      :visible.sync="addModel">
-      <el-form :model="modelForm"
-        label-position="right"
-        :rules="modelFormRules"
-        ref="modelForm">
-        <el-form-item :label="labels"
-          prop="dicValue">
-          <el-input size="small"
-            v-model="modelForm.dicValue"
-            auto-complete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer"
-        class="dialog-footer">
-        <el-button size="small"
-          @click="resetModelAdd">{{$t('batteryList.cancel')}}</el-button>
-        <el-button :loading="addallTypes"
-          size="small"
-          @click="submitModelAdd"
-          type="primary">{{$t('batteryList.sure')}}</el-button>
-      </div>
-    </el-dialog>
+
   </div>
 </template>
 
 <script>
 /* eslint-disable */
-// import XLSX from "xlsx";
+import XLSX from "xlsx";
+import { mapActions } from 'vuex'
 import t from "@/utils/translate";
 import permissionFun from "@/utils/valated";
 import utils from "@/utils/utils";
+// import addBattery from './addBattery';
 
 let wb; // 读取完成的数据
 let rABS = false; // 是否将文件读取为二进制字符串
 export default {
-  name: "",
-  props: [""],
+  // components: {
+  //   addBattery
+  // },
   data () {
     return {
       AdminRoles: permissionFun(),
       fullscreenLoading: false,
       addModel: false,
-      labels: "",
       titles: "",
-      addallTypes: false,
-      modelForm: {},
-      modelFormRules: {
-        dicValue: [
-          {
-            required: true,
-            message: t("batteryList.warn.content"),
-            trigger: "change"
-          }
-        ]
-      }
     };
   },
   mounted () {
@@ -112,6 +58,11 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      getGroupSpecif: 'monitor/getBatterySpecif',
+      getSinglBattery: 'monitor/getbatterySingleModel',
+      getBatteryModelList: 'monitor/getBatteryModelList',
+    }),
     fileUpload (event) {
       console.log(event);
       this.fullscreenLoading = true;
@@ -161,12 +112,6 @@ export default {
             type: "binary"
           });
         }
-        // wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
-        // wb.Sheets[Sheet名]获取第一个Sheet的数据
-        // document.getElementById("demo").innerHTML = JSON.stringify(
-        //   XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]])
-        // );
-
         let resultObj = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]);
         console.log("resultObj ====>>>", resultObj);
         if (resultObj.length < 1) {
@@ -340,117 +285,6 @@ export default {
     },
     recovery () {
       this.$router.push("/battery/defriend");
-    },
-    resetModelAdd () {
-      this.$refs.modelForm.resetFields();
-      this.modelForm = {};
-    },
-    submitModelAdd () {
-      console.log(this.batteryForm);
-      this.$refs.modelForm.validate(valid => {
-        if (valid) {
-          this.addallTypes = true;
-          let params = {
-            dicKey: this.modelForm.dicValue,
-            categoryId: 2
-          };
-          if (this.addType === "addModel") {
-            params.type = "Model"; // 电池组型号
-          }
-          if (this.addType === "addSpfic") {
-            params.type = "Norm"; // 电池组规格
-          }
-          if (this.addType === "addSingel") {
-            params.type = "SingleModel"; // 单体规格
-          }
-          this.$api.batteryADDALL(params).then(res => {
-            console.log(this.addType, res);
-            this.addallTypes = false;
-            if (res.data && res.data.code === 0) {
-              this.$message({
-                type: "success",
-                message: t("batteryList.success")
-              });
-              this.addModel = false;
-              this.modelForm = {};
-              if (params.type === "Model") {
-                this.getBatteryModelList();
-              }
-              if (params.type === "Norm") {
-                this.getGroupSpecif();
-              }
-              if (params.type === "SingleModel") {
-                this.getSinglBattery();
-              }
-            }
-          });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    handleCommand (command) {
-      this.addType = command;
-      // this.modelForm.value = "";
-      if (command === "addBattery") {
-        this.$store.commit("triggerAddBattery");
-        // this.showAdd = "add-battery";
-      }
-      if (command === "addModel") {
-        this.addModel = true;
-        this.titles = t("batteryList.addModel");
-        this.labels = t("batteryList.model");
-      }
-      if (command === "addSpfic") {
-        this.addModel = true;
-        this.titles = t("batteryList.addSpecif");
-        this.labels = t("batteryList.specif");
-      }
-      if (command === "addSingel") {
-        this.addModel = true;
-        this.titles = t("batteryList.addSinggleSpecif");
-        this.labels = t("batteryList.singgleSpecif");
-      }
-    },
-    /* 获取电池型号列表 */
-    getBatteryModelList () {
-      this.$api.batteryModelList().then(res => {
-        console.log("获取电池型号列表", res);
-        if (res.data && res.data.code === 0) {
-          this.Modeloptions = res.data.data;
-          // console.log(utils);
-          utils.setStorage("Modeloptions", JSON.stringify(res.data.data));
-          this.$store.commit(
-            "SETGroupModelOpts",
-            JSON.stringify(res.data.data)
-          );
-        }
-      });
-    },
-    /* 获取电池组规格列表 */
-    getGroupSpecif () {
-      this.$api.batteryGroupSpecif().then(res => {
-        console.log("电池组规格", res);
-        if (res.data && res.data.code === 0) {
-          this.$store.commit(
-            "SETbatGroupSpecifOpts",
-            JSON.stringify(res.data.data)
-          );
-        }
-      });
-    },
-    /* 获取电池单体型号列表 */
-    getSinglBattery () {
-      this.$api.batterySingleModel().then(res => {
-        console.log("电池单体型号", res);
-        if (res.data && res.data.code === 0) {
-          this.$store.commit(
-            "SETsingleBatteryOpts",
-            JSON.stringify(res.data.data)
-          );
-        }
-      });
     }
   }
 };

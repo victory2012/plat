@@ -12,7 +12,11 @@ const monitorBatteryHis = () =>
 const monitorBatteryReal = () =>
   import(/* webpackChunkName: "BatteryReal" */ '../view/Monitor/batteryMap/realTime/realTime.vue');
 const monitorBatteryBlack = () =>
-  import(/* webpackChunkName: "BatteryBlack" */ '../view/Monitor/black/black.vue');
+  import(/* webpackChunkName: "BatteryBlack" */ '../view/Monitor/batteryblack/black.vue');
+const realData = () =>
+  import(/* webpackChunkName: "realData" */ '../view/Monitor/run-state/index.vue');
+const compare = () =>
+  import(/* webpackChunkName: "realData" */ '../view/Monitor/compare/index.vue');
 const routes = [
   {
     path: '/',
@@ -57,6 +61,16 @@ const routes = [
             path: '/monitor/battery/defriend',
             name: 'monitorBatteryBlack',
             component: monitorBatteryBlack,
+          },
+          {
+            path: '/monitor/battery/run',
+            name: 'monitorBatteryrun',
+            component: realData,
+          },
+          {
+            path: '/monitor/battery/compare',
+            name: 'monitorBatteryCompare',
+            component: compare,
           },
         ],
       },
