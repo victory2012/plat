@@ -140,7 +140,7 @@
                 <el-table-column prop="models"
                   align="center"
                   :label="$t('overview.batteryModel')"
-                  width="200">
+                  width="220">
                 </el-table-column>
                 <el-table-column prop="total"
                   align="center"
@@ -414,10 +414,6 @@ export default {
   margin-right: 15px;
 }
 .list {
-  // flex: 0 0 500px;
-  // display: flex;
-  // align-content: space-between;
-  // flex-wrap: wrap;
   .listItme {
     // flex: 0 0 500px;
     min-height: 228px;

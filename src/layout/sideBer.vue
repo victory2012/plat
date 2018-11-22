@@ -4,6 +4,7 @@
     :default-active="projectType"
     text-color="rgba(255, 255, 255, 0.67)"
     :unique-opened='true'
+    :collapse-transition='false'
     :collapse="collapse">
     <!-- background-color="#404040" -->
     <!-- router> -->
@@ -45,6 +46,7 @@ export default {
   // border-top: 1px solid #393d42;
   height: calc(100vh - 50px);
   background-color: #404040;
+  width: 60px;
 }
 .sidebar-el-menu:not(.el-menu--collapse) {
   // width: 180px;

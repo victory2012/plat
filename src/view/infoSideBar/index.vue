@@ -1,8 +1,10 @@
 <template>
+  <!--  -->
   <el-menu class="sidebar-el-menu infoMenuWarp"
     :default-active="$route.path"
+    :default-openeds='defaultOpen'
     text-color="#333333"
-    :unique-opened='false'
+    :unique-opened='true'
     router>
     <MenuTree :menuData="getInfoMenu"></MenuTree>
   </el-menu>
@@ -19,11 +21,20 @@ export default {
   },
   data() {
     return {
+      defaultOpen: [1, 2, 3, 4, 5, 6, 7],
       menusData: [],
     };
   },
   computed: {
     ...mapGetters(['getInfoMenu']),
+  },
+  methods: {
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
+    },
   },
 };
 </script>

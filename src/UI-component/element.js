@@ -29,9 +29,11 @@ import {
   Tag,
   Slider,
   Transfer,
+  Badge,
 } from 'element-ui';
 
 export default function elementui() {
+  Vue.use(Badge);
   Vue.use(Tabs);
   Vue.use(Table);
   Vue.use(Input);

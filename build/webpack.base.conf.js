@@ -99,7 +99,8 @@ module.exports = {
     AMapUI: 'window.AMapUI',
     echarts: 'echarts',
     xlsx: 'XLSX',
-    Paho: 'window.Paho'
+    Paho: 'window.Paho',
+    google: 'window.google'
     // axios: 'axios',
     // 'vuex': 'Vuex',
     // 'vue-router': 'VueRouter',

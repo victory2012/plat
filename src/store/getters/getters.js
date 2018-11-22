@@ -3,6 +3,10 @@ export default {
   getloginLoading(state) {
     return state.loginLoading;
   },
+  /* 获取登录的 loading状态 */
+  getMenuCollapse(state) {
+    return state.collapse;
+  },
   /* 项目类型 */
   getInfoMenu(state) {
     if (state.projectType === 'monitor') {
@@ -10,7 +14,7 @@ export default {
     }
     return state.trackMenu;
   },
-  /* 获取登录的 loading状态 */
+  /* 获取登录的用户信息 */
   getloginData(state) {
     return state.userData;
   },

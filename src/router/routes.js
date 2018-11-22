@@ -16,7 +16,30 @@ const monitorBatteryBlack = () =>
 const realData = () =>
   import(/* webpackChunkName: "realData" */ '../view/Monitor/run-state/index.vue');
 const compare = () =>
-  import(/* webpackChunkName: "realData" */ '../view/Monitor/compare/index.vue');
+  import(/* webpackChunkName: "compareData" */ '../view/Monitor/compare/index.vue');
+const Alarm = () =>
+  import(/* webpackChunkName: "Alarm" */ '../view/Monitor/alarm/index.vue');
+const SetModel = () =>
+  import(/* webpackChunkName: "SetModel" */ '../view/Monitor/threshold/battery-model.vue');
+const SetCompany = () =>
+  import(/* webpackChunkName: "SetCompany" */ '../view/Monitor/threshold/company.vue');
+const SetNoticeReceive = () =>
+  import(/* webpackChunkName: "SetNoticeReceive" */ '../view/Monitor/notice/notice-person.vue');
+const SetNoticeUser = () =>
+  import(/* webpackChunkName: "SetNoticeUser" */ '../view/Monitor/notice/addperson.vue');
+const SetNoticeOuter = () =>
+  import(/* webpackChunkName: "SetNoticeOuter" */ '../view/Monitor/notice/outer.vue');
+const DeviceList = () =>
+  import(/* webpackChunkName: "DeviceList" */ '../view/Monitor/device/device.vue');
+const DeviceReal = () =>
+  import(/* webpackChunkName: "DeviceReal" */ '../view/Monitor/device/deviceReal.vue');
+const DeviceBlack = () =>
+  import(/* webpackChunkName: "DeviceBlack" */ '../view/Monitor/deviceBlack/back-list.vue');
+const RealPosition = () =>
+  import(/* webpackChunkName: "RealPosition" */ '../view/Monitor/realPosition/index.vue');
+const HistoryTrak = () =>
+  import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/track/index.vue');
+
 const routes = [
   {
     path: '/',
@@ -34,13 +57,21 @@ const routes = [
     children: [
       {
         path: '/monitor',
-        name: 'monitor',
         component: monitorComponent,
         children: [
           {
-            path: '',
-            name: '',
+            path: '/',
             component: monitorOverview,
+          },
+          {
+            path: '/monitor/real-position',
+            name: 'monitorRealPosition',
+            component: RealPosition,
+          },
+          {
+            path: '/monitor/history-track',
+            name: 'monitorHistoryTrak',
+            component: HistoryTrak,
           },
           {
             path: '/monitor/battery',
@@ -71,6 +102,51 @@ const routes = [
             path: '/monitor/battery/compare',
             name: 'monitorBatteryCompare',
             component: compare,
+          },
+          {
+            path: '/monitor/battery/alarm',
+            name: 'monitorBatteryAlarm',
+            component: Alarm,
+          },
+          {
+            path: '/monitor/set/model',
+            name: 'monitorSetModel',
+            component: SetModel,
+          },
+          {
+            path: '/monitor/set/company',
+            name: 'monitorSetCompany',
+            component: SetCompany,
+          },
+          {
+            path: '/monitor/set/receive',
+            name: 'monitorSetReceive',
+            component: SetNoticeReceive,
+          },
+          {
+            path: '/monitor/set/user',
+            name: 'monitorSetUser',
+            component: SetNoticeUser,
+          },
+          {
+            path: '/monitor/set/outer',
+            name: 'monitorSetOuter',
+            component: SetNoticeOuter,
+          },
+          {
+            path: '/monitor/device/list',
+            name: 'monitorDeviceList',
+            component: DeviceList,
+          },
+          {
+            path: '/monitor/device/real',
+            name: 'monitorDeviceReal',
+            component: DeviceReal,
+          },
+          {
+            path: '/monitor/device/defriend',
+            name: 'monitorDeviceDefriend',
+            component: DeviceBlack,
           },
         ],
       },

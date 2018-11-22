@@ -16,6 +16,9 @@ export default {
 .el-dialog__header {
   text-align: left;
 }
+.el-badge__content.is-fixed {
+  right: 20px;
+}
 .el-menu {
   .el-menu-item:not(.is-active) {
     &:hover {

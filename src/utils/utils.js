@@ -448,4 +448,13 @@ export default {
     second = second < 10 ? `0${second}` : second;
     return `${year}-${mounth}-${day} ${hours}:${minute}:${second}`;
   },
+  trakTimeformat: (str) => {
+    const yy = str.substring(0, 2);
+    const mm = str.substring(2, 4);
+    const day = str.substring(4, 6);
+    const hour = str.substring(6, 8);
+    const minute = str.substring(8, 10);
+    const seconds = str.substring(10, 12);
+    return `20${yy}-${mm}-${day} ${hour}:${minute}:${seconds}`;
+  },
 };

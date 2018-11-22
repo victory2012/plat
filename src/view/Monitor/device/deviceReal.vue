@@ -1,103 +1,117 @@
 <template>
-  <div class="center">
-    <div class="dashboad">
-      <div>
-        <img src="../../../assets/img/temp.png">
-        <p class="info">{{infoData.temperature}}℃</p>
-        <p>{{$t('realTime.temperature')}}</p>
+  <div>
+    <div class="title">
+      <div class="titleCenter">
+        <a class="active">{{$t('runState.realData')}}</a>
       </div>
-      <div>
-        <img src="../../../assets/img/level.png">
-        <p class="info">{{infoData.fluid}}</p>
-        <p>{{$t('realTime.fluid')}}</p>
-      </div>
-      <div>
-        <img src="../../../assets/img/voltage_total.png">
-        <p class="info">{{infoData.voltage}}V</p>
-        <p>{{$t('realTime.voltage')}}</p>
-      </div>
-      <div>
-        <img src="../../../assets/img/voltage.png">
-        <p class="info">{{infoData.singleVoltage}}V</p>
-        <p>{{$t('realTime.singleVoltage')}}</p>
-      </div>
-      <div>
-        <img src="../../../assets/img/current.png">
-        <p class="info">{{infoData.current}}A</p>
-        <p>{{$t('realTime.current')}}</p>
-      </div>
-      <div>
-        <img src="../../../assets/img/capacity.png">
-        <p class="info">{{quantity}}</p>
-        <p>{{$t('realTime.quantity')}}</p>
+      <div class="search">
       </div>
     </div>
-    <div class="warrp">
-      <div class="map">
-        <div class="mapCenter">
-          <div class="mapContent"
-            id="mapContent"></div>
+    <div class="center">
+      <div class="dashboad">
+        <div>
+          <img src="../../../assets/img/temp.png"
+            alt="">
+          <p class="info">{{infoData.temperature}}℃</p>
+          <p>{{$t('realTime.temperature')}}</p>
         </div>
-        <div class="timeCenter">
-          <p class="map-time">{{infoData.hhmmss}}</p>
-          <p class="map-date">{{infoData.yyddmm}}</p>
-          <p class="map-des">{{$t('realTime.refresh')}}</p>
-          <p @click="activeQuery"
-            :class="{'active': queryData}"
-            class="map-line">{{btnTip}}</p>
+        <div>
+          <img src="../../../assets/img/level.png"
+            alt="">
+          <p class="info">{{infoData.fluid}}</p>
+          <p>{{$t('realTime.fluid')}}</p>
+        </div>
+        <div>
+          <img src="../../../assets/img/voltage_total.png"
+            alt="">
+          <p class="info">{{infoData.voltage}}V</p>
+          <p>{{$t('realTime.voltage')}}</p>
+        </div>
+        <div>
+          <img src="../../../assets/img/voltage.png"
+            alt="">
+          <p class="info">{{infoData.singleVoltage}}V</p>
+          <p>{{$t('realTime.singleVoltage')}}</p>
+        </div>
+        <div>
+          <img src="../../../assets/img/current.png"
+            alt="">
+          <p class="info">{{infoData.current}}A</p>
+          <p>{{$t('realTime.current')}}</p>
+        </div>
+        <div>
+          <img src="../../../assets/img/capacity.png"
+            alt="">
+          <p class="info">{{quantity}}</p>
+          <p>{{$t('realTime.quantity')}}</p>
         </div>
       </div>
-      <div class="address">
-        <div>
-          <img width="21px"
-            src="../../../assets/img/me.png"
-            alt="">
-          <span>{{infoData.companyName}}</span>
+      <div class="warrp">
+        <div class="map">
+          <div class="mapCenter">
+            <div class="mapContent"
+              id="mapContent"></div>
+          </div>
+          <div class="timeCenter">
+            <p class="map-time">{{infoData.hhmmss}}</p>
+            <p class="map-date">{{infoData.yyddmm}}</p>
+            <p class="map-des">{{$t('realTime.refresh')}}</p>
+            <p @click="activeQuery"
+              :class="{'active': queryData}"
+              class="map-line">{{btnTip}}</p>
+          </div>
         </div>
-        <div>
-          <img width="22px"
-            src="../../../assets/img/address.png"
-            alt="">
-          <span>{{address}}</span>
-        </div>
-        <div>
-          <img width="25px"
-            src="../../../assets/img/battery.png"
-            alt="">
-          <span>{{infoData.code}}</span>
-        </div>
-        <div>
-          <img width="26px"
-            src="../../../assets/img/device.png"
-            alt="">
-          <span>{{infoData.deviceCode}}</span>
-        </div>
-        <div>
-          <img width="25px"
-            src="../../../assets/img/version.svg"
-            alt="">
-          <span>{{version}}</span>
-        </div>
-        <div>
-          <img width="25px"
-            src="../../../assets/img/device-flesh.png"
-            alt="">
-          <span>{{CCID}}</span>
+        <div class="address">
+          <div>
+            <img width="21px"
+              src="../../../assets/img/me.png"
+              alt="">
+            <span>{{infoData.companyName}}</span>
+          </div>
+          <div>
+            <img width="22px"
+              src="../../../assets/img/address.png"
+              alt="">
+            <span>{{infoData.address}}</span>
+          </div>
+          <div>
+            <img width="25px"
+              src="../../../assets/img/battery.png"
+              alt="">
+            <span>{{infoData.code}}</span>
+          </div>
+          <div>
+            <img width="26px"
+              src="../../../assets/img/device.png"
+              alt="">
+            <span>{{infoData.deviceCode}}</span>
+          </div>
+          <div>
+            <img width="25px"
+              src="../../../assets/img/version.svg"
+              alt="">
+            <span>{{version}}</span>
+          </div>
+          <div>
+            <img width="25px"
+              src="../../../assets/img/device-flesh.png"
+              alt="">
+            <span>{{CCID}}</span>
+          </div>
         </div>
       </div>
+      <div class="my-map-divider">
+        <span>{{$t('realTime.fourHour')}}</span>
+        <el-checkbox v-model="checked">{{$t('realTime.update')}}</el-checkbox>
+      </div>
+      <echart-map :chartData="dataObj"
+        :mqttData="ReceiveObj"></echart-map>
     </div>
-    <div class="my-map-divider">
-      <span>{{$t('realTime.fourHour')}}</span>
-      <el-checkbox v-model="checked">{{$t('realTime.update')}}</el-checkbox>
-    </div>
-    <echart-map :chartData="dataObj"
-      :mqttData="ReceiveObj"></echart-map>
   </div>
 </template>
 <script>
 /* eslint-disable */
 import AMap from "AMap";
-import AMapUI from "AMapUI";
 import Paho from "Paho";
 import utils from "@/utils/utils";
 import echartMap from "@/components/real/real-chart";
@@ -111,14 +125,14 @@ let marker;
 const PI = 3.14159265358979324;
 const x_pi = (3.14159265358979324 * 3000.0) / 180.0;
 export default {
-  props: ["hostObj", "propData"],
+  // props: ["hostObj", "propData"],
   components: {
     echartMap
   },
   data () {
     return {
-      hasSend: false,
-      sendBack: "",
+      hostObj: {},
+      infoData: {},
       timer: null,
       quantity: "",
       btnTip: t("realTime.query"),
@@ -131,7 +145,6 @@ export default {
       hasgetData: false,
       checked: true,
       mapData: null,
-      infoData: this.propData,
       dataObj: {
         timeArr: [],
         singleVoltage: [],
@@ -144,8 +157,19 @@ export default {
     };
   },
   mounted () {
+    this.hostId = this.$route.query.hostId;
+    this.deviceCode = this.$route.query.deviceCode;
+    this.id = this.$route.query.id;
+    this.hostObj = {
+      hostId: this.hostId,
+      deviceCode: this.deviceCode,
+      id: this.id
+    };
     this.init();
-    this.getData();
+    if (this.hostId) {
+      this.getData();
+      this.getCompanyInfo();
+    }
     this.connectMqtt();
     this.getQuantity();
     clearInterval(this.timer);
@@ -158,8 +182,7 @@ export default {
   destroyed () {
     if (
       typeof mqttClient === "object" &&
-      typeof mqttClient.isConnected === "function" &&
-      mqttClient.isConnected()
+      typeof mqttClient.isConnected === "function"
     ) {
       mqttClient.disconnect();
       mqttClient = {};
@@ -168,22 +191,6 @@ export default {
     this.dataObj = {};
     this.ReceiveObj = {};
     clearInterval(this.timer);
-  },
-  watch: {
-    hostObj: {
-      handler: function () {
-        this.getData();
-        this.getQuantity();
-      }
-    },
-    propData: {
-      handler: function (val) {
-        this.infoData = val;
-        this.positionData(val);
-        this.onConnect();
-      },
-      deep: true
-    }
   },
   methods: {
     init () {
@@ -221,9 +228,6 @@ export default {
         useSSL: mqttConfig.useSSL,
         timeout: mqttConfig.timeout
       });
-      mqttClient.onFailure = res => {
-        console.log(res);
-      };
       mqttClient.onConnectionLost = responseObject => {
         console.log("mqtt-closed:", responseObject);
       };
@@ -242,20 +246,6 @@ export default {
           }
         }
       };
-    },
-    /* 发送地址给后台 */
-    addressCallBack (data) {
-      let param = {
-        id: this.hostObj.id,
-        province: data.province ? data.province : data.city,
-        city: data.city ? data.city : data.province
-      };
-      this.$api.sendAddress(param).then(res => {
-        console.log(res);
-        if (res.data && res.data.code === 0) {
-          this.hasSend = true;
-        }
-      });
     },
     /* 收到 mqtt数据 */
     receiveData (data) {
@@ -285,12 +275,12 @@ export default {
       this.version = dataObj.version;
       if (Number(dataObj.latitude) > 0 && Number(dataObj.longitude) > 0) {
         let posData = this.gcj_encrypt(dataObj.latitude, dataObj.longitude);
-        this.infoData.gcjLongitude = posData.lon;
-        this.infoData.gcjLatitude = posData.lat;
         let resultPos = {
           gcjLongitude: posData.lon,
           gcjLatitude: posData.lat
         };
+        this.infoData.gcjLongitude = posData.lon;
+        this.infoData.gcjLatitude = posData.lat;
         this.positionData(resultPos);
       }
 
@@ -299,26 +289,43 @@ export default {
         dataObj.liquid === 0 ? t("realTime.normal") : t("realTime.abnormal");
       this.infoData.voltage = dataObj.voltage;
       this.infoData.singleVoltage = dataObj.singleVoltage;
-      if (Number(dataObj.current) < 0 && Number(dataObj.current) < -300) {
-        dataObj.current = 0;
-        this.infoData.current = 0;
-      } else {
-        this.infoData.current = -Number(dataObj.current);
-      }
+      this.infoData.current = dataObj.current;
       this.infoData.hhmmss = utils.hhmmss(dataObj.times);
       this.infoData.yyddmm = utils.yyyymmdd(dataObj.times);
-      if (this.checked) {
+
+      // this.$set(this.infoData, "yyddmm", utils.yyyymmdd(new Date()));
+      // this.$set(this.infoData, "hhmmss", utils.hhmmss(dataObj.times));
+      if (this.checked && this.hostId) {
         this.ReceiveObj = dataObj;
-      } else {
+      }
+      if (this.checked && !this.hostId) {
+        // console.log("没有 hostId");
+        this.dataObj.singleVoltage.push({
+          name: dataObj.times,
+          value: [dataObj.times, dataObj.singleVoltage]
+        });
+        this.dataObj.temperature.push({
+          name: dataObj.times,
+          value: [dataObj.times, dataObj.temperature]
+        });
+        this.dataObj.voltage.push({
+          name: dataObj.times,
+          value: [dataObj.times, dataObj.voltage]
+        });
+        this.dataObj.current.push({
+          name: dataObj.times,
+          value: [dataObj.times, -dataObj.current]
+        });
       }
     },
     onConnect () {
-      console.log("connect");
+      console.log("messgae onConnect");
       if (
         typeof mqttClient === "object" &&
         typeof mqttClient.subscribe === "function"
       ) {
-        mqttClient.subscribe(`dev/${this.infoData.deviceCode}`);
+        console.log(`dev/${this.deviceCode}`);
+        mqttClient.subscribe(`dev/${this.deviceCode}`);
       }
     },
     positionData (data) {
@@ -337,33 +344,40 @@ export default {
         marker.setMap(map);
         this.markerArr.push(marker);
         map.setCenter(position);
-        /* 根据经纬度 用高德查询详细地址 */
         lnglatTrabsofor(position, res => {
-          // console.log("adress", res);
-          this.address = res.formattedAddress;
-          let sendAddress = `${res.addressComponent.province}-${
-            res.addressComponent.city
-            }`;
-          if (this.sendBack !== sendAddress) {
-            this.hasSend = false;
-            this.sendBack = sendAddress;
-          }
-          if (!this.hasSend) {
-            this.addressCallBack(res.addressComponent);
-          }
+          // this.address = res.formattedAddress;
+          this.$set(this.infoData, "address", res.formattedAddress);
         });
       }
+    },
+    getCompanyInfo () {
+      this.$api.batteryGroupInfo(this.hostObj.hostId).then(res => {
+        console.log(res);
+        this.infoData = {};
+        if (res.data && res.data.code === 0 && res.data.data) {
+          let result = res.data.data;
+          this.infoData = result;
+          this.infoData.fluid = result.fluidLevel === 0 ? t("realTime.normal") : t("realTime.abnormal");
+          this.infoData.yyddmm = utils.yyyymmdd(new Date());
+          this.infoData.hhmmss = utils.hhmmss(new Date());
+          let positionData = {
+            gcjLongitude: result.gcjLongitude,
+            gcjLatitude: result.gcjLatitude
+          };
+          this.positionData(positionData);
+        }
+      });
     },
     getData () {
       let startTime = utils.getFourHours();
       let endTime = utils.getNowTime();
-      if (!this.hostObj.hostId || !this.hostObj.device) {
+      if (!this.hostObj.hostId || !this.hostObj.id) {
         return;
       }
       this.$api
-        .realData(this.hostObj.hostId, this.hostObj.device, startTime, endTime)
+        .realData(this.hostObj.hostId, this.hostObj.id, startTime, endTime)
         .then(res => {
-          // console.log(res);
+          console.log(res);
           if (res.data && res.data.code === 0) {
             let result = res.data.data;
             this.dataObj = {
@@ -397,6 +411,7 @@ export default {
         });
     },
     activeQuery () {
+      console.log("123123");
       if (mqttClient.isConnected() && !this.queryData) {
         this.queryData = true;
         clearInterval(this.decriseTime);
@@ -416,7 +431,7 @@ export default {
           }
         }, 1000);
         let message = new Paho.MQTT.Message("c:get");
-        message.destinationName = `cmd/${this.infoData.deviceCode}`;
+        message.destinationName = `cmd/${this.deviceCode}`;
         mqttClient.send(message);
       }
     },
@@ -447,6 +462,7 @@ export default {
     /* 入口 */
     gcj_encrypt (wgsLat, wgsLon) {
       if (this.outOfChina(wgsLat, wgsLon)) return { lat: wgsLat, lon: wgsLon };
+
       var d = this.delta(wgsLat, wgsLon);
       return { lat: wgsLat + d.lat, lon: wgsLon + d.lon };
     },
@@ -504,10 +520,68 @@ export default {
 </script>
 <style lang="scss" scoped>
 $fontColor: rgba(0, 0, 0, 0.65);
+
 .center {
   background: #ffffff;
   padding: 24px;
 }
+
+.title {
+  padding: 24px;
+  position: relative;
+  margin-bottom: 40px;
+  text-align: center;
+  .titleCenter {
+    width: 330px;
+    // height: 50px;
+    background: #ffffff;
+    font-size: 0;
+    // line-height: 50px;
+    padding: 15px 0;
+    border-radius: 5px;
+    margin: 0 auto;
+    a {
+      width: 101px;
+      font-size: 14px;
+      text-align: center;
+      display: inline-block;
+      cursor: pointer;
+      color: #bfbfbf;
+      &.active {
+        color: #484848;
+      }
+    }
+    .divider {
+      margin: 0 6px;
+      display: inline-block;
+      height: 8px;
+      width: 1px;
+      background: #ccc;
+    }
+  }
+  .search {
+    position: absolute;
+    top: 32px;
+    right: 20px;
+    .devicecode {
+      background: #ffffff;
+      width: 182px;
+      height: 70px;
+      font-size: 13px;
+      p {
+        padding-left: 5px;
+        height: 25px;
+        line-height: 25px;
+        padding: 5px 0;
+        img {
+          margin-right: 20px;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+}
+
 .dashboad {
   display: flex;
   margin-bottom: 20px;
