@@ -30,9 +30,11 @@ import {
   Slider,
   Transfer,
   Badge,
+  Tree,
 } from 'element-ui';
 
 export default function elementui() {
+  Vue.use(Tree);
   Vue.use(Badge);
   Vue.use(Tabs);
   Vue.use(Table);

@@ -10,4 +10,5 @@ export default {
   batteryModelList: '', // 获取电池型号列表
   deviceList: '', // 伟绑定设备列表
   manufacturerNames: '', // 生产企业列表 名称
+  canAddponter: false, // 是否可以在地图上选区点
 };

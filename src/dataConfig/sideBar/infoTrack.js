@@ -1,4 +1,4 @@
-export default [
+const trackMenu = [
   {
     text: '概览', // 'menu.overview', // 概览
     link: '/overview',
@@ -6,12 +6,10 @@ export default [
   },
   {
     text: '电池管理', // 'menu.batteryManage', // 电池管理
-    link: '1',
     icon: 'iconfont icon-dashboard',
     children: [
       {
         text: '电池信息', // 'menu.batteryInfo', // 电池信息
-        link: '11',
         children: [
           {
             text: '电池列表', // 'menu.batteryList', // 电池列表
@@ -19,7 +17,6 @@ export default [
           },
           {
             text: '电池地图', // 'menu.batteryList', // 电池地图
-            link: '/battery',
             children: [
               {
                 text: '实时位置', // 'menu.batteryList', // 实时位置
@@ -51,7 +48,6 @@ export default [
       },
       {
         text: '报警阈值', // 'menu.threshold', // 报警阈值
-        link: '22',
         children: [
           {
             text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
@@ -65,7 +61,6 @@ export default [
       },
       {
         text: '地理围栏', // 'menu.threshold', // 报警阈值
-        link: '232',
         children: [
           {
             text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
@@ -79,7 +74,6 @@ export default [
       },
       {
         text: '告警通知', // 'menu.WarningNotice', // 告警通知
-        link: '23',
         children: [
           {
             text: '告警接收人', // 'menu.receiveList', // 告警接收人
@@ -99,7 +93,6 @@ export default [
   },
   {
     text: '设备管理', // 'menu.device', // 设备管理
-    link: '3',
     icon: 'iconfont icon-device',
     children: [
       {
@@ -113,3 +106,8 @@ export default [
     ],
   },
 ];
+
+export default {
+  title: '电池定位追踪',
+  data: trackMenu,
+};

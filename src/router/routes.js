@@ -7,10 +7,10 @@ const monitorOverview = () =>
   import(/* webpackChunkName: "moniview" */ '../view/Monitor/overview/overview.vue');
 const monitorBatteryList = () =>
   import(/* webpackChunkName: "monitorBatteryList" */ '../view/Monitor/batteryList/index.vue');
-const monitorBatteryHis = () =>
-  import(/* webpackChunkName: "BatteryHis" */ '../view/Monitor/batteryMap/history/history.vue');
-const monitorBatteryReal = () =>
-  import(/* webpackChunkName: "BatteryReal" */ '../view/Monitor/batteryMap/realTime/realTime.vue');
+const monitorBatteryFence = () =>
+  import(/* webpackChunkName: "BatteryHis" */ '../view/Monitor/fence/battery-fence.vue');
+const monitorCompanyFence = () =>
+  import(/* webpackChunkName: "BatteryReal" */ '../view/Monitor/fence/company-fence.vue');
 const monitorBatteryBlack = () =>
   import(/* webpackChunkName: "BatteryBlack" */ '../view/Monitor/batteryblack/black.vue');
 const realData = () =>
@@ -38,7 +38,7 @@ const DeviceBlack = () =>
 const RealPosition = () =>
   import(/* webpackChunkName: "RealPosition" */ '../view/Monitor/realPosition/index.vue');
 const HistoryTrak = () =>
-  import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/track/index.vue');
+  import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/history-track/index.vue');
 
 const routes = [
   {
@@ -79,14 +79,14 @@ const routes = [
             component: monitorBatteryList,
           },
           {
-            path: '/monitor/battery/history',
+            path: '/monitor/battery/fence',
             name: 'monitorBatteryHis',
-            component: monitorBatteryHis,
+            component: monitorBatteryFence,
           },
           {
-            path: '/monitor/battery/real-time',
+            path: '/monitor/company/fence',
             name: 'monitorBatteryReal',
-            component: monitorBatteryReal,
+            component: monitorCompanyFence,
           },
           {
             path: '/monitor/battery/defriend',

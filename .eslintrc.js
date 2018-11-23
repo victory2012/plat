@@ -57,6 +57,7 @@ module.exports = {
     'no-console': 0,
     'no-plusplus': 0,
     'consistent-return': 0,
-    'no-param-reassign': 0
+    'no-param-reassign': 0,
+    'max-len': 0
   }
 };

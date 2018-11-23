@@ -6,16 +6,13 @@ const montorData = [
   },
   {
     text: '电池管理', // 'menu.batteryManage', // 电池管理
-    link: '1',
     icon: 'iconfont icon-monitor1',
     children: [
       {
         text: '电池信息', // 'menu.batteryInfo', // 电池信息
-        link: '2',
         children: [
           {
             text: '电池地图', // 'menu.batteryList', // 电池地图
-            link: '3',
             children: [
               {
                 text: '实时位置', // 'menu.batteryList', // 实时位置
@@ -51,7 +48,6 @@ const montorData = [
       },
       {
         text: '报警阈值', // 'menu.threshold', // 报警阈值
-        link: '4',
         children: [
           {
             text: '按电池型号分类', // 'menu.sortByModel', // 按电池型号分类
@@ -79,7 +75,6 @@ const montorData = [
       // },
       {
         text: '告警通知', // 'menu.WarningNotice', // 告警通知
-        link: '6',
         children: [
           {
             text: '告警接收人', // 'menu.receiveList', // 告警接收人
@@ -99,22 +94,20 @@ const montorData = [
   },
   {
     text: '地理围栏', // 'menu.threshold', // 报警阈值
-    link: '5',
     icon: 'iconfont icon-electricfence',
     children: [
       {
         text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
-        link: '/set/model',
+        link: '/monitor/company/fence',
       },
       {
         text: '电池群组划分', // 'menu.sortByCompany', // 按企业全局分类
-        link: '/set/company',
+        link: '/monitor/battery/fence',
       },
     ],
   },
   {
     text: '设备管理', // 'menu.device', // 设备管理
-    link: '7',
     icon: 'iconfont icon-device',
     children: [
       {
@@ -129,4 +122,7 @@ const montorData = [
   },
 ];
 
-export default montorData;
+export default {
+  title: '电池检测',
+  data: montorData,
+};

@@ -39,4 +39,8 @@ export default {
   GETManufacturer(state) {
     return state.manufacturerNames;
   },
+  /* 控制用户在地图上选区点 */
+  GETmapPonter(state) {
+    return state.canAddponter;
+  },
 };

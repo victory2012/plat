@@ -43,4 +43,8 @@ export default {
   SETManufacturer(state, data) {
     state.manufacturerNames = data;
   },
+  /* 控制用户在地图上选区点 */
+  SETmapPonter(state, data) {
+    state.canAddponter = data;
+  },
 };

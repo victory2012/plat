@@ -19,6 +19,13 @@ export default {
 .el-badge__content.is-fixed {
   right: 20px;
 }
+.el-tree-node__expand-icon {
+  color: #000000;
+}
+.el-tree-node__content {
+  height: 32px;
+  line-height: 32px;
+}
 .el-menu {
   .el-menu-item:not(.is-active) {
     &:hover {

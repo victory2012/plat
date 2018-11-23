@@ -3,11 +3,6 @@
     <info-sidebar></info-sidebar>
     <div class="infoView">
       <router-view />
-      <!-- <el-scrollbar style="height:100%;overflow-x: hidden;">
-        <div class="scrollwarrp">
-          <router-view />
-        </div>
-      </el-scrollbar> -->
     </div>
   </div>
 </template>
@@ -34,6 +29,7 @@ export default {
 <style lang='scss' scoped>
 .infoSide {
   display: flex;
+  width: 100%;
   .infoView {
     flex: 1;
     box-sizing: border-box;

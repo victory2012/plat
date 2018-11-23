@@ -7,7 +7,11 @@ export default {
   getMenuCollapse(state) {
     return state.collapse;
   },
-  /* 项目类型 */
+  /* 获取登录的 loading状态 */
+  getProjectType(state) {
+    return state.projectType;
+  },
+  /* 根据项目类型，返回相应的 menu数据 */
   getInfoMenu(state) {
     if (state.projectType === 'monitor') {
       return state.monitorMenu;
