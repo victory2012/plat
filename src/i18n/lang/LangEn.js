@@ -147,6 +147,9 @@ module.exports = {
     abnormalField: 'Abnormal', // gehongwei新增
     batteryModel: 'Model',
     provence: 'Region',
+    online: 'This Month',
+    offLine: 'Valid',
+    invalid: 'Invalid',
   },
   positions: {
     title1: 'Device Profiles',
@@ -465,6 +468,7 @@ module.exports = {
     selectCampany: 'Please choose a company.',
     batteryGps: 'Battery Tracking',
     batteryMonitor: 'Battery Monitoring',
+    handel: 'View',
   },
   addDevice: {
     title: 'Register Device',

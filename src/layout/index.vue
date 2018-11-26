@@ -7,7 +7,8 @@
         v-for="key in menus"
         @click="chooseProject(key)"
         :key="key.type">
-        <span class="icon"><i :class="key.icon"></i></span>
+        <span class="icon"><i class="mainMenuIcon"
+            :class="key.icon"></i></span>
         <span class="text">{{key.text}}</span></li>
     </ul>
     <div class="content">
@@ -18,7 +19,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import barData from '@/dataConfig/sideBar/bar';
+import barData from '../dataConfig/sideBar/mainBar';
 import headerSec from './header';
 // import sideBar from './sideBer';
 
@@ -27,14 +28,27 @@ export default {
   props: [''],
   data() {
     return {
-      menus: barData,
+      menus: '',
     };
   },
   components: {
     headerSec,
   },
   computed: {
-    ...mapGetters(['getMenuCollapse', 'getProjectType']),
+    ...mapGetters(['getMenuCollapse', 'getProjectType', 'getloginData']),
+  },
+  mounted() {
+    this.menus = '';
+    this.menus = barData();
+    if (this.getloginData.type === 1) {
+      this.menus.push({
+        text: '公司列表', // 公司列表
+        type: 'company',
+        link: '/company',
+        icon: 'iconfont icon-company',
+      });
+    }
+    console.log('getloginData', this.getloginData);
   },
   methods: {
     chooseProject(key) {
@@ -49,6 +63,9 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.mainMenuIcon {
+  font-size: 20px;
+}
 .warp {
   // position: absolute;
   display: flex;

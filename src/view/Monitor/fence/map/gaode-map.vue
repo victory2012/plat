@@ -1,9 +1,34 @@
 <template>
-  <div id="AddContainer"
-    class="fenceContainer"></div>
+  <div class="gaoDeMap">
+    <div id="AddContainer"
+      class="fenceContainer"></div>
+    <div class="toolWarp">
+      <span v-show="addFence"
+        class="Tiptext">Tips：{{$t('fence.tipMsg.morePointer')}}</span>
+      <el-button v-show="addFence"
+        @click="cancelSetings"
+        size="small "
+        type="info">{{$t('fence.cancelSeting')}}</el-button>
+      <el-button v-show="addFence"
+        @click="doAddFence"
+        size="small "
+        type="primary">{{$t('fence.sureSeting')}}</el-button>
+      <el-button v-show="addFence"
+        @click="goBack"
+        size="small "
+        type="warning">{{$t('fence.back')}}</el-button>
+      <el-button v-show="!addFence"
+        @click="ToAddFence"
+        size="small "
+        type="primary">{{$t('fence.addBtn')}}</el-button>
+      <el-button v-show="!addFence"
+        @click="ToDeleteFence"
+        size="small "
+        type="danger">{{$t('fence.delBtn')}}</el-button>
+    </div>
+  </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
 /* eslint-disable */
 import AMap from 'AMap';
 
@@ -30,29 +55,6 @@ export default {
       selectPonter: [],
     };
   },
-  computed: {
-    ...mapGetters({
-      canAddPonter: 'monitor/GETmapPonter'
-    })
-  },
-  watch: {
-    canAddPonter: {
-      handler: function (val) {
-        console.log('canAddPonter === >>>>', val);
-        if (val) {
-          this.buildFence();
-        } else {
-          console.log('val', this.mouseTool)
-          // this.mouseTool.close(false); // 移除 画多边形的功能
-          if (this.markers.length > 0) {
-            this.mouseTool.close(false);
-            map.remove(this.markers)
-          }
-        }
-      },
-      deep: true
-    }
-  },
   mounted () {
     this.init();
   },
@@ -65,7 +67,7 @@ export default {
         zoom: 5,
       });
 
-      this.buildFence();
+      // this.buildFence();
       // map.on('click', this.callBackFn); // 地图的点击事件
       // map.setDefaultCursor('pointer'); // 手势
       // map.on('rightclick', () => {
@@ -78,41 +80,29 @@ export default {
     },
     // 没有设置过围栏
     buildFence () {
-      if (!this.canAddPonter) return;
-      // map.plugin(['AMap.MouseTool'], () => {
-      //   this.mouseTool = new AMap.MouseTool(map);
-      //   this.mouseTool.polygon();
-      //   // this.mouseTool.close(true); // 移除 画多边形的功能
-      //   this.mouseToolArr.push(this.mouseTool);
-      // });
-      this.mouseTool = new AMap.MouseTool(map);   //在地图中添加MouseTool插件
-      this.mouseTool.polygon(); //用鼠标工具画多边形
-      AMap.event.addListener(this.mouseTool, 'draw', function (e) { //添加事件
-        console.log(e.obj.getPath());//获取路径/范围
+      map.plugin(['AMap.MouseTool'], () => {
+        this.mouseTool = new AMap.MouseTool(map);
+        this.mouseTool.polygon();
+        // this.mouseTool.close(true); // 移除 画多边形的功能
+        this.mouseToolArr.push(this.mouseTool);
       });
       map.setDefaultCursor('pointer'); // 手势
       map.on('click', this.callBackFn); // 地图的点击事件
       /* 鼠标右击事件 右击后 要移除地图的点击事件 和画多边形的事件 */
       map.on('rightclick', () => {
         map.setDefaultCursor(); // 手势
-        // if (this.markers.length === 0) {
-        //   this.$store.commit('monitor/SETmapPonter', false);
-        // }
-        // this.$store.commit('monitor/SETmapPonter', false);
         map.off('click', this.callBackFn); // 移除地图点击事件
         this.mouseTool.close(false); // 移除 画多边形的功能
       });
     },
     callBackFn (e) {
-      // console.log(e);
-
       if (this.markers.length === 9) {
         this.mouseTool.close(false); // 移除 画多边形的功能
       }
       if (this.markers.length > 9) {
-        // map.setDefaultCursor(); // 手势
+        map.setDefaultCursor(); // 手势
         map.off('click', this.callBackFn); // 移除地图点击事件
-        // mouseTool.close(false); // 移除 画多边形的功能
+        this.mouseTool.close(false); // 移除 画多边形的功能
       } else {
         // 获取地图点击的jps坐标位置 集合
         this.selectPonter.push(`${e.lnglat.getLng()},${e.lnglat.getLat()}`);
@@ -124,6 +114,7 @@ export default {
       }
       console.log('this.selectPonter', this.selectPonter);
     },
+    ToDeleteFence () { },
     // 已经添加了围栏，根据围栏坐标 画出围栏
     hasFence (gpsList, id) {
       // this.addFence = false;
@@ -209,8 +200,8 @@ export default {
     /* 取消设置 */
     cancelSetings () {
       this.selectPonter = [];
-      // this.markers && map.remove(this.markers); // 清除marker点
-      // mouseTool && mouseTool.close(true); // 清除多边形
+      this.markers && map.remove(this.markers); // 清除marker点
+      this.mouseTool && this.mouseTool.close(true); // 清除多边形
       this.markers = [];
       this.mouseTool = null;
       /*
@@ -222,21 +213,21 @@ export default {
     /* goBack 返回 */
     goBack () {
       this.cancelSetings();
-      // this.addFence = false;
+      this.addFence = false;
       map.setDefaultCursor(); // 手势
       map.off('click', this.callBackFn); // 移除地图点击事件
       this.mouseTool.close(false); // 移除 画多边形的功能
-      this.getFenceData({
-        batteryId: this.clickItme.batteryId,
-        deviceId: this.clickItme.deviceId,
-      });
+      // this.getFenceData({
+      //   batteryId: this.clickItme.batteryId,
+      //   deviceId: this.clickItme.deviceId,
+      // });
     },
     /*
       参数 data {"batteryId":1,"deviceId":2}
      */
     ToAddFence () {
-      if (this.hasFenced) return;
-      // this.addFence = true;
+      // if (this.hasFenced) return;
+      this.addFence = true;
       this.markers = [];
       // console.log(this.mouseToolArr);
       if (this.mouseToolArr.length > 0) {
@@ -262,9 +253,27 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+.gaoDeMap {
+  position: relative;
+  .toolWarp {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    padding: 5px 10px;
+    background: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 50px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+}
 .fenceContainer {
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  // height: 100%;
+  // width: 100%;
   border-radius: 5px;
 }
 </style>

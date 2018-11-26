@@ -58,6 +58,7 @@ module.exports = {
     'no-plusplus': 0,
     'consistent-return': 0,
     'no-param-reassign': 0,
-    'max-len': 0
+    'max-len': 0,
+    'no-unused-expressions': 0
   }
 };

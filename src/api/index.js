@@ -1,5 +1,6 @@
 import http from './config';
 
+const socketUrl = '';
 export default {
   /* 登录 */
   login: data => http.post('/login', data),
@@ -246,4 +247,10 @@ export default {
 
   /* gsp 修复 */
   repairGps: () => http.get('/admin/battery_group_gps/fix_gps'),
+
+  /* 获取公司权限 */
+  getCompanyRole: companyId => http.get(`/company/permissions/${companyId}`),
+
+  /* websoket */
+  Socket: () => new WebSocket(socketUrl),
 };

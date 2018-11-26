@@ -75,7 +75,7 @@
         </el-table-column>
         <!-- 监测设备 -->
         <el-table-column align="center"
-          :label="$t('device.deviceCode')">
+          :label="$t('device.handel')">
           <template slot-scope="scope">
             <el-button @click.native.prevent="MonitorDevice(scope.row)"
               type="text"

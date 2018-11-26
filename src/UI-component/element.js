@@ -31,9 +31,11 @@ import {
   Transfer,
   Badge,
   Tree,
+  Card,
 } from 'element-ui';
 
 export default function elementui() {
+  Vue.use(Card);
   Vue.use(Tree);
   Vue.use(Badge);
   Vue.use(Tabs);

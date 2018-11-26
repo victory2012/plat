@@ -1,32 +1,9 @@
 <template>
   <div class="positionWarp">
-    <div class="mapWarp">
-      <gaode-map></gaode-map>
-      <div class="toolWarp">
-        <span v-show="addFence"
-          class="Tiptext">Tips：{{$t('fence.tipMsg.morePointer')}}</span>
-        <el-button v-show="addFence"
-          @click="cancelSetings"
-          size="small "
-          type="info">{{$t('fence.cancelSeting')}}</el-button>
-        <el-button v-show="addFence"
-          @click="doAddFence"
-          size="small "
-          type="primary">{{$t('fence.sureSeting')}}</el-button>
-        <el-button v-show="addFence"
-          @click="goBack"
-          size="small "
-          type="warning">{{$t('fence.back')}}</el-button>
-        <el-button v-show="!addFence"
-          @click="ToAddFence"
-          size="small "
-          type="primary">{{$t('fence.addBtn')}}</el-button>
-        <el-button v-show="!addFence"
-          @click="ToDeleteFence"
-          size="small "
-          type="danger">{{$t('fence.delBtn')}}</el-button>
-      </div>
-    </div>
+    <gaode-map v-if="mapType === 1"
+      class="mapWarp"></gaode-map>
+    <google-map v-else
+      class="mapWarp"></google-map>
     <div class="dataList">
       <h2>电池列表</h2>
       <ul class="list_warp">
@@ -48,11 +25,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import gaodeMap from './map/gaode-map';
+import googleMap from './map/google-map';
 
 export default {
   components: {
     gaodeMap,
+    googleMap,
   },
   data() {
     return {
@@ -61,21 +41,15 @@ export default {
       addFence: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      mapType: 'getUserMapType',
+    }),
+  },
   mounted() { },
 
   methods: {
     pageChange() { },
-    cancelSetings() { },
-    doAddFence() {
-
-    },
-    goBack() {
-      this.addFence = false;
-    },
-    ToAddFence() {
-      this.addFence = true;
-    },
-    ToDeleteFence() { },
   },
 
 };
@@ -87,18 +61,8 @@ export default {
   height: 100%;
   .mapWarp {
     flex: 1;
-    position: relative;
+    // position: relative;
     min-width: 810px;
-    .toolWarp {
-      position: absolute;
-      top: 2px;
-      right: 5px;
-      padding: 5px 10px;
-      background: #ffffff;
-      box-shadow: rgba(0, 0, 0, 0.2) 0 0 50px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
   }
   .dataList {
     flex: 0 0 230px;

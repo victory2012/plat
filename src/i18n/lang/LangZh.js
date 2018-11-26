@@ -140,6 +140,9 @@ module.exports = {
     abnormalField: '运行异常数',
     batteryModel: '型号',
     provence: '地区',
+    online: '本月',
+    offLine: '有效',
+    invalid: '无效',
   },
   positions: {
     title1: '设备列表',
@@ -454,6 +457,7 @@ module.exports = {
     selectCampany: '请选择企业',
     batteryGps: '电池追踪',
     batteryMonitor: '电池监测',
+    handel: '查看',
   },
   addDevice: {
     title: '添加设备',

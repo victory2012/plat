@@ -1,6 +1,32 @@
 <template>
-  <div id="AddContainer"
-    class="fenceContainer"></div>
+  <div class="gaoDeMap">
+    <div id="AddContainer"
+      class="fenceContainer"></div>
+    <div class="toolWarp">
+      <span v-show="addFence"
+        class="Tiptext">Tips：{{$t('fence.tipMsg.morePointer')}}</span>
+      <el-button v-show="addFence"
+        @click="cancelSetings"
+        size="small "
+        type="info">{{$t('fence.cancelSeting')}}</el-button>
+      <el-button v-show="addFence"
+        @click="doAddFence"
+        size="small "
+        type="primary">{{$t('fence.sureSeting')}}</el-button>
+      <el-button v-show="addFence"
+        @click="goBack"
+        size="small "
+        type="warning">{{$t('fence.back')}}</el-button>
+      <el-button v-show="!addFence"
+        @click="ToAddFence"
+        size="small "
+        type="primary">{{$t('fence.addBtn')}}</el-button>
+      <el-button v-show="!addFence"
+        @click="ToDeleteFence"
+        size="small "
+        type="danger">{{$t('fence.delBtn')}}</el-button>
+    </div>
+  </div>
 </template>
 <script>
 /* eslint-disable */
@@ -102,48 +128,52 @@ export default {
         });
       });
     },
+    /* 删除围栏 */
+    ToDeleteFence () { },
+
+    /* 去重 */
     unique (arr) {
       return Array.from(new Set(arr));
     },
     // 确认设置 添加围栏
-    // doAddFence() {
-    //   const pointer = this.unique(this.selectPonter);
-    //   if (pointer.length === 0) {
-    //     this.$message.error(`${this.$t('fence.tipMsg.addPointer')}`);
-    //     return;
-    //   }
-    //   if (pointer.length < 3) {
-    //     this.$message.error(`${this.$t('fence.tipMsg.less')}`);
-    //     return;
-    //   }
-    //   let gpsList = '';
-    //   pointer.forEach((key) => {
-    //     gpsList += `${key};`;
-    //   });
-    //   const gpsObj = {
-    //     deviceId: this.clickItme.deviceId,
-    //     batteryId: this.clickItme.batteryId,
-    //     gpsList,
-    //   };
-    //   addFence(gpsObj).then((res) => {
-    //     console.log(res);
-    //     if (res.data.code === 0) {
-    //       google.maps.event.clearListeners(map, 'click');
-    //       if (this.markers.length > 0) {
-    //         this.markers.forEach((key) => {
-    //           key.setMap(null);
-    //         });
-    //         this.markers = [];
-    //       }
-    //       // drawingManager.setDrawingMode(null);
-    //       onSuccess(`${this.$t('fence.tipMsg.addSuccess')}`);
-    //       this.getData({
-    //         batteryId: this.clickItme.batteryId,
-    //         deviceId: this.clickItme.deviceId,
-    //       });
-    //     }
-    //   });
-    // },
+    doAddFence () {
+      const pointer = this.unique(this.selectPonter);
+      if (pointer.length === 0) {
+        this.$message.error(`${this.$t('fence.tipMsg.addPointer')}`);
+        return;
+      }
+      if (pointer.length < 3) {
+        this.$message.error(`${this.$t('fence.tipMsg.less')}`);
+        return;
+      }
+      let gpsList = '';
+      pointer.forEach((key) => {
+        gpsList += `${key};`;
+      });
+      const gpsObj = {
+        deviceId: this.clickItme.deviceId,
+        batteryId: this.clickItme.batteryId,
+        gpsList,
+      };
+      addFence(gpsObj).then((res) => {
+        console.log(res);
+        if (res.data.code === 0) {
+          google.maps.event.clearListeners(map, 'click');
+          if (this.markers.length > 0) {
+            this.markers.forEach((key) => {
+              key.setMap(null);
+            });
+            this.markers = [];
+          }
+          // drawingManager.setDrawingMode(null);
+          onSuccess(`${this.$t('fence.tipMsg.addSuccess')}`);
+          this.getData({
+            batteryId: this.clickItme.batteryId,
+            deviceId: this.clickItme.deviceId,
+          });
+        }
+      });
+    },
     /* 取消设置 */
     cancelSetings () {
       this.addFence = true;
@@ -158,6 +188,10 @@ export default {
       }
       this.buildFence();
     },
+    ToAddFence () {
+      this.addFence = true;
+      this.buildFence();
+    },
     /* goBack 返回 */
     goBack () {
       this.addFence = false;
@@ -170,19 +204,37 @@ export default {
       }
       this.label = 1;
       google.maps.event.clearListeners(map, 'click');
-      this.getData({
-        batteryId: this.clickItme.batteryId,
-        deviceId: this.clickItme.deviceId,
-      });
+      // this.getData({
+      //   batteryId: this.clickItme.batteryId,
+      //   deviceId: this.clickItme.deviceId,
+      // });
     },
   },
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
+.gaoDeMap {
+  position: relative;
+  .toolWarp {
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    padding: 5px 10px;
+    background: #ffffff;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 0 50px;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+}
 .fenceContainer {
-  height: 100%;
-  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  // height: 100%;
+  // width: 100%;
   border-radius: 5px;
 }
 </style>

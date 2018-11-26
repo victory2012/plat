@@ -20,7 +20,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import barData from '@/dataConfig/sideBar/bar';
+import barData from '../dataConfig/sideBar/mainBar';
 import menuItem from './sideBarItem';
 
 export default {

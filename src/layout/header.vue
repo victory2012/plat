@@ -8,36 +8,36 @@
       <div class="projectTit">后台管理系统</div>
     </div>
     <div class="msgs">
-      <div>
-        <el-dropdown size="small"
-          placement="bottom"
-          class="user-name"
-          trigger="click"
-          @command="handleCommand">
-          <span class="el-dropdown-link">
-            <span class="avatar">
-              <i class="iconfont icon-user"></i>
-              asdaskdjk
-            </span>
+      <!-- trigger="click" -->
+      <el-dropdown size="small"
+        placement="bottom"
+        class="user-name"
+        trigger="click"
+        @command="handleCommand">
+        <span class="el-dropdown-link">
+          <span class="avatar">
+            <i class="iconfont icon-user"></i>
+            {{loginData.companyName}} - {{loginData.nickName}}
           </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item command="userMsg">
-              <i class="iconfont icon-user"></i>{{$t('userInfo.userMsg')}}
-            </el-dropdown-item>
-            <el-dropdown-item divided
-              command="userPwd">
-              <i class="el-icon-setting"></i>{{$t('userInfo.pasword')}}</el-dropdown-item>
-            <el-dropdown-item divided
-              command="loginout">
-              <i class="iconfont icon-logout"></i>{{$t('userInfo.logOut')}}</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
-      </div>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="userMsg">
+            <i class="iconfont icon-set"></i>{{$t('userInfo.userMsg')}}
+          </el-dropdown-item>
+          <el-dropdown-item divided
+            command="userPwd">
+            <i class="iconfont icon-seting"></i>{{$t('userInfo.pasword')}}</el-dropdown-item>
+          <el-dropdown-item divided
+            command="loginout">
+            <i class="iconfont icon-SignOut"></i>{{$t('userInfo.logOut')}}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -45,7 +45,11 @@ export default {
 
     };
   },
-
+  computed: {
+    ...mapGetters({
+      loginData: 'getloginData',
+    }),
+  },
   methods: {
     handleCommand() { },
     collapseChage() {
@@ -57,6 +61,9 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.iconfont {
+  margin-right: 5px;
+}
 .header {
   height: 50px;
   background-color: #292d33;
@@ -81,6 +88,7 @@ export default {
     flex: 1;
     text-align: right;
     color: #ffffff;
+    margin-right: 30px;
     .avatar {
       color: #ffffff;
       cursor: pointer;

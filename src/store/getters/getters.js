@@ -7,7 +7,7 @@ export default {
   getMenuCollapse(state) {
     return state.collapse;
   },
-  /* 获取登录的 loading状态 */
+  /* 获取子项目类型 */
   getProjectType(state) {
     return state.projectType;
   },
@@ -21,6 +21,10 @@ export default {
   /* 获取登录的用户信息 */
   getloginData(state) {
     return state.userData;
+  },
+  /* 获取登录的用户信息 */
+  getUserMapType(state) {
+    return state.userData.type;
   },
   /* 获取用户权限 */
   getUserPermisson(state) {

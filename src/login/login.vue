@@ -4,6 +4,9 @@
       <img src="../assets/img/login-bg.svg"
         alt="">
     </div>
+    <!-- <img class="img"
+      src="../assets/img/login-bg.svg"
+      alt=""> -->
     <div class="item">
       <div class="form">
         <el-tabs v-model="activeName"
@@ -90,12 +93,13 @@
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+// import { mapGetters } from 'vuex';
 import t from '@/utils/translate';
 
 export default {
   data() {
     return {
+      getloginLoading: false,
       localLanguge: '',
       hasGetSms: false,
       smsMsg: t('loginMsg.getSmsCode'),
@@ -104,7 +108,6 @@ export default {
         phone: '',
         smsCode: '',
       },
-      // doLogin: false,
       phoneRules: {
         phone: [
           {
@@ -145,9 +148,6 @@ export default {
       },
     };
   },
-  computed: {
-    ...mapGetters(['getloginLoading']),
-  },
   created() {
     const locallanguage = localStorage.getItem('locale');
     if (locallanguage) {
@@ -173,7 +173,7 @@ export default {
     accountLogin(LoginForm) {
       this.$refs[LoginForm].validate((valid) => {
         if (valid) {
-          this.$store.commit('setLoginLoading', true);
+          this.getloginLoading = true;
           const person = {
             account: this.LoginForm.account,
             password: this.LoginForm.password,
@@ -181,21 +181,28 @@ export default {
           // this.$store.dispatch('Login', person);
           this.$api.login(person).then((res) => {
             console.log(res);
-            this.doLogin = false;
+            this.getloginLoading = false;
             if (res.data && res.data.code === 0) {
               const userData = res.data.data;
               sessionStorage.setItem('token', res.headers.token);
               sessionStorage.setItem('loginData', JSON.stringify(userData));
               this.$store.commit('setUserData', userData);
-              this.$api.permissions(res.data.data.id).then((opts) => {
-                if (opts.data && opts.data.code === 0) {
-                  const permission = opts.data.data;
-                  sessionStorage.setItem('setUserRole', permission);
-                  this.$store.commit(
-                    'setUserPremission',
-                    permission,
-                  );
-                  this.$router.push('/main');
+              /* 根据公司ID 获取公司权限 */
+              this.$api.getCompanyRole(userData.companyId).then((companyRole) => {
+                console.log('company role', companyRole);
+                if (companyRole.data && companyRole.data.code === 0) {
+                  /* 获取个人的权限 */
+                  this.$api.permissions(res.data.data.id).then((opts) => {
+                    if (opts.data && opts.data.code === 0) {
+                      const permission = opts.data.data;
+                      sessionStorage.setItem('setUserRole', permission);
+                      this.$store.commit(
+                        'setUserPremission',
+                        permission,
+                      );
+                      this.$router.push('/main');
+                    }
+                  });
                 }
               });
             }
@@ -233,14 +240,14 @@ export default {
     checkSmsCode() {
       this.$refs.smsPhone.validate((valid) => {
         if (valid) {
-          this.doLogin = true;
+          this.getloginLoading = true;
           const phoneObj = {
             phone: this.smsForm.phone,
             code: this.smsForm.smsCode,
           };
           this.$api.SMSVertify(phoneObj).then((res) => {
             console.log(res);
-            this.doLogin = false;
+            this.getloginLoading = false;
             if (res.data && res.data.code === 0) {
               this.$store.commit('setTokenStorage', res.headers.token);
               this.$store.commit('setStorage', JSON.stringify(res.data.data));
@@ -321,13 +328,15 @@ export default {
   padding: 120px;
   min-width: 1314px;
   min-height: 586px;
+  display: flex;
   overflow: hidden;
   overflow-x: auto;
   box-sizing: border-box;
   .img {
-    float: left;
-    // flex: 1;
-    width: 65%;
+    display: block;
+    flex: 0 0 65%;
+    // width: 65%;
+    // min-width: 600px;
     height: 100%;
     display: flex;
     align-items: center;
@@ -339,9 +348,9 @@ export default {
   }
   .item {
     position: relative;
-    float: left;
-    // flex: 0 0 400px;
-    width: 35%;
+    // float: left;
+    flex: 1;
+    // width: 35%;
     min-width: 375px;
     height: 100%;
     min-height: 586px;

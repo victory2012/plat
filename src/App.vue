@@ -13,6 +13,10 @@ export default {
 
 <style lang="scss">
 @import './style/common';
+
+.gmnoprint {
+  display: none;
+}
 .el-dialog__header {
   text-align: left;
 }

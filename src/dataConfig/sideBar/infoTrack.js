@@ -1,7 +1,7 @@
 const trackMenu = [
   {
     text: '概览', // 'menu.overview', // 概览
-    link: '/overview',
+    link: '/track',
     icon: 'iconfont icon-allnormal',
   },
   {

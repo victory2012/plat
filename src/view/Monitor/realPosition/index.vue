@@ -1,7 +1,7 @@
 <template>
   <div class="positionWarp">
     <!-- <div >map</div> -->
-    <gaode-map v-if='userData.map=== 0'
+    <gaode-map v-if='mapType === 1'
       class="mapWarp"></gaode-map>
     <google-map class="mapWarp"
       v-else></google-map>
@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userData: 'getloginData',
+      mapType: 'getUserMapType',
     }),
   },
   mounted() { },
