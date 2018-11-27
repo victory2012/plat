@@ -90,6 +90,11 @@ const montorData = [
           },
         ],
       },
+      {
+        text: '用户管理', // 'menu.userManage', // 用户管理
+        link: '/monitor/user',
+        icon: 'iconfont icon-user',
+      },
     ],
   },
   {

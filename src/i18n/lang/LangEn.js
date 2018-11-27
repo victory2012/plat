@@ -379,6 +379,7 @@ module.exports = {
     startTime: 'Start Time',
   },
   useMsg: {
+    projetName: '选择子系统',
     serial: 'No.',
     name: 'User Id',
     accountIdentity: 'Account Type',

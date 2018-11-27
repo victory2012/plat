@@ -13,7 +13,7 @@ const trackMenu = [
         children: [
           {
             text: '电池列表', // 'menu.batteryList', // 电池列表
-            link: '/battery',
+            link: '/track/battery',
           },
           {
             text: '电池地图', // 'menu.batteryList', // 电池地图
@@ -90,6 +90,11 @@ const trackMenu = [
         ],
       },
     ],
+  },
+  {
+    text: '用户管理', // 'menu.userManage', // 用户管理
+    link: '/track/user',
+    icon: 'iconfont icon-user',
   },
   {
     text: '设备管理', // 'menu.device', // 设备管理

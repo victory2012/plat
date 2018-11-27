@@ -370,6 +370,7 @@ module.exports = {
     startTime: '开始时间',
   },
   useMsg: {
+    projetName: '选择子系统',
     serial: '序号',
     name: '用户名',
     accountIdentity: '账户身份',

@@ -94,8 +94,8 @@ export default {
 }
 .infoMenuWarp {
   position: relative;
-  // flex: 0 0 1px;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   flex: 0 0 180px;
   height: calc(100vh - 50px);
   background-color: #d8dce3;

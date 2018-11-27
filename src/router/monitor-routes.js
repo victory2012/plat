@@ -34,6 +34,8 @@ const RealPosition = () =>
   import(/* webpackChunkName: "RealPosition" */ '../view/Monitor/realPosition/index.vue');
 const HistoryTrak = () =>
   import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/history-track/index.vue');
+const MonitorUser = () =>
+  import(/* webpackChunkName: "MonitorUser" */ '../view/Monitor/user/user.vue');
 
 const route = [
   {
@@ -124,6 +126,11 @@ const route = [
     path: '/monitor/device/defriend',
     name: 'monitorDeviceDefriend',
     component: DeviceBlack,
+  },
+  {
+    path: '/monitor/user',
+    name: 'monitorUser',
+    component: MonitorUser,
   },
 ];
 
