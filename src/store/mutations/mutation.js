@@ -19,4 +19,12 @@ export default {
   setUserPremission(state, data) {
     state.userPermission = data;
   },
+  logOut(state) {
+    state.userData = '';
+    state.userPermission = '';
+    state.projectType = '';
+  },
+  SETuserData(state, data) {
+    state.userData = data;
+  },
 };

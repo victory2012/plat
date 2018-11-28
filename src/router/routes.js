@@ -6,7 +6,10 @@ const Login = () =>
 const Home = () => import(/* webpackChunkName: "Home" */ '../layout/index.vue');
 const monitorComponent = () =>
   import(/* webpackChunkName: "monitor" */ '../view/index.vue');
-
+const userInfo = () =>
+  import(/* webpackChunkName: "userInfo" */ '../view/User/user.vue');
+const Password = () =>
+  import(/* webpackChunkName: "Password" */ '../view/User/password.vue');
 const routes = [
   {
     path: '/',
@@ -31,6 +34,14 @@ const routes = [
         path: '/track',
         component: monitorComponent,
         children: [...trackRoutes],
+      },
+      {
+        path: '/user/info',
+        component: userInfo,
+      },
+      {
+        path: '/user/password',
+        component: Password,
       },
     ],
   },

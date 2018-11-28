@@ -33,7 +33,6 @@ Vue.prototype.$outputXlsxFile = outputXlsxFile;
 const store = CreateStore();
 router.beforeEach((to, from, next) => {
   const loginData = sessionStorage.getItem('loginData');
-  next();
   if (to.fullPath !== '/login') {
     if (!loginData) {
       next('/login');
@@ -41,6 +40,8 @@ router.beforeEach((to, from, next) => {
       next();
     }
   } else {
+    store.commit('setProjectType', '');
+    sessionStorage.removeItem('projectType');
     next();
   }
 });

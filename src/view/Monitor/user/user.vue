@@ -117,8 +117,8 @@
 /* eslint-disable */
 // import { mapGetters } from "vuex";
 import utils from "@/utils/utils";
-import permissionFun from "@/utils/valated";
-import defaultPermision from "@/utils/default-permision";
+import permissionFun from "@/permision/valated";
+import defaultPermision from "@/permision/Monitor-permision";
 import t from "@/utils/translate";
 import adduserInfo from "./addUser"
 

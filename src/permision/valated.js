@@ -1,11 +1,7 @@
-import defaultPermion from './default-permision';
+import defaultPermion from './Monitor-permision';
 
 export default function permissionFun() {
   const sessionData = sessionStorage.getItem('loginData');
-  if (!sessionData) {
-    window.location.href = '#login';
-    return;
-  }
   const userData = JSON.parse(sessionData);
   const role = JSON.parse(JSON.parse(sessionStorage.getItem('userRoles')));
 

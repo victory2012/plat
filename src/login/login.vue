@@ -4,9 +4,6 @@
       <img src="../assets/img/login-bg.svg"
         alt="">
     </div>
-    <!-- <img class="img"
-      src="../assets/img/login-bg.svg"
-      alt=""> -->
     <div class="item">
       <div class="form">
         <el-tabs v-model="activeName"
@@ -66,7 +63,6 @@
                   class="accpwsBtn"
                   @click="checkSmsCode"
                   round>{{$t('loginMsg.loginBtn')}}</el-button>
-                <!-- <button @click.stop.prevent="checkSmsCode" class="accpwsBtn">登录</button> -->
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -187,24 +183,7 @@ export default {
               sessionStorage.setItem('token', res.headers.token);
               sessionStorage.setItem('loginData', JSON.stringify(userData));
               this.$store.commit('setUserData', userData);
-              /* 根据公司ID 获取公司权限 */
-              this.$api.getCompanyRole(userData.companyId).then((companyRole) => {
-                console.log('company role', companyRole);
-                if (companyRole.data && companyRole.data.code === 0) {
-                  /* 获取个人的权限 */
-                  this.$api.permissions(res.data.data.id).then((opts) => {
-                    if (opts.data && opts.data.code === 0) {
-                      const permission = opts.data.data;
-                      sessionStorage.setItem('setUserRole', permission);
-                      this.$store.commit(
-                        'setUserPremission',
-                        permission,
-                      );
-                      this.$router.push('/main');
-                    }
-                  });
-                }
-              });
+              this.getPermission(userData);
             }
           });
         }
@@ -237,6 +216,26 @@ export default {
         }
       });
     },
+    getPermission(data) {
+      /* 根据公司ID 获取公司权限 */
+      this.$api.getCompanyRole(data.companyId).then((companyRole) => {
+        console.log('company role', companyRole);
+        if (companyRole.data && companyRole.data.code === 0) {
+          /* 获取个人的权限 */
+          this.$api.permissions(data.id).then((opts) => {
+            if (opts.data && opts.data.code === 0) {
+              const permission = opts.data.data;
+              sessionStorage.setItem('setUserRole', permission);
+              this.$store.commit(
+                'setUserPremission',
+                permission,
+              );
+              this.$router.push('/main');
+            }
+          });
+        }
+      });
+    },
     checkSmsCode() {
       this.$refs.smsPhone.validate((valid) => {
         if (valid) {
@@ -249,17 +248,11 @@ export default {
             console.log(res);
             this.getloginLoading = false;
             if (res.data && res.data.code === 0) {
-              this.$store.commit('setTokenStorage', res.headers.token);
-              this.$store.commit('setStorage', JSON.stringify(res.data.data));
-              this.$api.permissions(res.data.data.id).then((opts) => {
-                if (opts.data && opts.data.code === 0) {
-                  this.$store.commit(
-                    'setUserRole',
-                    JSON.stringify(opts.data.data),
-                  );
-                  this.$router.push('/overview');
-                }
-              });
+              const userData = res.data.data;
+              sessionStorage.setItem('token', res.headers.token);
+              sessionStorage.setItem('loginData', JSON.stringify(userData));
+              this.$store.commit('setUserData', userData);
+              this.getPermission(userData);
             }
           });
         }
@@ -335,12 +328,12 @@ export default {
   .img {
     display: block;
     flex: 0 0 65%;
-    // width: 65%;
-    // min-width: 600px;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    min-height: 586px;
     img {
       width: 70%;
       min-width: 600px;

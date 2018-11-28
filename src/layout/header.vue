@@ -38,6 +38,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import utils from '@/utils/utils';
 
 export default {
   data() {
@@ -51,7 +52,23 @@ export default {
     }),
   },
   methods: {
-    handleCommand() { },
+    handleCommand(command) {
+      if (command === 'loginout') {
+        this.$api.logOut().then((res) => {
+          if (res.data && res.data.code === 0) {
+            this.$store.commit('logOut');
+            this.$router.push('/login');
+            utils.removeStorageAll();
+          }
+        });
+      }
+      if (command === 'userMsg') {
+        this.$router.push('/user/info');
+      }
+      if (command === 'userPwd') {
+        this.$router.push('/user/password');
+      }
+    },
     collapseChage() {
       this.$store.commit('toggleSideBar');
     },

@@ -15,7 +15,6 @@
   </div>
 </template>
 <script>
-// import permissionFun from "@/utils/valated";
 
 export default {
   components: {

@@ -212,7 +212,7 @@
 </template>
 
 <script>
-import permissionFun from '@/utils/valated';
+import permissionFun from '@/permision/valated';
 import { mapState, mapActions, mapGetters } from 'vuex';
 import { Message } from 'element-ui';
 // import utils from '@/utils/utils';

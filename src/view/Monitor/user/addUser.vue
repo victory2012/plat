@@ -74,16 +74,14 @@
           <el-col :span="12">
             <el-form-item :label="$t('useMsg.name')"
               prop="account">
-              <el-input size="small"
-                v-model.trim="CreateCompanyForm.account"
+              <el-input v-model.trim="CreateCompanyForm.account"
                 auto-complete="off"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item :label="$t('useMsg.loginPwd')"
               prop="password">
-              <el-input size="small"
-                v-model.trim="CreateCompanyForm.password"
+              <el-input v-model.trim="CreateCompanyForm.password"
                 type="password"
                 auto-complete="off"></el-input>
             </el-form-item>
@@ -93,16 +91,14 @@
           <el-col :span="12">
             <el-form-item :label="$t('useMsg.phone')"
               prop="phone">
-              <el-input size="small"
-                v-model="CreateCompanyForm.phone"
+              <el-input v-model="CreateCompanyForm.phone"
                 auto-complete="off"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item :label="$t('useMsg.email')"
               prop="email">
-              <el-input size="small"
-                v-model="CreateCompanyForm.email"
+              <el-input v-model="CreateCompanyForm.email"
                 auto-complete="off"></el-input>
             </el-form-item>
           </el-col>
@@ -111,8 +107,7 @@
           <el-col :span="12">
             <el-form-item :label="$t('useMsg.enterpriseName')"
               prop="companyName">
-              <el-input size="small"
-                v-model.trim="CreateCompanyForm.companyName"
+              <el-input v-model.trim="CreateCompanyForm.companyName"
                 auto-complete="off"></el-input>
             </el-form-item>
           </el-col>
@@ -121,7 +116,6 @@
               prop="projetName">
               <el-select v-model="CreateCompanyForm.projetName"
                 style="width: 260px"
-                size="small"
                 multiple
                 placeholder="请选择">
                 <el-option v-for="item in options"

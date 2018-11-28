@@ -33,7 +33,7 @@
 import XLSX from "xlsx";
 import { mapActions } from 'vuex'
 import t from "@/utils/translate";
-import permissionFun from "@/utils/valated";
+import permissionFun from "@/permision/valated";
 import utils from "@/utils/utils";
 // import addBattery from './addBattery';
 

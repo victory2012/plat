@@ -1,3 +1,6 @@
+import { deepClone } from '@/utils/functions';
+import permissionFun from '@/permision/valated';
+
 const montorData = [
   {
     text: '概览', // 'menu.overview', // 概览
@@ -127,7 +130,169 @@ const montorData = [
   },
 ];
 
-export default {
-  title: '电池检测',
-  data: montorData,
+const listData1 = deepClone(montorData); // 生产企业管理员\
+const listData2 = deepClone(montorData); // 平台管理员
+const listData3 = deepClone(montorData); // 电池采购企业管理员
+const listData4 = deepClone(montorData); // 电池采购企业用户
+const listData5 = deepClone(montorData); // 生产企业用户
+
+const Allocation = {
+  text: '电池调配', // 'menu.Allocation', // 电池调配
+  link: '/battery/stock',
 };
+/* 数据对比 */
+const dataContrast = {
+  text: 'menu.compare', // 数据对比
+  link: '/battery/compare',
+};
+/* 告警数据 */
+const alarmData = {
+  text: 'menu.alarmData', // 告警数据
+  link: '/battery/alarm',
+};
+
+/* 告警数据 */
+const BatteryDefriend = {
+  text: 'menu.defriend', // 恢复拉黑设备
+  link: '/battery/defriend',
+};
+
+/* 系统管理 */
+const systemDefriend = {
+  text: 'menu.system', // 系统管理
+  icon: 'iconfont icon-system',
+  link: '',
+  children: [
+    {
+      text: 'menu.repairGps', // gps修正
+      link: '/gps/repair',
+    },
+  ],
+};
+listData2.push(systemDefriend);
+const title = '电池检测';
+
+/* 生产企业 */
+export const getManifactor = () => {
+  // const personRole = {};
+  console.log(listData1);
+  // listData1[3] = "";
+  listData1[3].children = listData1[3].children.splice(0, 1);
+  listData1[1].children[0].children[3] = Allocation;
+  return {
+    title,
+    data: listData1,
+    permissions: permissionFun(),
+  };
+};
+
+/* 生产企业用户 */
+export const getManifactorCus = () => {
+  // const personRole = {};
+  if (!permissionFun().sameAnalysis) {
+    listData5[1].children[1] = '';
+  } else {
+    listData5[1].children[1] = dataContrast;
+  }
+  if (!permissionFun().allocation) {
+    listData5[1].children[0].children[3] = '';
+  } else {
+    listData5[1].children[0].children[3] = Allocation;
+  }
+  if (!permissionFun().alarm) {
+    listData5[1].children[2] = '';
+  } else {
+    listData5[1].children[2] = alarmData;
+  }
+  if (!permissionFun().addblack) {
+    listData5[1].children[0].children[1] = '';
+  } else {
+    listData5[1].children[0].children[1] = BatteryDefriend;
+  }
+  listData5[2] = '';
+  listData5[4].children[1] = '';
+  listData5[4].children[2] = '';
+  // personRole.data = listData5;
+  // personRole.permissions = permissionFun();
+  return {
+    title,
+    data: listData5,
+    permissions: permissionFun(),
+  };
+};
+
+/* 平台 */
+export const getPlat = () => {
+  // const personRole = {};
+  listData2[1].children[0].children[1] = '';
+  listData2[2] = '';
+  // personRole.data = listData2;
+  // personRole.permissions = permissionFun();
+  return {
+    title,
+    data: listData2,
+    permissions: permissionFun(),
+  };
+};
+
+/* 电池采购企业管理员 */
+export const purchaseAdmin = () => {
+  // const personRole = {};
+  if (!permissionFun().sameAnalysis) {
+    listData3[1].children[1] = '';
+  } else {
+    listData3[1].children[1] = dataContrast;
+  }
+  if (!permissionFun().alarm) {
+    listData3[1].children[2] = '';
+  } else {
+    listData3[1].children[2] = alarmData;
+  }
+  if (!permissionFun().addblack) {
+    listData3[1].children[0].children[1] = '';
+  } else {
+    listData3[1].children[0].children[1] = BatteryDefriend;
+  }
+  listData3[4] = '';
+  // personRole.data = listData3;
+  // personRole.permissions = permissionFun();
+  return {
+    title,
+    data: listData3,
+    permissions: permissionFun(),
+  };
+};
+
+/* 电池采购企业用户 */
+export const purchaseCus = () => {
+  // console.log(permissionFun());
+  // const personRole = {};
+  if (!permissionFun().sameAnalysis) {
+    listData4[1].children[1] = '';
+  } else {
+    listData4[1].children[1] = dataContrast;
+  }
+  if (!permissionFun().addblack) {
+    listData4[1].children[0].children[1] = '';
+  } else {
+    listData4[1].children[0].children[1] = BatteryDefriend;
+  }
+  if (!permissionFun().alarm) {
+    listData4[1].children[2] = '';
+  } else {
+    listData4[1].children[2] = alarmData;
+  }
+  listData4[2] = '';
+  listData4[4] = '';
+  // personRole.data = listData4;
+  // personRole.permissions = permissionFun();
+  return {
+    title,
+    data: listData4,
+    permissions: permissionFun(),
+  };
+};
+// export default {
+//   title: '电池检测',
+//   data: montorData,
+// };

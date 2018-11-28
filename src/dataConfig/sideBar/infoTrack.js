@@ -12,82 +12,83 @@ const trackMenu = [
         text: '电池信息', // 'menu.batteryInfo', // 电池信息
         children: [
           {
-            text: '电池列表', // 'menu.batteryList', // 电池列表
-            link: '/track/battery',
-          },
-          {
             text: '电池地图', // 'menu.batteryList', // 电池地图
             children: [
               {
                 text: '实时位置', // 'menu.batteryList', // 实时位置
-                link: '/battery',
+                link: '/track/real/position',
               },
               {
                 text: '历史轨迹', // 'menu.batteryList', // 历史轨迹
-                link: '/battery',
+                link: '/track/real/history',
               },
             ],
           },
           {
+            text: '电池列表', // 'menu.batteryList', // 电池列表
+            link: '/track/battery',
+          },
+          {
             text: '恢复拉黑设备', // 'menu.defriend', // 恢复拉黑设备
-            link: '/battery/defriend',
+            link: '/track/battery/defriend',
           },
           {
             text: '电池调配', // 'menu.defriend', // 恢复拉黑设备
-            link: '/battery/defriend',
+            link: '/track/battery/deployment',
           },
         ],
       },
       {
         text: '运行状况', // 'menu.runStatus', // 运行状况
-        link: '/battery/run',
+        link: '/track/battery/run',
       },
       {
         text: '告警数据', // 'menu.alarm', // 告警数据
-        link: '/battery/alarm',
+        link: '/track/battery/alarm',
       },
       {
         text: '报警阈值', // 'menu.threshold', // 报警阈值
         children: [
           {
             text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
-            link: '/set/model',
+            link: '/track/set/company',
           },
           {
             text: '电池型号分类', // 'menu.sortByCompany', // 按企业全局分类
-            link: '/set/company',
+            link: '/track/set/model',
           },
         ],
       },
-      {
-        text: '地理围栏', // 'menu.threshold', // 报警阈值
-        children: [
-          {
-            text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
-            link: '/set/model',
-          },
-          {
-            text: '电池群组划分', // 'menu.sortByCompany', // 按企业全局分类
-            link: '/set/company',
-          },
-        ],
-      },
+
       {
         text: '告警通知', // 'menu.WarningNotice', // 告警通知
         children: [
           {
             text: '告警接收人', // 'menu.receiveList', // 告警接收人
-            link: '/set/receive',
+            link: '/track/set/receive',
           },
           {
             text: '已添加接收人', // 'menu.addReceive', // 已添加接收人
-            link: '/set/user',
+            link: '/track/set/user',
           },
           {
             text: '外部告警接收人', // 'menu.OuterReceive', // 外部告警接收人
-            link: '/set/outer',
+            link: '/track/set/outer',
           },
         ],
+      },
+    ],
+  },
+  {
+    text: '地理围栏', // 'menu.threshold', // 报警阈值
+    children: [
+      {
+        text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
+        link: '/track/company/fence',
+      },
+      {
+        text: '电池群组划分', // 'menu.sortByCompany', // 按企业全局分类
+        link: '/track/battery/fence',
       },
     ],
   },

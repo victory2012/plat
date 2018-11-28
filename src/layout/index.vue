@@ -7,8 +7,10 @@
         v-for="key in menus"
         @click="chooseProject(key)"
         :key="key.type">
-        <span class="icon"><i class="mainMenuIcon"
-            :class="key.icon"></i></span>
+        <span class="icon">
+          <i class="mainMenuIcon"
+            :class="key.icon"></i>
+        </span>
         <span class="text">{{key.text}}</span></li>
     </ul>
     <div class="content">

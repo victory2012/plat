@@ -23,7 +23,7 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      menusData: [],
+      menusData: {},
       defaultProps: {
         children: 'children',
         label: 'text',
@@ -32,6 +32,9 @@ export default {
   },
   computed: {
     ...mapGetters(['getInfoMenu']),
+  },
+  mounted() {
+    console.log('getInfoMenu', this.getInfoMenu);
   },
   methods: {
     handleNodeClick(data) {
