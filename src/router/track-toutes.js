@@ -117,7 +117,7 @@ const routes = [
     component: batteryBlack,
   },
   {
-    path: '/track/battery/deployment',
+    path: '/battery/deployment',
     component: trackDeployment,
   },
 ];

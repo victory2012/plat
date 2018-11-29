@@ -256,7 +256,7 @@
 /* eslint-disable */
 
 import { mapGetters, mapActions } from "vuex";
-import permissionFun from '@/permision/valated';
+import permissionFun from '@/permision/track-valated';
 import utils from "@/utils/utils";
 import t from "@/utils/translate";
 

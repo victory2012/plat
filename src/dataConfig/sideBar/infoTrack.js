@@ -1,3 +1,6 @@
+import { deepClone } from '@/utils/functions';
+import permissionFun from '@/permision/monitor-valated';
+
 const trackMenu = [
   {
     text: '概览', // 'menu.overview', // 概览
@@ -34,7 +37,7 @@ const trackMenu = [
           },
           {
             text: '电池调配', // 'menu.defriend', // 恢复拉黑设备
-            link: '/track/battery/deployment',
+            link: '/battery/deployment',
           },
         ],
       },
@@ -113,7 +116,99 @@ const trackMenu = [
   },
 ];
 
-export default {
-  title: '电池定位追踪',
-  data: trackMenu,
+const platadmin = deepClone(trackMenu); // 平台管理员
+const manufacturAdmin = deepClone(trackMenu); // 生产企业管理员\
+const manufacturUser = deepClone(trackMenu); // 生产企业用户
+const purchaseAdmin = deepClone(trackMenu); // 电池采购企业管理员
+const purchaseUser = deepClone(trackMenu); // 电池采购企业用户
+
+const title = '电池检测';
+
+const Allocation = {
+  text: '电池调配', // 'menu.Allocation', // 电池调配
+  link: '/battery/deployment',
+};
+
+/* 平台 */
+export const trackPlat = () => {
+  console.log(permissionFun());
+  platadmin[1].children.splice(4, 2);
+  return {
+    title,
+    data: platadmin,
+  };
+};
+
+/* 生产企业 */
+export const trackManufacturAdmin = () => {
+  manufacturAdmin[3].children.splice(0, 1);
+  manufacturAdmin[1].children[0].children[3] = Allocation;
+  return {
+    title,
+    data: manufacturAdmin,
+  };
+};
+
+/* 生产企业用户 */
+export const trackManufacturUser = () => {
+  console.log('montorData', manufacturUser);
+  console.log('permissionFun()', permissionFun());
+  if (!permissionFun().sameAnalysis) {
+    manufacturUser[1].children.splice(2, 1);
+  }
+  if (permissionFun().allocation) {
+    manufacturUser[1].children[0].children[3] = Allocation;
+  }
+  if (!permissionFun().alarm) {
+    manufacturUser[1].children.splice(3, 1);
+  }
+
+  if (!permissionFun().addblack) {
+    manufacturUser[1].children[0].children.splice(2, 1);
+  }
+
+  manufacturUser[1].children.splice(4, 2);
+  manufacturUser[3].children.splice(1, 1);
+  return {
+    title,
+    data: manufacturUser,
+  };
+};
+
+/* 电池采购企业管理员 */
+export const trackPurchaseAdmin = () => {
+  if (!permissionFun().sameAnalysis) {
+    purchaseAdmin[1].children.splice(2, 1);
+  }
+  if (!permissionFun().alarm) {
+    purchaseAdmin[1].children.splice(3, 1);
+  }
+  if (!permissionFun().addblack) {
+    purchaseAdmin[1].children[0].children.splice(2, 1);
+  }
+  purchaseAdmin[1].children.splice(2, 1);
+  purchaseAdmin.splice(3, 1);
+  return {
+    title,
+    data: purchaseAdmin,
+  };
+};
+
+/* 电池采购企业用户 */
+export const trackPurchaseUser = () => {
+  purchaseUser[1].children.splice(4, 2);
+  if (!permissionFun().sameAnalysis) {
+    purchaseUser[1].children.splice(2, 1);
+  }
+  if (!permissionFun().addblack) {
+    purchaseUser[1].children[0].children.splice(2, 1);
+  }
+  if (!permissionFun().alarm) {
+    purchaseUser[1].children.splice(3, 1);
+  }
+  purchaseUser.splice(3, 1);
+  return {
+    title,
+    data: purchaseUser,
+  };
 };

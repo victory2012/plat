@@ -13,10 +13,11 @@ export default {
   },
   /* 根据项目类型，返回相应的 menu数据 */
   getInfoMenu(state) {
-    if (state.projectType === 'monitor') {
-      return state.monitorMenu;
-    }
-    return state.trackMenu;
+    return state.infoMenuData;
+    // if (state.projectType === 'monitor') {
+    //   return state.monitorMenu;
+    // }
+    // return state.trackMenu;
   },
   /* 获取登录的用户信息 */
   getloginData(state) {

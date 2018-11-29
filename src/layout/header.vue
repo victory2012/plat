@@ -8,11 +8,10 @@
       <div class="projectTit">后台管理系统</div>
     </div>
     <div class="msgs">
-      <!-- trigger="click" -->
       <el-dropdown size="small"
         placement="bottom"
         class="user-name"
-        trigger="click"
+        trigger="hover"
         @command="handleCommand">
         <span class="el-dropdown-link">
           <span class="avatar">
@@ -42,9 +41,7 @@ import utils from '@/utils/utils';
 
 export default {
   data() {
-    return {
-
-    };
+    return {};
   },
   computed: {
     ...mapGetters({
@@ -80,6 +77,9 @@ export default {
 <style lang='scss' scoped>
 .iconfont {
   margin-right: 5px;
+}
+.user-name {
+  height: 35px;
 }
 .header {
   height: 50px;

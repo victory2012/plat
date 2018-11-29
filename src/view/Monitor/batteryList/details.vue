@@ -175,7 +175,7 @@
 /* eslint-disable */
 import { mapGetters } from "vuex";
 import { deepClone } from "@/utils/functions";
-import permissionFun from "@/permision/valated";
+import permissionFun from "@/permision/monitor-valated";
 import t from "@/utils/translate";
 
 export default {

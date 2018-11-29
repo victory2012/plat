@@ -8,11 +8,6 @@
       :default-expand-all='true'
       @node-click="handleNodeClick">
     </el-tree>
-    <!-- <div class="btn right">
-      <div class="product-navbar-collapse-inner">
-        <div class="product-navbar-collapse-bg"></div>
-      </div>
-    </div> -->
   </div>
 
 </template>

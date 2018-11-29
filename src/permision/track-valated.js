@@ -1,10 +1,10 @@
-import defaultPermion from './Monitor-permision';
+import trackDefaultPermion from './Track-permission';
 
+const role = JSON.parse(sessionStorage.getItem('setUserRole'));
+const sessionData = sessionStorage.getItem('loginData');
 export default function permissionFun() {
-  const sessionData = sessionStorage.getItem('loginData');
-  const userData = JSON.parse(sessionData);
-  const role = JSON.parse(JSON.parse(sessionStorage.getItem('userRoles')));
-
+  const userData = sessionData ? JSON.parse(sessionData) : '';
+  console.log('role ===>>>', role);
   const permissions = {
     type: '',
     AddBatteries: true, // 电池登记
@@ -67,7 +67,7 @@ export default function permissionFun() {
       permissions.allocation = true;
     }
     if (userData.type === 2 && userData.layerName === '采购企业') {
-      const defaultper = defaultPermion.custormAdmin();
+      const defaultper = trackDefaultPermion.custormAdmin();
       permissions.type = 'purchase';
       permissions.AddBatteries = false;
       permissions.alarmSetting = false;
@@ -85,7 +85,7 @@ export default function permissionFun() {
       permissions.addblack = defaultper.addblack;
     }
     if (userData.type === 3 && userData.layerName === '生产企业') {
-      const defaultper = defaultPermion.productPer();
+      const defaultper = trackDefaultPermion.productPer();
       permissions.type = 'manufacturUser';
       permissions.alarmSetting = false;
       permissions.notice = false;
@@ -107,7 +107,7 @@ export default function permissionFun() {
       permissions.allocation = defaultper.allocation;
     }
     if (userData.type === 3 && userData.layerName === '采购企业') {
-      const defaultper = defaultPermion.custormPer();
+      const defaultper = trackDefaultPermion.custormPer();
       permissions.type = 'purchaseUser';
       permissions.AddBatteries = false;
       permissions.alarmSetting = false;

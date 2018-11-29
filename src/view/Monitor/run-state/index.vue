@@ -49,7 +49,7 @@
 </template>
 <script>
 import utils from '@/utils/utils';
-import permissionFun from '@/permision/valated';
+import permissionFun from '@/permision/monitor-valated';
 import t from '@/utils/translate';
 
 export default {

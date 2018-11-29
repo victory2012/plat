@@ -6,6 +6,12 @@ export default {
   // 设置项目类型
   setProjectType(state, data) {
     state.projectType = data;
+    sessionStorage.setItem('projectType', data);
+  },
+  // 设置 二级菜单列表数据
+  setInfoMenuData(state, data) {
+    state.infoMenuData = data;
+    sessionStorage.setItem('menuData', JSON.stringify(data));
   },
   /* 用户登录数据 */
   setUserData(state, data) {

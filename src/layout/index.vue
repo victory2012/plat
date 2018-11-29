@@ -21,43 +21,63 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import {
+  purchaseCus, // 电池采购企业用户
+  purchaseAdmin, // 电池采购企业管理员
+  getPlat, // 平台
+  getManifactorCus, // 生产企业用户
+  getManifactor, // 生产企业
+} from '@/dataConfig/sideBar/infoMenu';
+import {
+  trackManufacturAdmin, // 生产企业
+  trackManufacturUser, // 生产企业用户
+  trackPlat, // 平台
+  trackPurchaseAdmin, // 电池采购企业管理员
+  trackPurchaseUser, // 电池采购企业用户
+} from '@/dataConfig/sideBar/infoTrack';
 import barData from '../dataConfig/sideBar/mainBar';
 import headerSec from './header';
-// import sideBar from './sideBer';
 
 export default {
   name: '',
   props: [''],
   data() {
     return {
-      menus: '',
+      menus: barData(),
     };
   },
   components: {
     headerSec,
   },
   computed: {
-    ...mapGetters(['getMenuCollapse', 'getProjectType', 'getloginData']),
+    ...mapGetters(['getProjectType', 'getloginData']),
   },
   mounted() {
-    this.menus = '';
-    this.menus = barData();
-    if (this.getloginData.type === 1) {
-      this.menus.push({
-        text: '公司列表', // 公司列表
-        type: 'company',
-        link: '/company',
-        icon: 'iconfont icon-company',
-      });
-    }
-    console.log('getloginData', this.getloginData);
+    // this.menus = barData();
   },
   methods: {
     chooseProject(key) {
       if (key.link) {
         this.$router.push(`${key.link}`);
-        sessionStorage.setItem('projectType', key.type);
         this.$store.commit('setProjectType', key.type);
+        let menuData;
+        const projectType = key.type === 'monitor';
+        if (this.getloginData.layerName === '平台') {
+          menuData = projectType ? getPlat() : trackPlat();
+        }
+        if (this.getloginData.layerName === '生产企业' && this.getloginData.type === 2) {
+          menuData = projectType ? getManifactor() : trackManufacturAdmin();
+        }
+        if (this.getloginData.layerName === '采购企业' && this.getloginData.type === 2) {
+          menuData = projectType ? purchaseAdmin() : trackPurchaseAdmin();
+        }
+        if (this.getloginData.layerName === '生产企业' && this.getloginData.type === 3) {
+          menuData = projectType ? getManifactorCus() : trackManufacturUser();
+        }
+        if (this.getloginData.layerName === '采购企业' && this.getloginData.type === 3) {
+          menuData = projectType ? purchaseCus() : trackPurchaseUser();
+        }
+        this.$store.commit('setInfoMenuData', menuData);
       }
     },
   },
@@ -105,9 +125,8 @@ export default {
     width: 160px;
     font-size: 0;
     cursor: pointer;
-    color: rgb(170, 170, 170);
+    color: #ffffff;
     &.choosed {
-      color: #ffffff;
       background-color: #00c1de;
     }
     &:hover:not(.choosed) {
