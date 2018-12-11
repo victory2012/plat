@@ -1,6 +1,5 @@
 <template>
-  <div id="app"
-    class="app">
+  <div id="app" class="app">
     <router-view />
   </div>
 </template>
@@ -12,8 +11,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import './style/common';
+@import "./style/common";
 
+.gm-style > button,
 .gmnoprint {
   display: none;
 }

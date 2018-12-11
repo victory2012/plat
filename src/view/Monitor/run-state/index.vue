@@ -2,49 +2,27 @@
   <div class="runCenter">
     <div class="title">
       <div class="titleCenter">
-        <a @click="showRealData"
-          :class="{'active': actived == 'real'}">{{$t('runState.realData')}}</a>
-        <span v-if="permision.historyData"
-          class="divider"></span>
-        <a v-if="permision.historyData"
-          @click="showHistoryData"
-          :class="{'active': actived == 'history'}">{{$t('runState.historyData')}}</a>
+        <a @click="showRealData" :class="{'active': actived == 'real'}">{{$t('runState.realData')}}</a>
+        <span v-if="permision.historyData" class="divider"></span>
+        <a v-if="permision.historyData" @click="showHistoryData" :class="{'active': actived == 'history'}">{{$t('runState.historyData')}}</a>
         <span class="divider"></span>
-        <a @click="showAlarmData"
-          :class="{'active': actived == 'alarm'}">{{$t('runState.alarmData')}}</a>
+        <a @click="showAlarmData" :class="{'active': actived == 'alarm'}">{{$t('runState.alarmData')}}</a>
       </div>
       <div class="search">
-        <el-select v-show="actived === 'real'"
-          v-model="state"
-          filterable
-          :placeholder="$t('runState.batteryCode')"
-          clearable
-          @change="changeBatteryCode">
-          <el-option v-for="item in tableData"
-            :key="item.value"
-            :label="item.value"
-            :value="item">
+        <el-select v-show="actived === 'real'" v-model="state" filterable :placeholder="$t('runState.batteryCode')" clearable @change="changeBatteryCode">
+          <el-option v-for="item in tableData" :key="item.id" :label="item.value" :value="item">
           </el-option>
         </el-select>
-        <div v-show="actived !== 'real'"
-          class="devicecode">
-          <p><img src="../../../assets/img/battery.png"
-              alt=""
-              srcset="">{{companyInfo.code}}</p>
-          <p><img src="../../../assets/img/device.png"
-              alt=""
-              srcset="">{{companyInfo.deviceCode}}</p>
+        <div v-show="actived !== 'real'" class="devicecode">
+          <p><img src="../../../assets/img/battery.png" alt="" srcset="">{{companyInfo.code}}</p>
+          <p><img src="../../../assets/img/device.png" alt="" srcset="">{{companyInfo.deviceCode}}</p>
         </div>
       </div>
     </div>
-    <div v-show="hasHostId"
-      class="tips">
+    <div v-show="hasHostId" class="tips">
       {{$t('runState.selectBattery')}}
     </div>
-    <component :is="showCompontent"
-      :hostObj="IdObj"
-      :deviceId="deviceId"
-      :propData="companyInfo"></component>
+    <component :is="showCompontent" :hostObj="IdObj" :deviceId="deviceId" :propData="companyInfo"></component>
   </div>
 </template>
 <script>

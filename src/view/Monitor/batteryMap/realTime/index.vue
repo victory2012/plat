@@ -1,29 +1,20 @@
 <template>
   <div class="positionWarp">
     <!-- <div >map</div> -->
-    <gaode-map v-if='mapType === 1'
-      class="mapWarp"></gaode-map>
-    <google-map class="mapWarp"
-      v-else></google-map>
+    <gaode-map v-if='mapType === 1' :mapData="mapData" class="mapWarp"></gaode-map>
+    <google-map class="mapWarp" :mapData="mapData" v-else></google-map>
     <div class="dataList">
       <h2>电池列表</h2>
       <ul class="list_warp">
-        <li v-for="(item, index) in pointerArr"
-          :key="item.deviceId"
-          @click="checkItem(item, index)">
+        <li v-for="(item, index) in pointerArr" :key="item.deviceId" @click="checkItem(item, index)">
           <p>{{index + 1}}、{{item.deviceId}}</p>
-          <el-badge :value="item.onLine"
-            class="badge">
-            <el-button @click.prevent.stop="HistoryTrack(item.batteryId)"
-              size="mini">{{$t('positions.track')}}</el-button>
+          <el-badge :value="item.onLine" class="badge">
+            <el-button @click.prevent.stop="HistoryTrack(item.batteryId)" size="mini">{{$t('positions.track')}}</el-button>
           </el-badge>
         </li>
       </ul>
       <div class="page">
-        <el-pagination @current-change="pageChange"
-          small
-          layout="prev, pager, next"
-          :total="total">
+        <el-pagination @current-change="pageChange" small layout="prev, pager, next" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -45,7 +36,7 @@ export default {
       pageChange: 1,
       pageNum: 1,
       total: 0,
-      mapData: {},
+      mapData: [],
       pointerArr: [{
         deviceId: '123456abc',
         onLine: '在线',
@@ -77,6 +68,27 @@ export default {
         deviceId: '123456defe',
         onLine: '离线',
       }],
+      localData: [
+        '113.864691,22.942327',
+        '120.412618,36.382612',
+        '113.370643,22.938827',
+        '113.001181,23.120518',
+        '112.985037,23.15046',
+        '121.411101,31.059407',
+        '113.336586,33.729581',
+        '104.137953,30.784276',
+        '114.141516,23.159282',
+        '120.499683,30.042305',
+        '120.487242,32.180365',
+        '108.94686,34.362975',
+        '121.299895,31.105064',
+        '112.873295,22.920901',
+        '114.164329,22.644532',
+        '113.373916,23.086728',
+        '120.282954,30.196059',
+        '113.250159,23.075847',
+        '121.145445,31.193621',
+      ],
     };
   },
   computed: {
@@ -84,8 +96,18 @@ export default {
       mapType: 'getUserMapType',
     }),
   },
-  mounted() { },
-
+  mounted() {
+    // let index = 0;
+    // setInterval(() => {
+    //   index++;
+    //   if (index > this.localData.length) {
+    //     index = 0;
+    //   }
+    //   this.mapData.pop();
+    //   this.mapData.push([this.localData[index]]);
+    //   console.log(this.mapData);
+    // }, 2500);
+  },
   methods: {
     HistoryTrack() { },
     checkItem() { },

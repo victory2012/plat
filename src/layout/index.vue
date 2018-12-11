@@ -2,14 +2,9 @@
   <div class="document">
     <header-sec></header-sec>
     <ul class="mainMun">
-      <li class="item"
-        :class="getProjectType === key.type ? 'choosed' : ''"
-        v-for="key in menus"
-        @click="chooseProject(key)"
-        :key="key.type">
+      <li class="item" :class="getProjectType === key.type ? 'choosed' : ''" v-for="key in menus" @click="chooseProject(key)" :key="key.type">
         <span class="icon">
-          <i class="mainMenuIcon"
-            :class="key.icon"></i>
+          <i class="mainMenuIcon" :class="key.icon"></i>
         </span>
         <span class="text">{{key.text}}</span></li>
     </ul>

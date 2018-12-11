@@ -1,6 +1,5 @@
 <template>
-  <div id="positions"
-    class="positioned"></div>
+  <div id="positions" class="positioned"></div>
 </template>
 
 <script>
@@ -10,12 +9,22 @@ import google from 'google';
 let map;
 let ponterIndex;
 export default {
+  props: ['mapData'],
   data () {
     return {
-
+      markers: []
     };
   },
-
+  watch: {
+    mapData: {
+      handler: function (val) {
+        this.GoogleMapInit({
+          andbcc: val[0]
+        });
+      },
+      deep: true
+    }
+  },
   mounted () { this.init() },
 
   methods: {
@@ -27,6 +36,9 @@ export default {
             lng: 0,
           },
           zoom: 15,
+        });
+        this.GoogleMapInit({
+          andbcc: this.mapData[0]
         });
       } catch (err) {
         this.$message.error(this.$t('mapError'));
@@ -44,10 +56,11 @@ export default {
       this.markerTime = [];
       for (let i = 0; i < allmarkerArr.length; i++) {
         const lngs = allmarkerArr[i].toString().split(',');
-        if (lngs[0].length > 6 && lngs[1].length > 6 && lngs[4] === '1') {
+        // if (lngs[0].length > 6 && lngs[1].length > 6 && lngs[4] === '1') {
+        if (lngs[0]) {
           const obj = {};
           let content;
-          const latLng = new google.maps.LatLng(lngs[0], lngs[1]);
+          const latLng = new google.maps.LatLng(lngs[1], lngs[0]);
 
           obj.voltage = lngs[7] || 0;
           if (obj.voltage) {
@@ -94,14 +107,14 @@ export default {
         });
       });
       // 只有从概览中获取marker点的时候 才需要自适应显示；
-      if (!fromWs) {
-        // 地图自适应显示所有点
-        const bounds = new google.maps.LatLngBounds();
-        for (let i = 0; i < this.markers.length; i++) {
-          bounds.extend(this.markers[i].getPosition());
-        }
-        map.fitBounds(bounds);
-      }
+      // if (!fromWs) {
+      //   // 地图自适应显示所有点
+      //   const bounds = new google.maps.LatLngBounds();
+      //   for (let i = 0; i < this.markers.length; i++) {
+      //     bounds.extend(this.markers[i].getPosition());
+      //   }
+      //   map.fitBounds(bounds);
+      // }
     },
   },
 

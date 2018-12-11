@@ -122,7 +122,7 @@ const manufacturUser = deepClone(trackMenu); // 生产企业用户
 const purchaseAdmin = deepClone(trackMenu); // 电池采购企业管理员
 const purchaseUser = deepClone(trackMenu); // 电池采购企业用户
 
-const title = '电池检测';
+const title = '电池定位追踪';
 
 const Allocation = {
   text: '电池调配', // 'menu.Allocation', // 电池调配
@@ -141,7 +141,8 @@ export const trackPlat = () => {
 
 /* 生产企业 */
 export const trackManufacturAdmin = () => {
-  manufacturAdmin[3].children.splice(0, 1);
+  console.log('manufacturAdmin', manufacturAdmin);
+  manufacturAdmin[4].children.splice(1, 1);
   manufacturAdmin[1].children[0].children[3] = Allocation;
   return {
     title,

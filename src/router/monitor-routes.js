@@ -31,9 +31,9 @@ const DeviceReal = () =>
 const DeviceBlack = () =>
   import(/* webpackChunkName: "DeviceBlack" */ '../view/Monitor/deviceBlack/back-list.vue');
 const RealPosition = () =>
-  import(/* webpackChunkName: "RealPosition" */ '../view/Monitor/realPosition/index.vue');
+  import(/* webpackChunkName: "RealPosition" */ '../view/Monitor/batteryMap/realTime/index.vue');
 const HistoryTrak = () =>
-  import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/history-track/index.vue');
+  import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/batteryMap/history/history.vue');
 const MonitorUser = () =>
   import(/* webpackChunkName: "MonitorUser" */ '../view/Monitor/user/user.vue');
 // const userInfo = () =>
@@ -63,12 +63,12 @@ const route = [
   },
   {
     path: '/monitor/battery/fence',
-    name: 'monitorBatteryHis',
+    name: 'BatteryFence',
     component: monitorBatteryFence,
   },
   {
     path: '/monitor/company/fence',
-    name: 'monitorBatteryReal',
+    name: 'CompanyFence',
     component: monitorCompanyFence,
   },
   {

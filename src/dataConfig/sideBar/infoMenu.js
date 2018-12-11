@@ -130,11 +130,11 @@ const montorData = [
   },
 ];
 
-const listData1 = deepClone(montorData); // 生产企业管理员\
-const listData2 = deepClone(montorData); // 平台管理员
-const listData3 = deepClone(montorData); // 电池采购企业管理员
-const listData4 = deepClone(montorData); // 电池采购企业用户
-const listData5 = deepClone(montorData); // 生产企业用户
+// const listData1 = deepClone(montorData); // 生产企业管理员\
+// const listData2 = deepClone(montorData); // 平台管理员
+// const listData3 = deepClone(montorData); // 电池采购企业管理员
+// const listData4 = deepClone(montorData); // 电池采购企业用户
+// const listData5 = deepClone(montorData); // 生产企业用户
 
 const Allocation = {
   text: '电池调配', // 'menu.Allocation', // 电池调配
@@ -158,85 +158,87 @@ const title = '电池检测';
 
 /* 生产企业 */
 export const getManifactor = () => {
-  listData1[3].children.splice(0, 1);
-  listData1[1].children[0].children[3] = Allocation;
+  const listData = deepClone(montorData);
+  listData[3].children.splice(0, 1);
+  listData[1].children[0].children[3] = Allocation;
+  console.log({ title, data: listData });
   return {
     title,
-    data: listData1,
+    data: listData,
   };
 };
 
 /* 生产企业用户 */
 export const getManifactorCus = () => {
-  console.log('montorData', montorData);
-  console.log('permissionFun()', permissionFun());
+  const listData = deepClone(montorData);
   if (!permissionFun().sameAnalysis) {
-    listData5[1].children.splice(2, 1);
+    listData[1].children.splice(2, 1);
   }
   if (permissionFun().allocation) {
-    listData5[1].children[0].children[3] = Allocation;
+    listData[1].children[0].children[3] = Allocation;
   }
   if (!permissionFun().alarm) {
-    listData5[1].children.splice(3, 1);
+    listData[1].children.splice(3, 1);
   }
 
   if (!permissionFun().addblack) {
-    listData5[1].children[0].children.splice(2, 1);
+    listData[1].children[0].children.splice(2, 1);
   }
 
-  listData5[1].children.splice(4, 2);
-  listData5[3].children.splice(1, 1);
+  listData[1].children.splice(4, 2);
+  listData[3].children.splice(1, 1);
   return {
     title,
-    data: listData5,
+    data: listData,
   };
 };
 
 /* 平台 */
 export const getPlat = () => {
-  listData2[1].children.splice(4, 2);
+  const listData = deepClone(montorData);
+  listData[1].children.splice(4, 2);
   return {
     title,
-    data: listData2,
+    data: listData,
   };
 };
 
 /* 电池采购企业管理员 */
 export const purchaseAdmin = () => {
-  // const personRole = {};
+  const listData = deepClone(montorData);
   if (!permissionFun().sameAnalysis) {
-    listData3[1].children.splice(2, 1);
+    listData[1].children.splice(2, 1);
   }
   if (!permissionFun().alarm) {
-    listData3[1].children.splice(3, 1);
+    listData[1].children.splice(3, 1);
   }
   if (!permissionFun().addblack) {
-    listData3[1].children[0].children.splice(2, 1);
+    listData[1].children[0].children.splice(2, 1);
   }
-  listData3[1].children.splice(2, 1);
-  listData3.splice(3, 1);
-  console.log('listData3', listData3);
+  listData[1].children.splice(2, 1);
+  listData.splice(3, 1);
   return {
     title,
-    data: listData3,
+    data: listData,
   };
 };
 
 /* 电池采购企业用户 */
 export const purchaseCus = () => {
-  listData4[1].children.splice(4, 2);
+  const listData = deepClone(montorData);
+  listData[1].children.splice(4, 2);
   if (!permissionFun().sameAnalysis) {
-    listData4[1].children.splice(2, 1);
+    listData[1].children.splice(2, 1);
   }
   if (!permissionFun().addblack) {
-    listData4[1].children[0].children.splice(2, 1);
+    listData[1].children[0].children.splice(2, 1);
   }
   if (!permissionFun().alarm) {
-    listData4[1].children.splice(3, 1);
+    listData[1].children.splice(3, 1);
   }
-  listData4.splice(3, 1);
+  listData.splice(3, 1);
   return {
     title,
-    data: listData4,
+    data: listData,
   };
 };

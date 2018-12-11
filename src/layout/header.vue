@@ -1,19 +1,14 @@
 <template>
   <div class="header">
     <div class="slogen">
-      <div class="collapse-btn"
-        @click="collapseChage">
+      <div class="collapse-btn" @click="collapseChage">
         <i class="el-icon-menu"></i>
       </div>
       <div class="projectTit">后台管理系统</div>
     </div>
     <div class="msgs">
       <i class="iconfont icon-user"></i>
-      <el-dropdown size="small"
-        placement="bottom"
-        class="user-name"
-        trigger="hover"
-        @command="handleCommand">
+      <el-dropdown size="small" placement="bottom" class="user-name" trigger="hover" @command="handleCommand">
         <span class="el-dropdown-link">
           <span class="avatar">
             <!-- <i class="iconfont icon-user"></i> -->
@@ -25,11 +20,9 @@
           <el-dropdown-item command="userMsg">
             <i class="iconfont icon-set"></i>{{$t('userInfo.userMsg')}}
           </el-dropdown-item>
-          <el-dropdown-item divided
-            command="userPwd">
+          <el-dropdown-item divided command="userPwd">
             <i class="iconfont icon-seting"></i>{{$t('userInfo.pasword')}}</el-dropdown-item>
-          <el-dropdown-item divided
-            command="loginout">
+          <el-dropdown-item divided command="loginout">
             <i class="iconfont icon-SignOut"></i>{{$t('userInfo.logOut')}}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>

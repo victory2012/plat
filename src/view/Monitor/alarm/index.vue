@@ -1,155 +1,86 @@
 <template>
   <div class="alarmTable">
     <div class="select">
-      <div class="item">
-        <el-button size="small"
-          @click="search"
-          type="primary">{{$t('timeBtn.sure')}}</el-button>
-        <el-button size="small"
-          @click="clearAll"
-          plain>{{$t('timeBtn.clear')}}</el-button>
+      <div class="item btns">
+        <el-button size="small" @click="search" type="primary">{{$t('timeBtn.sure')}}</el-button>
+        <el-button size="small" @click="clearAll" plain>{{$t('timeBtn.clear')}}</el-button>
       </div>
       <div class="item">
         <!-- 告警级别 -->
-        <el-select size="small"
-          style="width:100%"
-          v-model="alarm.level"
-          :placeholder="$t('alarmList.alarmLevel')">
-          <el-option v-for="item in levelArr"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"></el-option>
+        <el-select size="small" style="width:100%" v-model="alarm.level" :placeholder="$t('alarmList.alarmLevel')">
+          <el-option v-for="item in levelArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </div>
       <div class="item">
         <!-- 告警层级 -->
-        <el-select size="small"
-          style="width:100%"
-          v-model="alarm.hierarchy"
-          :placeholder="$t('alarmList.alarmHierarchy')">
-          <el-option v-for="item in hierarchyArr"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"></el-option>
+        <el-select size="small" style="width:100%" v-model="alarm.hierarchy" :placeholder="$t('alarmList.alarmHierarchy')">
+          <el-option v-for="item in hierarchyArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </div>
       <div class="item">
         <!-- 告警项目 -->
-        <el-select size="small"
-          style="width:100%"
-          v-model="alarm.item"
-          :placeholder="$t('alarmList.alarmItem')">
-          <el-option v-for="item in alarmArr"
-            :key="item.id"
-            :label="item.name"
-            :value="item.id"></el-option>
+        <el-select size="small" style="width:100%" v-model="alarm.item" :placeholder="$t('alarmList.alarmItem')">
+          <el-option v-for="item in alarmArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
       </div>
       <div class="item">
         <!-- 电池组编号 -->
-        <el-input size="small"
-          style="width:100%"
-          v-model="alarm.code"
-          :placeholder="$t('alarmList.batteryCode')"></el-input>
+        <el-input size="small" style="width:100%" v-model="alarm.code" :placeholder="$t('alarmList.batteryCode')"></el-input>
       </div>
       <div class="item">
         <!-- 结束时间 -->
-        <el-date-picker size="small"
-          style="width: 100%"
-          v-model="alarm.endTime"
-          type="date"
-          :placeholder="$t('alarmList.endTime')">
+        <el-date-picker size="small" style="width: 100%" v-model="alarm.endTime" type="date" :placeholder="$t('alarmList.endTime')">
         </el-date-picker>
       </div>
       <div class="item">
         <!-- 开始时间 -->
-        <el-date-picker size="small"
-          value-format="yyyy-MM-dd HH:mm:ss"
-          style="width: 100%"
-          v-model="alarm.startTime"
-          type="date"
-          :placeholder="$t('alarmList.startTime')">
+        <el-date-picker size="small" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%" v-model="alarm.startTime" type="date" :placeholder="$t('alarmList.startTime')">
         </el-date-picker>
       </div>
 
     </div>
-    <el-table v-loading="loading"
-      :data="tableData"
-      style="width: 100%">
+    <el-table v-loading="loading" :data="tableData" style="width: 100%">
       <!-- 序号 -->
-      <el-table-column type="index"
-        align="center"
-        :label="$t('alarmList.serial')"
-        width="50">
+      <el-table-column type="index" align="center" :label="$t('alarmList.serial')" width="50">
       </el-table-column>
       <!-- 告警发生时间 -->
-      <el-table-column prop="createTime"
-        align="center"
-        :label="$t('alarmList.time')"
-        width="180">
+      <el-table-column prop="createTime" align="center" :label="$t('alarmList.time')" width="180">
       </el-table-column>
       <!-- 告警项目 -->
-      <el-table-column prop="items"
-        align="center"
-        :label="$t('alarmList.alarmItem')">
+      <el-table-column prop="items" align="center" :label="$t('alarmList.alarmItem')">
       </el-table-column>
       <!-- 告警阈值 -->
-      <el-table-column prop="thresholdValue"
-        align="center"
-        :label="$t('alarmList.thride')">
+      <el-table-column prop="thresholdValue" align="center" :label="$t('alarmList.thride')">
       </el-table-column>
       <!-- 实际值 -->
-      <el-table-column prop="actualValue"
-        align="center"
-        :label="$t('alarmList.realDate')">
+      <el-table-column prop="actualValue" align="center" :label="$t('alarmList.realDate')">
       </el-table-column>
       <!-- 电池组编号 -->
-      <el-table-column prop="hostCode"
-        align="center"
-        :label="$t('alarmList.batteryCode')">
+      <el-table-column prop="hostCode" align="center" :label="$t('alarmList.batteryCode')">
       </el-table-column>
       <!-- 告警内容 -->
-      <el-table-column prop="content"
-        align="center"
-        :label="$t('alarmList.content')"
-        width="240">
+      <el-table-column prop="content" align="center" :label="$t('alarmList.content')" width="240">
       </el-table-column>
       <!-- 告警层级 -->
-      <el-table-column prop="hierarchy"
-        align="center"
-        :label="$t('alarmList.alarmHierarchy')">
+      <el-table-column prop="hierarchy" align="center" :label="$t('alarmList.alarmHierarchy')">
       </el-table-column>
       <!-- 告警级别 -->
-      <el-table-column prop="levels"
-        align="center"
-        :label="$t('alarmList.alarmLevel')">
+      <el-table-column prop="levels" align="center" :label="$t('alarmList.alarmLevel')">
       </el-table-column>
       <!-- 详情 -->
-      <el-table-column prop="address"
-        align="center"
-        :label="$t('alarmList.detail')"
-        width="120">
+      <el-table-column prop="address" align="center" :label="$t('alarmList.detail')" width="120">
         <template slot-scope="scope">
-          <el-button @click.native.prevent="handleClick(scope.row)"
-            type="text">
+          <el-button @click.native.prevent="handleClick(scope.row)" type="text">
             {{$t('alarmList.view')}}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="page">
-      <el-pagination @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-sizes="[10, 20, 30, 50]"
-        :page-size="pageSize"
-        layout="sizes, prev, pager, next"
-        :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize" layout="sizes, prev, pager, next" :total="total">
       </el-pagination>
     </div>
-    <el-dialog :title="$t('alarmList.detail')"
-      :visible.sync="details"
-      width="770px">
+    <el-dialog :title="$t('alarmList.detail')" :visible.sync="details" width="770px">
       <div class="detailCenter">
         <table>
           <tr>
@@ -233,10 +164,8 @@
           </tr>
         </table>
       </div>
-      <div slot="footer"
-        class="dialog-footer">
-        <el-button size="small"
-          @click="details = false">{{$t('timeBtn.confirm')}}</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="details = false">{{$t('timeBtn.confirm')}}</el-button>
         <!-- <el-button size="small" type="primary" @click="details = false">确 定</el-button> -->
       </div>
     </el-dialog>
@@ -423,6 +352,9 @@ export default {
   .item {
     flex: 1;
     padding: 10px 5px;
+    &.btns {
+      flex: 0 0 140px;
+    }
   }
 }
 .detailCenter {

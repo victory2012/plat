@@ -1,12 +1,7 @@
 <template>
   <div class="infoMenuWarp">
     <h1 class="projectTit">{{getInfoMenu.title}}</h1>
-    <el-tree class="warp"
-      :data="getInfoMenu.data"
-      :props="defaultProps"
-      :highlight-current='true'
-      :default-expand-all='true'
-      @node-click="handleNodeClick">
+    <el-tree class="warp" :data="getInfoMenu.data" :props="defaultProps" :highlight-current='true' :default-expand-all='true' @node-click="handleNodeClick">
     </el-tree>
   </div>
 
@@ -28,9 +23,9 @@ export default {
   computed: {
     ...mapGetters(['getInfoMenu']),
   },
-  mounted() {
-    console.log('getInfoMenu', this.getInfoMenu);
-  },
+  // mounted() {
+  //   console.log('getInfoMenu', this.getInfoMenu);
+  // },
   methods: {
     handleNodeClick(data) {
       if (data.link) {

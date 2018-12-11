@@ -4,7 +4,7 @@ import trackRoutes from './track-toutes';
 const Login = () =>
   import(/* webpackChunkName: "login" */ '../login/login.vue');
 const Home = () => import(/* webpackChunkName: "Home" */ '../layout/index.vue');
-const monitorComponent = () =>
+const SubComponent = () =>
   import(/* webpackChunkName: "monitor" */ '../view/index.vue');
 
 const userInfo = () =>
@@ -28,12 +28,12 @@ const routes = [
     children: [
       {
         path: '/monitor',
-        component: monitorComponent,
+        component: SubComponent,
         children: [...monitorRoutes],
       },
       {
         path: '/track',
-        component: monitorComponent,
+        component: SubComponent,
         children: [...trackRoutes],
       },
       {

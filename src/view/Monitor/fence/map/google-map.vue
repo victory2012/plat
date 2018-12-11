@@ -1,30 +1,13 @@
 <template>
   <div class="gaoDeMap">
-    <div id="AddContainer"
-      class="fenceContainer"></div>
+    <div id="AddContainer" class="fenceContainer"></div>
     <div class="toolWarp">
-      <span v-show="addFence"
-        class="Tiptext">Tips：{{$t('fence.tipMsg.morePointer')}}</span>
-      <el-button v-show="addFence"
-        @click="cancelSetings"
-        size="small "
-        type="info">{{$t('fence.cancelSeting')}}</el-button>
-      <el-button v-show="addFence"
-        @click="doAddFence"
-        size="small "
-        type="primary">{{$t('fence.sureSeting')}}</el-button>
-      <el-button v-show="addFence"
-        @click="goBack"
-        size="small "
-        type="warning">{{$t('fence.back')}}</el-button>
-      <el-button v-show="!addFence"
-        @click="ToAddFence"
-        size="small "
-        type="primary">{{$t('fence.addBtn')}}</el-button>
-      <el-button v-show="!addFence"
-        @click="ToDeleteFence"
-        size="small "
-        type="danger">{{$t('fence.delBtn')}}</el-button>
+      <span v-show="addFence" class="Tiptext">Tips：{{$t('fence.tipMsg.morePointer')}}</span>
+      <el-button v-show="addFence" @click="cancelSetings" size="small " type="info">{{$t('fence.cancelSeting')}}</el-button>
+      <el-button v-show="addFence" @click="doAddFence" size="small " type="primary">{{$t('fence.sureSeting')}}</el-button>
+      <el-button v-show="addFence" @click="goBack" size="small " type="warning">{{$t('fence.back')}}</el-button>
+      <el-button v-show="!addFence" @click="ToAddFence" size="small " type="primary">{{$t('fence.addBtn')}}</el-button>
+      <el-button v-show="!addFence" @click="ToDeleteFence" size="small " type="danger">{{$t('fence.delBtn')}}</el-button>
     </div>
   </div>
 </template>
@@ -52,6 +35,7 @@ export default {
     };
   },
   mounted () {
+    console.log(this.$route)
     this.init();
   },
   methods: {
