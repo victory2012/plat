@@ -36,10 +36,10 @@ const HistoryTrak = () =>
   import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/history-track/index.vue');
 const MonitorUser = () =>
   import(/* webpackChunkName: "MonitorUser" */ '../view/Monitor/user/user.vue');
-const userInfo = () =>
-  import(/* webpackChunkName: "userInfo" */ '../view/User/user.vue');
-const Password = () =>
-  import(/* webpackChunkName: "Password" */ '../view/User/password.vue');
+// const userInfo = () =>
+//   import(/* webpackChunkName: "userInfo" */ '../view/User/user.vue');
+// const Password = () =>
+//   import(/* webpackChunkName: "Password" */ '../view/User/password.vue');
 
 const route = [
   {
@@ -135,14 +135,6 @@ const route = [
     path: '/monitor/user',
     name: 'monitorUser',
     component: MonitorUser,
-  },
-  {
-    path: '/user/info',
-    component: userInfo,
-  },
-  {
-    path: '/user/password',
-    component: Password,
   },
 ];
 

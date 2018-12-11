@@ -318,25 +318,24 @@ export default {
 
 .login {
   height: 100%;
-  padding: 120px;
-  min-width: 1314px;
-  min-height: 586px;
+  padding: 10%;
   display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   overflow-x: auto;
   box-sizing: border-box;
   .img {
-    display: block;
+    // float: left;
     flex: 0 0 65%;
+    width: 65%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
-    min-height: 586px;
     img {
-      width: 70%;
-      min-width: 600px;
+      width: 80%;
+      // min-width: 600px;
     }
   }
   .item {
@@ -346,7 +345,7 @@ export default {
     // width: 35%;
     min-width: 375px;
     height: 100%;
-    min-height: 586px;
+    // min-height: 586px;
     background: rgba(113, 191, 219, 0.2);
     border-radius: 10px;
     .form {
@@ -385,6 +384,26 @@ export default {
     border: 1px solid transparent;
     white-space: nowrap;
     background: #71bfdb;
+  }
+}
+@media screen and (min-width: 1420px) {
+  .login {
+    padding: 120px;
+    .img {
+      img {
+        width: 70%;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1420px) {
+  .login {
+    padding: 120px;
+    .img {
+      img {
+        width: 580px;
+      }
+    }
   }
 }
 </style>

@@ -60,6 +60,7 @@ export default {
       if (key.link) {
         this.$router.push(`${key.link}`);
         this.$store.commit('setProjectType', key.type);
+        sessionStorage.setItem('projectType', key.type);
         let menuData;
         const projectType = key.type === 'monitor';
         if (this.getloginData.layerName === '平台') {
@@ -118,6 +119,7 @@ export default {
   background-color: #252a2f;
   overflow: hidden;
   z-index: 50;
+  border-top: 1px solid rgb(65, 65, 65);
   &:hover {
     width: 160px;
   }

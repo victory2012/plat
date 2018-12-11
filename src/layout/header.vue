@@ -8,6 +8,7 @@
       <div class="projectTit">后台管理系统</div>
     </div>
     <div class="msgs">
+      <i class="iconfont icon-user"></i>
       <el-dropdown size="small"
         placement="bottom"
         class="user-name"
@@ -15,8 +16,9 @@
         @command="handleCommand">
         <span class="el-dropdown-link">
           <span class="avatar">
-            <i class="iconfont icon-user"></i>
+            <!-- <i class="iconfont icon-user"></i> -->
             {{loginData.companyName}} - {{loginData.nickName}}
+            <i class="el-icon-caret-bottom"></i>
           </span>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -65,6 +67,7 @@ export default {
       if (command === 'userPwd') {
         this.$router.push('/user/password');
       }
+      this.$store.commit('setProjectType', '');
     },
     collapseChage() {
       this.$store.commit('toggleSideBar');
