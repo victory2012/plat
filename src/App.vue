@@ -12,7 +12,9 @@ export default {
 
 <style lang="scss">
 @import "./style/common";
-
+.app {
+  height: 100%;
+}
 .gm-style > button,
 .gmnoprint {
   display: none;

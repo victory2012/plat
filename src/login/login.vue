@@ -1,87 +1,48 @@
 <template>
   <div class="login">
     <div class="img">
-      <img src="../assets/img/login-bg.svg"
-        alt="">
+      <img src="../assets/img/login-bg.svg" alt="">
     </div>
     <div class="item">
       <div class="form">
-        <el-tabs v-model="activeName"
-          :stretch="true">
-          <el-tab-pane :label="$t('loginMsg.labelAccPass')"
-            name="accPwd">
-            <el-form label-position="top"
-              :rules="LoginRules"
-              ref="LoginForm"
-              label-width="80px"
-              :model="LoginForm">
-              <el-form-item :label="$t('loginMsg.accountPlace')"
-                prop="account">
+        <el-tabs v-model="activeName" :stretch="true">
+          <el-tab-pane :label="$t('loginMsg.labelAccPass')" name="accPwd">
+            <el-form label-position="top" :rules="LoginRules" ref="LoginForm" label-width="80px" :model="LoginForm">
+              <el-form-item :label="$t('loginMsg.accountPlace')" prop="account">
                 <el-input v-model="LoginForm.account"></el-input>
               </el-form-item>
-              <el-form-item :label="$t('loginMsg.passwordPlace')"
-                prop="password">
-                <!-- @keyup.enter.native="accountLogin('LoginForm')" -->
-                <el-input type="password"
-                  v-model="LoginForm.password"
-                  @keyup.enter.native="accountLogin('LoginForm')"></el-input>
+              <el-form-item :label="$t('loginMsg.passwordPlace')" prop="password">
+                <el-input type="password" v-model="LoginForm.password" @keyup.enter.native="accountLogin('LoginForm')"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button :loading="getloginLoading"
-                  type="primary"
-                  class="accpwsBtn"
-                  @click="accountLogin('LoginForm')"
-                  round>{{$t('loginMsg.loginBtn')}}</el-button>
+                <el-button :loading="getloginLoading" type="primary" class="accpwsBtn" @click="accountLogin('LoginForm')" round>{{$t('loginMsg.loginBtn')}}</el-button>
               </el-form-item>
             </el-form>
           </el-tab-pane>
-          <el-tab-pane :label="$t('loginMsg.labelSmsCode')"
-            name="SMScode">
-            <el-form label-position="top"
-              :rules="phoneRules"
-              ref="smsPhone"
-              label-width="80px"
-              :model="smsForm">
-              <el-form-item :label="$t('loginMsg.phone')"
-                prop="phone">
+          <el-tab-pane :label="$t('loginMsg.labelSmsCode')" name="SMScode">
+            <el-form label-position="top" :rules="phoneRules" ref="smsPhone" label-width="80px" :model="smsForm">
+              <el-form-item :label="$t('loginMsg.phone')" prop="phone">
                 <el-input v-model="smsForm.phone"></el-input>
               </el-form-item>
-              <el-form-item :label="$t('loginMsg.smsCode')"
-                class="smsCode"
-                prop="smsCode">
-                <el-input v-model="smsForm.smsCode"
-                  @keyup.enter.native="getSmsCode"></el-input>
-                <el-button class="getSms"
-                  @click="getSmsCode"
-                  :disabled="hasGetSms"
-                  type="primary"
-                  plain>{{smsMsg}}</el-button>
+              <el-form-item :label="$t('loginMsg.smsCode')" class="smsCode" prop="smsCode">
+                <el-input v-model="smsForm.smsCode" @keyup.enter.native="getSmsCode"></el-input>
+                <el-button class="getSms" @click="getSmsCode" :disabled="hasGetSms" type="primary" plain>{{smsMsg}}</el-button>
               </el-form-item>
               <el-form-item>
-                <el-button :loading="getloginLoading"
-                  type="primary"
-                  class="accpwsBtn"
-                  @click="checkSmsCode"
-                  round>{{$t('loginMsg.loginBtn')}}</el-button>
+                <el-button :loading="getloginLoading" type="primary" class="accpwsBtn" @click="checkSmsCode" round>{{$t('loginMsg.loginBtn')}}</el-button>
               </el-form-item>
             </el-form>
           </el-tab-pane>
         </el-tabs>
-
       </div>
       <div class="changeLangue">
-        <el-dropdown trigger="click"
-          placement="bottom"
-          @command="handleCommand">
+        <el-dropdown trigger="click" placement="bottom" @command="handleCommand">
           <span class="el-dropdown-link cursor">
             {{localLanguge}}<i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item :disabled="$i18n.locale === 'zh'"
-              command="zh">中文</el-dropdown-item>
-            <el-dropdown-item divided
-              command="en"
-              :disabled="$i18n.locale === 'en'">English</el-dropdown-item>
+            <el-dropdown-item :disabled="$i18n.locale === 'zh'" command="zh">中文</el-dropdown-item>
+            <el-dropdown-item divided command="en" :disabled="$i18n.locale === 'en'">English</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -315,15 +276,14 @@ export default {
 .cursor {
   cursor: pointer;
 }
-
 .login {
   height: 100%;
   padding: 10%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  overflow-x: auto;
+  // min-width: 1314px;
+  // min-height: 586px;
+  // overflow: hidden;
+  // overflow-x: auto;
   box-sizing: border-box;
   .img {
     // float: left;
@@ -345,7 +305,7 @@ export default {
     // width: 35%;
     min-width: 375px;
     height: 100%;
-    // min-height: 586px;
+    min-height: 540px;
     background: rgba(113, 191, 219, 0.2);
     border-radius: 10px;
     .form {
@@ -397,13 +357,16 @@ export default {
   }
 }
 @media screen and (max-width: 1420px) {
-  .login {
-    padding: 120px;
-    .img {
-      img {
-        width: 580px;
-      }
+  .img {
+    img {
+      width: 580px;
     }
+  }
+  .login .el-tab-pane {
+    padding-top: 30px;
+  }
+  .login .item .form {
+    margin: 100px auto;
   }
 }
 </style>

@@ -4,7 +4,6 @@
     <el-tree class="warp" :data="getInfoMenu.data" :props="defaultProps" :highlight-current='true' :default-expand-all='true' @node-click="handleNodeClick">
     </el-tree>
   </div>
-
 </template>
 
 <script>

@@ -4,41 +4,30 @@
       <!-- <el-button @click="exportExcel" type="primary">导出Excel</el-button> -->
     </div>
     <div class="chartWarrp">
-      <div class="chartInfo"
-        id="echart1"></div>
-      <div class="chartInfo"
-        id="echart2"></div>
+      <div class="chartInfo" id="echart1"></div>
+      <div class="chartInfo" id="echart2"></div>
     </div>
     <div class="chartWarrp">
-      <div class="chartInfo"
-        id="echart3"></div>
-      <div class="chartInfo"
-        id="echart5"></div>
+      <div class="chartInfo" id="echart3"></div>
+      <div class="chartInfo" id="echart5"></div>
     </div>
     <div class="chartWarrp">
-      <div class="chartInfo"
-        id="echart4"></div>
+      <div class="chartInfo" id="echart4"></div>
       <div class="chartInfo"></div>
     </div>
     <div class="chartWarrp">
       <div class="chartInfo">
-        <div class="echartBarTimes1"
-          id="echartBarTimes1"></div>
-        <div class="echartBar1"
-          id="echartBar1"></div>
+        <div class="echartBarTimes1" id="echartBarTimes1"></div>
+        <div class="echartBar1" id="echartBar1"></div>
       </div>
       <div class="chartInfo">
-        <div class="echartBarTimes1"
-          id="echartBarTimes2"></div>
-        <div class="echartBar1"
-          id="echartBar2"></div>
+        <div class="echartBarTimes1" id="echartBarTimes2"></div>
+        <div class="echartBar1" id="echartBar2"></div>
       </div>
     </div>
     <div class="chartWarrp">
-      <div class="chartInfo"
-        id="echartBar3"></div>
-      <div class="chartInfo"
-        id="echartBar4"></div>
+      <div class="chartInfo" id="echartBar3"></div>
+      <div class="chartInfo" id="echartBar4"></div>
     </div>
   </div>
 </template>
@@ -215,13 +204,34 @@ export default {
       }
     },
     dataChange (datas) {
-      // console.log(datas);
-      this.exportData = datas;
+      console.log(datas);
+      let lineChartData;
+      if (!datas.dataObjFirst) {
+        lineChartData = {
+          dataObjFirst: {
+            singleVoltage: [],
+            temperature: [],
+            voltage: [],
+            current: [],
+            capacity: [],
+          },
+          dataObjSecond: {
+            singleVoltage: [],
+            temperature: [],
+            voltage: [],
+            current: [],
+            capacity: [],
+          },
+        }
+      } else {
+        lineChartData = datas
+      }
+      this.exportData = lineChartData;
       let name1;
       let name2;
-      if (datas.battertCode) {
-        name1 = datas.battertCode[0].code;
-        name2 = datas.battertCode[1].code;
+      if (lineChartData.battertCode) {
+        name1 = lineChartData.battertCode[0].code;
+        name2 = lineChartData.battertCode[1].code;
       } else {
         name1 = t('comparison.thisPeriod');
         name2 = t('comparison.lastPeriod');
@@ -234,14 +244,14 @@ export default {
       let voltageOptions = deepClone(options);
       voltageOptions.title.text = t('realTime.voltage'); // 电压
       voltageOptions.yAxis.axisLabel.formatter = "{value} v";
-      voltageOptions.series[0].data = datas.dataObjFirst.voltage;
-      voltageOptions.series[1].data = datas.dataObjSecond.voltage;
-      if (!datas.battertCode) {
+      voltageOptions.series[0].data = lineChartData.dataObjFirst.voltage || '';
+      voltageOptions.series[1].data = lineChartData.dataObjSecond.voltage || '';
+      if (!lineChartData.battertCode) {
         voltageOptions.tooltip.formatter = p => {
           let item;
           let v = p[0];
           if (p[0].seriesName === t('comparison.lastPeriod')) {
-            item = `${utils.dateFomat(p[0].value[0] - datas.different)}<br/>${
+            item = `${utils.dateFomat(p[0].value[0] - lineChartData.different)}<br/>${
               v.seriesName
               }:${v.value[1]}<br/>`;
           } else {
@@ -267,14 +277,14 @@ export default {
       let singleVoltageOptions = deepClone(options);
       singleVoltageOptions.title.text = t('realTime.singleVoltage'); // 单体电压
       singleVoltageOptions.yAxis.axisLabel.formatter = "{value} v";
-      singleVoltageOptions.series[0].data = datas.dataObjFirst.singleVoltage;
-      singleVoltageOptions.series[1].data = datas.dataObjSecond.singleVoltage;
-      if (!datas.battertCode) {
+      singleVoltageOptions.series[0].data = lineChartData.dataObjFirst.singleVoltage;
+      singleVoltageOptions.series[1].data = lineChartData.dataObjSecond.singleVoltage;
+      if (!lineChartData.battertCode) {
         singleVoltageOptions.tooltip.formatter = p => {
           let item;
           let v = p[0];
           if (p[0].seriesName === t('comparison.lastPeriod')) {
-            item = `${utils.dateFomat(p[0].value[0] - datas.different)}<br/>${
+            item = `${utils.dateFomat(p[0].value[0] - lineChartData.different)}<br/>${
               v.seriesName
               }: ${v.value[1]}<br/>`;
           } else {
@@ -300,14 +310,14 @@ export default {
       let currentOptions = deepClone(options);
       currentOptions.title.text = t('realTime.current'); // 电流
       currentOptions.yAxis.axisLabel.formatter = "{value} A";
-      currentOptions.series[0].data = datas.dataObjFirst.current;
-      currentOptions.series[1].data = datas.dataObjSecond.current;
-      if (!datas.battertCode) {
+      currentOptions.series[0].data = lineChartData.dataObjFirst.current;
+      currentOptions.series[1].data = lineChartData.dataObjSecond.current;
+      if (!lineChartData.battertCode) {
         currentOptions.tooltip.formatter = p => {
           let item;
           let v = p[0];
           if (p[0].seriesName === t('comparison.lastPeriod')) {
-            item = `${utils.dateFomat(p[0].value[0] - datas.different)}<br/>${
+            item = `${utils.dateFomat(p[0].value[0] - lineChartData.different)}<br/>${
               v.seriesName
               }: ${v.value[1]}<br/>`;
           } else {
@@ -333,14 +343,14 @@ export default {
       let temperatureOptions = deepClone(options);
       temperatureOptions.title.text = t('realTime.temperature'); // 温度
       temperatureOptions.yAxis.axisLabel.formatter = "{value} ℃";
-      temperatureOptions.series[0].data = datas.dataObjFirst.temperature;
-      temperatureOptions.series[1].data = datas.dataObjSecond.temperature;
-      if (!datas.battertCode) {
+      temperatureOptions.series[0].data = lineChartData.dataObjFirst.temperature;
+      temperatureOptions.series[1].data = lineChartData.dataObjSecond.temperature;
+      if (!lineChartData.battertCode) {
         temperatureOptions.tooltip.formatter = p => {
           let item;
           let v = p[0];
           if (v.seriesName === t('comparison.lastPeriod')) {
-            item = `${utils.dateFomat(p[0].value[0] - datas.different)}<br/>${
+            item = `${utils.dateFomat(p[0].value[0] - lineChartData.different)}<br/>${
               v.seriesName
               }: ${v.value[1]}<br/>`;
           } else {
@@ -366,14 +376,14 @@ export default {
       let capacity = deepClone(options);
       capacity.title.text = t('realTime.quantity'); // "电量";
       capacity.yAxis.axisLabel.formatter = "{value} %";
-      capacity.series[0].data = datas.dataObjFirst.capacity;
-      capacity.series[1].data = datas.dataObjSecond.capacity;
-      if (!datas.battertCode) {
+      capacity.series[0].data = lineChartData.dataObjFirst.capacity;
+      capacity.series[1].data = lineChartData.dataObjSecond.capacity;
+      if (!lineChartData.battertCode) {
         capacity.tooltip.formatter = p => {
           let item;
           let v = p[0];
           if (v.seriesName === t('comparison.lastPeriod')) {
-            item = `${utils.dateFomat(p[0].value[0] - datas.different)}<br/>${
+            item = `${utils.dateFomat(p[0].value[0] - lineChartData.different)}<br/>${
               v.seriesName
               }: ${v.value[1]}%<br/>`;
           } else {

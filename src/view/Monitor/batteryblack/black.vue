@@ -1,60 +1,38 @@
 <template>
   <div class="alarmTable">
-    <el-table :data="tableData"
-      style="width: 100%">
-      <el-table-column prop="hostCode"
-        align="center"
-        :label="$t('batteryList.batteryCode')">
+    <el-table :data="tableData" style="width: 100%">
+      <el-table-column prop="hostCode" align="center" :label="$t('batteryList.batteryCode')">
       </el-table-column>
-      <el-table-column prop="code"
-        align="center"
-        :label="$t('batteryList.deviceCode')">
+      <el-table-column prop="code" align="center" :label="$t('batteryList.deviceCode')">
       </el-table-column>
-      <el-table-column prop="companyName"
-        align="center"
-        :label="$t('batteryList.name')">
+      <el-table-column prop="companyName" align="center" :label="$t('batteryList.name')">
       </el-table-column>
       <!-- <el-table-column prop="regstate" align="center" label="设备注册状态">
       </el-table-column> -->
-      <el-table-column prop="bindState"
-        align="center"
-        :label="$t('batteryList.binding')">
+      <el-table-column prop="bindState" align="center" :label="$t('batteryList.binding')">
       </el-table-column>
-      <el-table-column align="center"
-        :label="$t('batteryList.handle')"
-        width="120">
+      <el-table-column align="center" :label="$t('batteryList.handle')" width="120">
         <template slot-scope="scope">
-          <el-button size="small"
-            @click.native.prevent="recovery(scope.row)"
-            type="text">
+          <el-button size="small" @click.native.prevent="recovery(scope.row)" type="text">
             {{$t('batteryList.recovery')}}
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="page">
-      <el-pagination @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-sizes="[10, 20, 30, 50]"
-        :page-size="pageSize"
-        layout="sizes, prev, pager, next"
-        :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="pageSizeArr" :page-size="pageSize" layout="sizes, prev, pager, next" :total="total">
       </el-pagination>
     </div>
   </div>
 </template>
 <script>
+import mixin from '@/mixins/mixin';
 import t from '@/utils/translate';
 
 export default {
+  mixins: [mixin],
   data() {
-    return {
-      currentPage: 1,
-      total: 0,
-      pageSize: 10,
-      tableData: [],
-    };
+    return {};
   },
   methods: {
     recovery(data) {

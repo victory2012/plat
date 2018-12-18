@@ -152,8 +152,6 @@ export const trackManufacturAdmin = () => {
 
 /* 生产企业用户 */
 export const trackManufacturUser = () => {
-  console.log('montorData', manufacturUser);
-  console.log('permissionFun()', permissionFun());
   if (!permissionFun().sameAnalysis) {
     manufacturUser[1].children.splice(2, 1);
   }

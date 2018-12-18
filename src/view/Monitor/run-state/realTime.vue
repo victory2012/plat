@@ -35,53 +35,38 @@
     <div class="warrp">
       <div class="map">
         <div class="mapCenter">
-          <div class="mapContent"
-            id="mapContent"></div>
+          <div class="mapContent" id="mapContent"></div>
         </div>
         <div class="timeCenter">
           <p class="map-time">{{infoData.hhmmss}}</p>
           <p class="map-date">{{infoData.yyddmm}}</p>
           <p class="map-des">{{$t('realTime.refresh')}}</p>
-          <p @click="activeQuery"
-            :class="{'active': queryData}"
-            class="map-line">{{btnTip}}</p>
+          <p @click="activeQuery" :class="{'active': queryData}" class="map-line">{{btnTip}}</p>
         </div>
       </div>
       <div class="address">
         <div>
-          <img width="21px"
-            src="../../../assets/img/me.png"
-            alt="">
+          <img width="21px" src="../../../assets/img/me.png" alt="">
           <span>{{infoData.companyName}}</span>
         </div>
         <div>
-          <img width="22px"
-            src="../../../assets/img/address.png"
-            alt="">
+          <img width="22px" src="../../../assets/img/address.png" alt="">
           <span>{{address}}</span>
         </div>
         <div>
-          <img width="25px"
-            src="../../../assets/img/battery.png"
-            alt="">
+          <img width="25px" src="../../../assets/img/battery.png" alt="">
           <span>{{infoData.code}}</span>
         </div>
         <div>
-          <img width="26px"
-            src="../../../assets/img/device.png"
-            alt="">
+          <img width="26px" src="../../../assets/img/device.png" alt="">
           <span>{{infoData.deviceCode}}</span>
         </div>
         <div>
-          <img width="25px"
-            src="../../../assets/img/version.svg"
-            alt="">
+          <img width="25px" src="../../../assets/img/version.svg" alt="">
           <span>{{version}}</span>
         </div>
         <div>
-          <img width="25px"
-            src="../../../assets/img/device-flesh.png"
-            alt="">
+          <img width="25px" src="../../../assets/img/device-flesh.png" alt="">
           <span>{{CCID}}</span>
         </div>
       </div>
@@ -90,8 +75,7 @@
       <span>{{$t('realTime.fourHour')}}</span>
       <el-checkbox v-model="checked">{{$t('realTime.update')}}</el-checkbox>
     </div>
-    <echart-map :chartData="dataObj"
-      :mqttData="ReceiveObj"></echart-map>
+    <echart-map :chartData="dataObj" :mqttData="ReceiveObj"></echart-map>
   </div>
 </template>
 <script>
@@ -101,11 +85,11 @@ import AMapUI from "AMapUI";
 import Paho from "Paho";
 import utils from "@/utils/utils";
 import echartMap from "@/components/real/real-chart";
-import mqtt from "@/api/mqtt.config";
 import lnglatTrabsofor from "@/utils/longlatTransfor";
 import t from "@/utils/translate";
+import mixin from '@/mixins/mixin';
 
-let mqttClient = {};
+// let mqttClient = {};
 let map;
 let marker;
 const PI = 3.14159265358979324;
@@ -115,6 +99,7 @@ export default {
   components: {
     echartMap
   },
+  mixins: [mixin],
   data () {
     return {
       hasSend: false,
@@ -157,12 +142,12 @@ export default {
   },
   destroyed () {
     if (
-      typeof mqttClient === "object" &&
-      typeof mqttClient.isConnected === "function" &&
-      mqttClient.isConnected()
+      typeof this.mqttClient === "object" &&
+      typeof this.mqttClient.isConnected === "function" &&
+      this.mqttClient.isConnected()
     ) {
-      mqttClient.disconnect();
-      mqttClient = {};
+      this.mqttClient.disconnect();
+      this.mqttClient = {};
       map = null;
     }
     this.dataObj = {};
@@ -207,42 +192,24 @@ export default {
         });
       }
     },
-    connectMqtt () {
-      const mqttConfig = mqtt();
-      mqttClient = new Paho.MQTT.Client(
-        mqttConfig.hostname,
-        mqttConfig.port,
-        mqttConfig.clientId
-      );
-      mqttClient.connect({
-        onSuccess: this.onConnect,
-        reconnect: mqttConfig.reconnect,
-        keepAliveInterval: mqttConfig.keepAliveInterval,
-        useSSL: mqttConfig.useSSL,
-        timeout: mqttConfig.timeout
-      });
-      mqttClient.onFailure = res => {
-        console.log(res);
-      };
-      mqttClient.onConnectionLost = responseObject => {
-        console.log("mqtt-closed:", responseObject);
-      };
-      mqttClient.onMessageArrived = message => {
-        console.log("message:", message);
-        let payload = message.payloadString;
-        if (payload) {
-          let payloadType = payload.toString().split("]");
-          if (payloadType[1]) {
-            this.queryData = false;
-            this.CCID = payloadType[1];
-            let payloadJSON = `${payloadType[0]}]`;
-            this.receiveData(payloadJSON);
-          } else {
-            this.receiveData(payload);
-          }
-        }
-      };
-    },
+    // connectMqtt () {
+
+    //   this.mqttClient.onMessageArrived = message => {
+    //     console.log("message:", message);
+    //     let payload = message.payloadString;
+    //     if (payload) {
+    //       let payloadType = payload.toString().split("]");
+    //       if (payloadType[1]) {
+    //         this.queryData = false;
+    //         this.CCID = payloadType[1];
+    //         let payloadJSON = `${payloadType[0]}]`;
+    //         this.receiveData(payloadJSON);
+    //       } else {
+    //         this.receiveData(payload);
+    //       }
+    //     }
+    //   };
+    // },
     /* 发送地址给后台 */
     addressCallBack (data) {
       let param = {
@@ -315,10 +282,10 @@ export default {
     onConnect () {
       console.log("connect");
       if (
-        typeof mqttClient === "object" &&
-        typeof mqttClient.subscribe === "function"
+        typeof this.mqttClient === "object" &&
+        typeof this.mqttClient.subscribe === "function"
       ) {
-        mqttClient.subscribe(`dev/${this.infoData.deviceCode}`);
+        this.mqttClient.subscribe(`dev/${this.infoData.deviceCode}`);
       }
     },
     positionData (data) {
@@ -363,7 +330,7 @@ export default {
       this.$api
         .realData(this.hostObj.hostId, this.hostObj.device, startTime, endTime)
         .then(res => {
-          // console.log(res);
+          console.log(res);
           if (res.data && res.data.code === 0) {
             let result = res.data.data;
             this.dataObj = {
@@ -397,7 +364,7 @@ export default {
         });
     },
     activeQuery () {
-      if (mqttClient.isConnected() && !this.queryData) {
+      if (this.mqttClient.isConnected() && !this.queryData) {
         this.queryData = true;
         clearInterval(this.decriseTime);
         let index = 10;
@@ -417,13 +384,13 @@ export default {
         }, 1000);
         let message = new Paho.MQTT.Message("c:get");
         message.destinationName = `cmd/${this.infoData.deviceCode}`;
-        mqttClient.send(message);
+        this.mqttClient.send(message);
       }
     },
     toggleUpdate () {
       if (this.checked) {
-        if (mqttClient.isConnected()) {
-          mqttClient.disconnect();
+        if (this.mqttClient.isConnected()) {
+          this.mqttClient.disconnect();
         }
       } else {
         this.connectMqtt();

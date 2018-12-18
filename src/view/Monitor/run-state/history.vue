@@ -3,61 +3,26 @@
     <div class="timeBar">
       <!-- 从 -->
       <span class="lables">{{$t('history.from')}}</span>
-      <el-date-picker class="queryTime"
-        :class="{'timeSelect': !defaultGray}"
-        @focus="timeChanges"
-        size="small"
-        v-model="start"
-        type="date"
-        :placeholder="$t('history.startTime')"></el-date-picker>
+      <el-date-picker class="queryTime" :class="{'timeSelect': !defaultGray}" @focus="timeChanges" size="small" v-model="start" type="date" :placeholder="$t('history.startTime')"></el-date-picker>
       <!-- 至 -->
       <span class="lable">{{$t('history.to')}}</span>
-      <el-date-picker class="queryTime"
-        :class="{'timeSelect': !defaultGray}"
-        @focus="timeChanges"
-        size="small"
-        v-model="end"
-        type="date"
-        placeholder="$t('history.endTime')"></el-date-picker>
-      <el-select class="queryTime"
-        :class="{'timeSelect': defaultGray}"
-        size="small"
-        @change="changeTime"
-        @focus="selectTimeChanges"
-        v-model="timevalue">
-        <el-option v-for="item in weekOption"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
+      <el-date-picker class="queryTime" :class="{'timeSelect': !defaultGray}" @focus="timeChanges" size="small" v-model="end" type="date" placeholder="$t('history.endTime')"></el-date-picker>
+      <el-select class="queryTime" :class="{'timeSelect': defaultGray}" size="small" @change="changeTime" @focus="selectTimeChanges" v-model="timevalue">
+        <el-option v-for="item in weekOption" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
       </el-select>
-      <el-button @click="getChartData"
-        class="queryBtn"
-        size="small"
-        type="primary">{{$t('timeBtn.sure')}}</el-button>
+      <el-button @click="getChartData" class="queryBtn" size="small" type="primary">{{$t('timeBtn.sure')}}</el-button>
     </div>
     <div class="btns">
       <div class="btns-item">
-        <el-button :type="btnTypeDown"
-          :disabled="narrowBtn"
-          plain
-          @click="narrow"
-          icon="el-icon-remove-outline"></el-button>
-        <el-button :type="btnTypeUp"
-          :disabled="enlargeBtn"
-          plain
-          @click="enlarge"
-          icon="el-icon-circle-plus-outline"></el-button>
+        <el-button :type="btnTypeDown" :disabled="narrowBtn" plain @click="narrow" icon="el-icon-remove-outline"></el-button>
+        <el-button :type="btnTypeUp" :disabled="enlargeBtn" plain @click="enlarge" icon="el-icon-circle-plus-outline"></el-button>
       </div>
       <div class="btns-item">
-        <el-button type="primary"
-          plain
-          @click="exportExcel">{{$t('history.exportBtn')}}</el-button>
+        <el-button type="primary" plain @click="exportExcel">{{$t('history.exportBtn')}}</el-button>
       </div>
     </div>
-    <echart-map :chartData="dataObj"
-      :loading="loading"
-      @timeZoom="timeZoom"></echart-map>
+    <echart-map :chartData="dataObj" :loading="loading" @timeZoom="timeZoom"></echart-map>
     <div class="batteryChart">
       <div class="addbattery">
         <ul>
@@ -98,8 +63,7 @@
           </li>
         </ul>
       </div>
-      <chart-pie :loading="loading"
-        :peiData="peiObj"></chart-pie>
+      <chart-pie :loading="loading" :peiData="peiObj"></chart-pie>
     </div>
     <div class="alarmTab">
       <div class="tabInfo">
@@ -108,17 +72,13 @@
       </div>
     </div>
     <div class="tables">
-      <i-alarm :alarmData="alarmData"
-        v-show="active === 'alarm'"></i-alarm>
+      <i-alarm :alarmData="alarmData" v-show="active === 'alarm'"></i-alarm>
       <!-- <i-alarm :alarmData="alarmData"
         v-show="active === 'alarm'"></i-alarm>
       <liquid :liquidData="liquidData"
         v-show="active === 'liquid'"></liquid> -->
       <div class="page">
-        <el-pagination @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          layout="prev, pager, next"
-          :total="total">
+        <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" layout="prev, pager, next" :total="total">
         </el-pagination>
       </div>
     </div>
@@ -132,6 +92,7 @@ import echartMap from "@/components/real/historey-chart";
 import iAlarm from "@/components/real/alarm-data";
 import chartPie from "@/components/real/echartPie";
 import t from "@/utils/translate";
+import mixin from '@/mixins/mixin';
 
 let map;
 let pathSimplifierIns;
@@ -141,6 +102,7 @@ let heatmap;
 let address;
 export default {
   props: ["hostObj", "propData"],
+  mixins: [mixin],
   components: {
     chartPie,
     echartMap,
@@ -177,36 +139,7 @@ export default {
       start: utils.getWeek(),
       end: new Date(),
       timevalue: "week",
-      weekOption: [
-        {
-          value: "week",
-          label: t('history.week')
-        },
-        {
-          value: "mounth",
-          label: t('history.mounth')
-        },
-        {
-          value: "threemonth",
-          label: t('history.threemonth')
-        },
-        {
-          value: "sixmounth",
-          label: t('history.sixmounth')
-        },
-        {
-          value: "year",
-          label: t('history.year')
-        },
-        {
-          value: "all",
-          label: t('history.all')
-        }
-      ],
       defaultGet: true,
-      pageSize: 10,
-      currentPage: 1,
-      total: 0,
       heatData: [],
       alarmData: [],
       liquidData: [],

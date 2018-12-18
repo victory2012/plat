@@ -4,120 +4,67 @@
       <!-- 比较数据 -->
       <h2 class="textAlain title">{{$t('comparison.comparData')}}</h2>
       <div class="textAlain">
-        <div class="compare-add addone"
-          v-show="contrastDatas">
-          <p v-for="(tag, index) in stacks1"
-            :key="tag.hostId">{{$t('comparison.batteryCode')}}{{index+1}}: {{tag.code}}</p>
+        <div class="compare-add addone" v-show="contrastDatas">
+          <p v-for="(tag, index) in stacks1" :key="tag.hostId">{{$t('comparison.batteryCode')}}{{index+1}}: {{tag.code}}</p>
           <!-- <p>电池编号2: {{stacks1[1].code}}</p> -->
         </div>
-        <div @click="openTable"
-          class="compare-add">{{chooseText}}</div>
+        <div @click="openTable" class="compare-add">{{chooseText}}</div>
       </div>
     </div>
     <div class="timeCenter">
       <div class="timeBar">
         <span class="lables">{{$t('history.from')}}</span>
-        <el-date-picker class="queryTime"
-          :class="{'timeSelect': !defaultGray}"
-          @focus="timeChanges"
-          size="small"
-          v-model="start"
-          type="date"
-          :placeholder="$t('history.startTime')"></el-date-picker>
+        <el-date-picker class="queryTime" :class="{'timeSelect': !defaultGray}" @focus="timeChanges" size="small" v-model="start" type="date" :placeholder="$t('history.startTime')"></el-date-picker>
         <span class="lable">{{$t('history.to')}}</span>
-        <el-date-picker class="queryTime"
-          :class="{'timeSelect': !defaultGray}"
-          @focus="timeChanges"
-          size="small"
-          v-model="end"
-          type="date"
-          :placeholder="$t('history.endTime')"></el-date-picker>
-        <el-select class="queryTime"
-          :class="{'timeSelect': defaultGray}"
-          @focus="selectTimeChanges"
-          @change="changeTime"
-          size="small"
-          v-model="timevalue"
-          :placeholder="$t('comparison.timeRange')">
-          <el-option v-for="item in weekOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
+        <el-date-picker class="queryTime" :class="{'timeSelect': !defaultGray}" @focus="timeChanges" size="small" v-model="end" type="date" :placeholder="$t('history.endTime')"></el-date-picker>
+        <el-select class="queryTime" :class="{'timeSelect': defaultGray}" @focus="selectTimeChanges" @change="changeTime" size="small" v-model="timevalue" :placeholder="$t('comparison.timeRange')">
+          <el-option v-for="item in weekOption" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
-        <el-button @click="sureBtnSearch"
-          class="queryBtn"
-          size="small"
-          type="primary">{{$t('timeBtn.sure')}}</el-button>
+        <el-button @click="sureBtnSearch" class="queryBtn" size="small" type="primary">{{$t('timeBtn.sure')}}</el-button>
       </div>
     </div>
     <div class="chart">
-      <com-chart :loading="chartloading"
-        :chartData="dataArr"
-        :chartBarData="summary"></com-chart>
+      <com-chart :loading="chartloading" :chartData="dataArr" :chartBarData="summary"></com-chart>
     </div>
 
-    <el-dialog :title="$t('comparison.addCompar')"
-      width="800px"
-      :visible.sync="tableVisible">
+    <el-dialog :title="$t('comparison.addCompar')" width="800px" :visible.sync="tableVisible">
       <div class="TopWrapper">
         <div class="item">{{$t('comparison.most')}}
           <span style="color:#71bfdb">2</span>
           {{$t('comparison.item')}}&nbsp;&nbsp;{{$t('comparison.deviceId')}}：
-          <el-tag v-for="tag in stacks1"
-            :key="tag.hostId+new Date()"
-            @close="closeTags(tag)"
-            :type="''">
+          <el-tag v-for="tag in stacks1" :key="tag.hostId+new Date()" @close="closeTags(tag)" :type="''">
             {{tag.code}}
           </el-tag>
         </div>
 
         <div class="item2">
-          <el-input size="small"
-            @change="remoteMethod"
-            :placeholder="$t('batteryList.searchContent')"
-            suffix-icon="el-icon-search"
-            v-model.trim="searchCont">
+          <el-input size="small" @change="remoteMethod" :placeholder="$t('batteryList.searchContent')" suffix-icon="el-icon-search" v-model.trim="searchCont">
           </el-input>
         </div>
       </div>
-      <el-table :data="gridData"
-        v-loading="loading">
+      <el-table :data="tableData" v-loading="loading">
         <!-- 电池编号 -->
-        <el-table-column property="code"
-          :label="$t('batteryList.batteryCode')"></el-table-column>
+        <el-table-column property="code" :label="$t('batteryList.batteryCode')"></el-table-column>
         <!-- 电池型号 -->
-        <el-table-column property="model"
-          :label="$t('batteryList.model')"></el-table-column>
+        <el-table-column property="model" :label="$t('batteryList.model')"></el-table-column>
         <!-- 电池组规格 -->
-        <el-table-column property="norm"
-          :label="$t('batteryList.specif')"></el-table-column>
+        <el-table-column property="norm" :label="$t('batteryList.specif')"></el-table-column>
         <!-- 监测设备编号 -->
-        <el-table-column property="deviceCode"
-          :label="$t('batteryList.deviceCode')"></el-table-column>
-        <el-table-column :label="$t('alarmList.handle')"
-          width="70">
+        <el-table-column property="deviceCode" :label="$t('batteryList.deviceCode')"></el-table-column>
+        <el-table-column :label="$t('alarmList.handle')" width="70">
           <template slot-scope="scope">
-            <el-checkbox @change="toggleCheck(scope.row)"
-              v-model="scope.row.checked"></el-checkbox>
+            <el-checkbox @change="toggleCheck(scope.row)" v-model="scope.row.checked"></el-checkbox>
           </template>
         </el-table-column>
       </el-table>
       <div class="page">
-        <el-pagination @current-change="handleCurrentChange"
-          :current-page.sync="currentPage"
-          :page-size="8"
-          layout="prev, pager, next"
-          :total="total">
+        <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="8" layout="prev, pager, next" :total="total">
         </el-pagination>
       </div>
-      <div slot="footer"
-        class="dialog-footer">
-        <el-button size="small"
-          @click="cancelHandle">{{$t('timeBtn.cancle')}}</el-button>
-        <el-button size="small"
-          type="primary"
-          @click="sureBtn">{{$t('timeBtn.sure')}}</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="cancelHandle">{{$t('timeBtn.cancle')}}</el-button>
+        <el-button size="small" type="primary" @click="sureBtn">{{$t('timeBtn.sure')}}</el-button>
       </div>
     </el-dialog>
 
@@ -126,38 +73,22 @@
 <script>
 import utils from '@/utils/utils';
 import t from '@/utils/translate';
+import mixin from '@/mixins/mixin';
 // import comChart from './compare-chart';
 
 export default {
   components: {
     comChart: () => import('./compare-chart.vue'),
   },
+  mixins: [mixin],
   data() {
     return {
       defaultGray: true,
       contrastDatas: false,
       contrastWay: '',
-      loading: false,
       chartloading: false,
       contrastData: false,
-      total: 0,
-      dataArr: {
-        batteryCode: [],
-        dataObjFirst: {
-          timeArr: [],
-          singleVoltage: [],
-          temperature: [],
-          voltage: [],
-          current: [],
-        },
-        dataObjSecond: {
-          timeArr: [],
-          singleVoltage: [],
-          temperature: [],
-          voltage: [],
-          current: [],
-        },
-      },
+      dataArr: {},
       chooseObj: {},
       dataObjFirst: {},
       dataObjSecond: {},
@@ -174,34 +105,7 @@ export default {
       start: utils.getWeek(),
       end: new Date(),
       timevalue: 'week',
-      weekOption: [
-        {
-          value: 'week',
-          label: t('history.week'),
-        },
-        {
-          value: 'mounth',
-          label: t('history.mounth'),
-        },
-        {
-          value: 'threemonth',
-          label: t('history.threemonth'),
-        },
-        {
-          value: 'sixmounth',
-          label: t('history.sixmounth'),
-        },
-        {
-          value: 'year',
-          label: t('history.year'),
-        },
-        {
-          value: 'all',
-          label: t('history.all'),
-        },
-      ],
       searchList: [],
-      gridData: [],
       stacks1: [],
       stacks2: [],
       compareTime: '', // 对比时间
@@ -400,7 +304,7 @@ export default {
     openTable() {
       this.stacks1 = [];
       this.tableVisible = true;
-      this.gridData.forEach((key) => {
+      this.tableData.forEach((key) => {
         key.checked = false;
       });
     },
@@ -443,13 +347,13 @@ export default {
       this.$api.batteryList(options).then((res) => {
         console.log(res);
         this.loading = false;
-        this.gridData = [];
+        this.tableData = [];
         if (res.data && res.data.code === 0) {
           const result = res.data.data;
           this.total = result.total;
           result.pageData.forEach((key) => {
             key.checked = false;
-            this.gridData.push(key);
+            this.tableData.push(key);
           });
         }
       });

@@ -14,23 +14,24 @@ import i18n from '@/i18n';
 import api from '@/api/index';
 import './assets/font/iconfont.css';
 
-Vue.config.productionTip = false;
-ElementUI();
-promise.polyfill();
-Vue.use(Vuex);
-Vue.prototype.$message = Message;
-Vue.prototype.$messageBox = MessageBox;
-Vue.prototype.$api = api;
-
+const store = CreateStore();
 const outputXlsxFile = (data, xlsxName) => {
   const ws = XLSX.utils.aoa_to_sheet(data);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, xlsxName);
   XLSX.writeFile(wb, `${xlsxName}.xlsx`);
 };
+Vue.config.productionTip = false;
+Vue.prototype.$message = Message;
+Vue.prototype.$messageBox = MessageBox;
+Vue.prototype.$api = api;
+
 Vue.prototype.$outputXlsxFile = outputXlsxFile;
 
-const store = CreateStore();
+ElementUI();
+promise.polyfill();
+Vue.use(Vuex);
+
 router.beforeEach((to, from, next) => {
   const loginData = sessionStorage.getItem('loginData');
   if (to.fullPath !== '/login') {
