@@ -29,7 +29,7 @@
       </div>
       <div class="item">
         <!-- 结束时间 -->
-        <el-date-picker size="small" style="width: 100%" v-model="alarm.endTime" type="date" :placeholder="$t('alarmList.endTime')">
+        <el-date-picker size="small" value-format="yyyy-MM-dd HH:mm:ss" style="width: 100%" v-model="alarm.endTime" type="date" :placeholder="$t('alarmList.endTime')">
         </el-date-picker>
       </div>
       <div class="item">

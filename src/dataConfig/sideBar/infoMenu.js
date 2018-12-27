@@ -50,6 +50,17 @@ const montorData = [
         link: '/monitor/battery/alarm',
       },
       {
+        text: '用户管理', // 'menu.userManage', // 用户管理
+        link: '/monitor/user',
+        icon: 'iconfont icon-user',
+      },
+    ],
+  },
+  {
+    text: '配置管理', // 'menu.threshold', // 报警阈值
+    icon: 'iconfont icon-electricfence',
+    children: [
+      {
         text: '报警阈值', // 'menu.threshold', // 报警阈值
         children: [
           {
@@ -62,20 +73,6 @@ const montorData = [
           },
         ],
       },
-      // {
-      //   text: '地理围栏', // 'menu.threshold', // 报警阈值
-      //   link: '5',
-      //   children: [
-      //     {
-      //       text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
-      //       link: '/set/model',
-      //     },
-      //     {
-      //       text: '电池群组划分', // 'menu.sortByCompany', // 按企业全局分类
-      //       link: '/set/company',
-      //     },
-      //   ],
-      // },
       {
         text: '告警通知', // 'menu.WarningNotice', // 告警通知
         children: [
@@ -94,23 +91,17 @@ const montorData = [
         ],
       },
       {
-        text: '用户管理', // 'menu.userManage', // 用户管理
-        link: '/monitor/user',
-        icon: 'iconfont icon-user',
-      },
-    ],
-  },
-  {
-    text: '地理围栏', // 'menu.threshold', // 报警阈值
-    icon: 'iconfont icon-electricfence',
-    children: [
-      {
-        text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
-        link: '/monitor/company/fence',
-      },
-      {
-        text: '电池群组划分', // 'menu.sortByCompany', // 按企业全局分类
-        link: '/monitor/battery/fence',
+        text: '地理围栏', // 'menu.threshold', // 报警阈值
+        children: [
+          {
+            text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
+            link: '/monitor/company/fence',
+          },
+          {
+            text: '电池群组划分', // 'menu.sortByCompany', // 按企业全局分类
+            link: '/monitor/battery/fence',
+          },
+        ],
       },
     ],
   },
@@ -130,12 +121,7 @@ const montorData = [
   },
 ];
 
-// const listData1 = deepClone(montorData); // 生产企业管理员\
-// const listData2 = deepClone(montorData); // 平台管理员
-// const listData3 = deepClone(montorData); // 电池采购企业管理员
-// const listData4 = deepClone(montorData); // 电池采购企业用户
-// const listData5 = deepClone(montorData); // 生产企业用户
-
+console.log('montorData', montorData);
 const Allocation = {
   text: '电池调配', // 'menu.Allocation', // 电池调配
   link: '/battery/deployment',
@@ -159,9 +145,8 @@ const title = '电池检测';
 /* 生产企业 */
 export const getManifactor = () => {
   const listData = deepClone(montorData);
-  listData[3].children.splice(0, 1);
+  listData[3].children.splice(1, 1);
   listData[1].children[0].children[3] = Allocation;
-  console.log({ title, data: listData });
   return {
     title,
     data: listData,
@@ -196,7 +181,8 @@ export const getManifactorCus = () => {
 /* 平台 */
 export const getPlat = () => {
   const listData = deepClone(montorData);
-  listData[1].children.splice(4, 2);
+  listData[1].children[0].children.splice(2, 1);
+  listData.splice(2, 1);
   return {
     title,
     data: listData,

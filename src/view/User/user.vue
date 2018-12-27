@@ -2,15 +2,12 @@
   <div class="userMsg">
     <div class="editorBtn">
       <!-- 编辑 -->
-      <el-button size="small"
-        type="primary"
-        @click="openEdit"
-        class="editorContent">{{$t('user.edit')}}</el-button>
+      <el-button size="small" type="primary" @click="openEdit" class="editorContent">{{$t('user.edit')}}</el-button>
+      <!-- 编辑 -->
+      <el-button size="small" type="primary" @click="openCompanyEdit" class="editorContent">修改公司名</el-button>
     </div>
     <div class="center">
-      <el-row type="flex"
-        class="row-bg"
-        justify="space-around">
+      <el-row type="flex" class="row-bg" justify="space-around">
         <el-col :span="8">
           <div class="grid-content">
             <div class="sort-content">
@@ -44,9 +41,7 @@
       </el-row>
     </div>
     <div class="center">
-      <el-row type="flex"
-        class="row-bg"
-        justify="space-around">
+      <el-row type="flex" class="row-bg" justify="space-around">
         <el-col :span="8">
           <div class="grid-content">
             <div class="sort-content">
@@ -77,41 +72,33 @@
         </el-col>
       </el-row>
     </div>
-    <el-dialog width="600px"
-      :title="$t('user.userInfo')"
-      :visible.sync="userMsgBox">
-      <el-form :model="InfoForm"
-        label-width="150px"
-        :rules="userInfoRole"
-        ref="InfoForm">
-        <el-form-item :label="$t('useMsg.phone')"
-          prop="phone">
-          <el-input size="small"
-            v-model.number="InfoForm.phone"
-            style="width:160px;"></el-input>
+    <el-dialog width="600px" :title="$t('user.userInfo')" :visible.sync="userMsgBox">
+      <el-form :model="InfoForm" label-width="150px" :rules="userInfoRole" ref="InfoForm">
+        <el-form-item :label="$t('useMsg.phone')" prop="phone">
+          <el-input size="small" v-model.number="InfoForm.phone" style="width:160px;"></el-input>
         </el-form-item>
-        <el-form-item :label="$t('useMsg.nickName')"
-          :error="nameError"
-          prop="userName">
-          <el-input size="small"
-            v-model="InfoForm.nickName"
-            style="width:160px;"></el-input>
+        <el-form-item :label="$t('useMsg.nickName')" :error="nameError" prop="userName">
+          <el-input size="small" v-model="InfoForm.nickName" style="width:160px;"></el-input>
         </el-form-item>
         <!-- 邮箱 -->
-        <el-form-item :label="$t('useMsg.email')"
-          prop="email">
-          <el-input size="small"
-            v-model="InfoForm.email"
-            style="width:160px;"></el-input>
+        <el-form-item :label="$t('useMsg.email')" prop="email">
+          <el-input size="small" v-model="InfoForm.email" style="width:160px;"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer"
-        class="dialog-footer">
-        <el-button size="small"
-          @click="resetForm">{{$t('timeBtn.cancle')}}</el-button>
-        <el-button size="small"
-          type="primary"
-          @click="submitForm('InfoForm')">{{$t('timeBtn.sure')}}</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="resetForm">{{$t('timeBtn.cancle')}}</el-button>
+        <el-button size="small" type="primary" @click="submitForm('InfoForm')">{{$t('timeBtn.sure')}}</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog width="600px" title="修改公司名" :visible.sync="companyMsgBox">
+      <el-form :model="InfoForm" label-width="150px" :rules="userInfoRole" ref="InfoForm">
+        <el-form-item label="公司名" prop="phone" :error="errorCompanyName">
+          <el-input size="small" v-model.trim="InfoForm.companyName" @keyup.native="InfoForm.companyName=InfoForm.companyName.replace(/\s+/g,'')" style="width:160px;" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="resetForm">{{$t('timeBtn.cancle')}}</el-button>
+        <el-button size="small" type="primary" @click="doChangeCompanyName('InfoForm')">{{$t('timeBtn.sure')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -125,6 +112,8 @@ export default {
   data() {
     return {
       userMsgBox: false,
+      companyMsgBox: false,
+      errorCompanyName: '',
       userArr: {},
       InfoForm: {},
       nameError: '',
@@ -152,22 +141,43 @@ export default {
       this.userMsgBox = true;
       this.InfoForm = deepClone(this.userArr);
     },
+    openCompanyEdit() {
+      this.companyMsgBox = true;
+      this.InfoForm = deepClone(this.userArr);
+    },
     closeMsgBox(formName) {
       this.userMsgBox = false;
+      this.companyMsgBox = false;
       this.InfoForm = {};
       this.$refs[formName].resetFields();
     },
+    doChangeCompanyName() {
+      if (!this.InfoForm.companyName) {
+        this.errorCompanyName = '公司名不能为空';
+        return;
+      }
+      this.errorCompanyName = '';
+      const params = {
+        id: this.InfoForm.companyId,
+        name: this.InfoForm.companyName,
+      };
+      this.$api.companyName(params).then((res) => {
+        if (res.data && res.data.code === 0) {
+          this.$message({
+            type: 'success',
+            message: t('successTips.changeSuccess'), // "修改成功"
+          });
+          this.init();
+          this.closeMsgBox('InfoForm');
+        }
+      });
+    },
     resetForm() {
       this.userMsgBox = false;
+      this.companyMsgBox = false;
       this.$refs.InfoForm.resetFields();
     },
     submitForm() {
-      // const nickName = /[\s""]/g;
-      // this.nameError = "";
-      // if (nickName.test(this.InfoForm.nickName)) {
-      //   this.nameError = t('useMsg.warn.phoneCheck'); // "手机号格式有误";
-      //   return;
-      // }
       this.$refs.InfoForm.validate((valid) => {
         if (valid) {
           const userObj = {};

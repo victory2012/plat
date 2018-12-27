@@ -10,7 +10,6 @@ export default function createScript() {
   } else {
     phaoUrl = './static/js/paho-mqtt-min.js';
   }
-  console.log('phaoUrl ==>>', phaoUrl);
   const s = document.createElement('script');
   s.type = 'text/javascript';
   s.src = phaoUrl;

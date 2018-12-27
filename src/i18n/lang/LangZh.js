@@ -404,9 +404,9 @@ module.exports = {
     },
     warn: {
       userName: '请输入用户名',
-      nameLimit: '用户名至少4位',
+      nameLimit: '用户名长度在 4 到 20 个字符',
       password: '请输入密码',
-      passwordLimit: '密码至少6位',
+      passwordLimit: '密码长度在 4 到 20 个字符',
       phone: '请输入手机号码',
       phoneCheck: '手机号格式错误',
       emailCheck: '邮箱格式有误',
@@ -495,7 +495,7 @@ module.exports = {
     changeBtn: '修改密码',
     error: '请输入新密码',
     success: '修改成功',
-    passwordLimit: '长度在 3 到 10 个字符',
+    passwordLimit: '长度在 4 到 20 个字符',
   },
   googleAbno: {
     return: '返回',

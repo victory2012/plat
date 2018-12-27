@@ -15,9 +15,30 @@ export default {
 .app {
   height: 100%;
 }
+.el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 140px;
+  height: 140px;
+  line-height: 140px;
+  text-align: center;
+}
 .gm-style > button,
-.gmnoprint {
-  display: none;
+.gmnoprint,
+.amap-copyright,
+.amap-logo,
+.amap-copyright {
+  display: none !important;
 }
 .el-dialog__header {
   text-align: left;

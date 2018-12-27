@@ -1,22 +1,12 @@
 <template>
   <div class="passwordWarp">
     <div class="sort-content">
-      <el-form :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="120px"
-        class="demo-ruleForm">
-        <el-form-item :label="$t('password.new')"
-          prop="password">
-          <el-input size="small"
-            v-model="ruleForm.password"
-            type="password"
-            style="width:220px;"></el-input>
+      <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-form-item :label="$t('password.new')" prop="password">
+          <el-input size="small" v-model="ruleForm.password" type="password" style="width:220px;"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button size="small"
-            type="primary"
-            @click="submitForm('ruleForm')">{{$t('password.changeBtn')}}</el-button>
+          <el-button size="small" type="primary" @click="submitForm('ruleForm')">{{$t('password.changeBtn')}}</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -34,8 +24,8 @@ export default {
         password: [
           { required: true, message: t('password.error'), trigger: 'blur' },
           {
-            min: 3,
-            max: 10,
+            min: 4,
+            max: 20,
             message: t('password.passwordLimit'),
             trigger: 'change',
           },

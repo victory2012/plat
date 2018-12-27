@@ -1,23 +1,16 @@
 <template>
   <div class="positionWarp">
-    <gaode-map v-if="mapType === 1"
-      class="mapWarp"></gaode-map>
-    <google-map v-else
-      class="mapWarp"></google-map>
+    <gaode-map v-if="mapType === 1" class="mapWarp"></gaode-map>
+    <google-map v-else class="mapWarp"></google-map>
     <div class="dataList">
       <h2>电池列表</h2>
       <ul class="list_warp">
-        <li v-for="(item, index) in pointerArr"
-          :key="item.deviceId"
-          @click="checkItem(item, index)">
+        <li v-for="(item, index) in pointerArr" :key="item.deviceId" @click="checkItem(item, index)">
           <p>{{index + 1}}、{{item.deviceId}}</p>
         </li>
       </ul>
       <div class="page">
-        <el-pagination @current-change="pageChange"
-          small
-          layout="prev, pager, next"
-          :total="total">
+        <el-pagination @current-change="pageChange" small layout="prev, pager, next" :total="total">
         </el-pagination>
       </div>
     </div>

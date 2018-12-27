@@ -8,7 +8,7 @@
     </div>
     <div class="msgs">
       <i class="iconfont icon-user"></i>
-      <el-dropdown size="small" placement="bottom" class="user-name" trigger="hover" @command="handleCommand">
+      <el-dropdown size="small" placement="bottom" class="user-name" trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
           <span class="avatar">
             <!-- <i class="iconfont icon-user"></i> -->
@@ -73,6 +73,10 @@ export default {
 <style lang='scss' scoped>
 .iconfont {
   margin-right: 5px;
+}
+.icon-user {
+  font-size: 24px;
+  vertical-align: middle;
 }
 .user-name {
   height: 35px;

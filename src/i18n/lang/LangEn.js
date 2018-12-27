@@ -413,9 +413,9 @@ module.exports = {
     },
     warn: {
       userName: 'Please enter user id.',
-      nameLimit: 'The user id at least 4 characters.',
+      nameLimit: 'The user id is 4 to 20 characters.',
       password: 'Please enter password.',
-      passwordLimit: 'The password at least 6 characters.',
+      passwordLimit: 'Password length is 4 to 20 characters.',
       phone: 'Please enter mobile number.',
       phoneCheck: 'Wrong format of mobile number entered.',
       emailCheck: 'Wrong format of mailbox entered.',
@@ -506,7 +506,7 @@ module.exports = {
     changeBtn: 'Change Password',
     error: 'Please enter password.',
     success: 'Changed successfully.',
-    passwordLimit: 'Password length is 3 to 10 characters.',
+    passwordLimit: 'Password length is 4 to 20 characters.',
   },
   googleAbno: {
     return: 'Back',

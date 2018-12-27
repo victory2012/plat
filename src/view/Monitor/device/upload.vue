@@ -1,88 +1,46 @@
 <template>
   <div>
-    <div v-if="manufacturerName"
-      class="items"
-      @click="regDialog">
-      <img src="../../../assets/img/device_reg.png"
-        alt="">
+    <div class="items" @click="regDialog">
+      <img src="../../../assets/img/device_reg.png" alt="">
       <p>{{$t('device.regDevice')}}</p>
       <!-- 设备注册 -->
     </div>
-    <div v-if="manufacturerName"
-      class="items"
-      style="position: relative">
-      <input class="fileUpload"
-        type="file"
-        @change="fileUpload"
-        v-loading.fullscreen.lock="fullscreenLoading" />
-      <img src="../../../assets/img/device_import.png"
-        alt="">
+    <div class="items" style="position: relative">
+      <input class="fileUpload" type="file" @change="fileUpload" v-loading.fullscreen.lock="fullscreenLoading" />
+      <img src="../../../assets/img/device_import.png" alt="">
       <p>{{$t('batteryList.batchImport')}}</p>
       <!-- 批量导入 -->
     </div>
-    <div v-if="manufacturerName"
-      class="items">
+    <div class="items">
       <router-link to="/device/defriend">
-        <img src="../../../assets/img/device_recover.png"
-          alt="">
+        <img src="../../../assets/img/device_recover.png" alt="">
         <p>{{$t('menu.defriend')}}</p>
         <!-- 恢复拉黑设备 -->
       </router-link>
     </div>
     <!-- 设备注册 -->
-    <el-dialog :title="$t('device.regDevice')"
-      width="600px"
-      :visible.sync="regDevice">
-      <el-form :model="regform"
-        :rules="regRules"
-        ref="regform">
+    <el-dialog :title="$t('device.regDevice')" width="600px" :visible.sync="regDevice">
+      <el-form :model="regform" :rules="regRules" ref="regform">
         <!-- 设备编号 -->
-        <el-form-item prop="name"
-          :label="$t('device.deviceCode')"
-          label-width="150px">
-          <el-input style="width:200px;"
-            size="small"
-            v-model.trim="regform.name"
-            :placeholder="$t('device.deviceCode')"
-            auto-complete="off"></el-input>
+        <el-form-item prop="name" :label="$t('device.deviceCode')" label-width="150px">
+          <el-input style="width:200px;" size="small" v-model.trim="regform.name" :placeholder="$t('device.deviceCode')" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item prop="deviceType"
-          :label="$t('device.deviceCategory')"
-          :label-width=" '150px' ">
-          <el-select style="width:200px;"
-            size="small"
-            v-model="regform.deviceType "
-            :placeholder="$t('device.deviceCategory')">
+        <el-form-item prop="deviceType" :label="$t('device.deviceCategory')" :label-width=" '150px' ">
+          <el-select style="width:200px;" size="small" v-model="regform.deviceType " :placeholder="$t('device.deviceCategory')">
             <!-- 设备类别 -->
-            <el-option v-for="item in categoryArr"
-              :key="item.name"
-              :label="item.label"
-              :value="item.id"></el-option>
+            <el-option v-for="item in categoryArr" :key="item.name" :label="item.label" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
         <!-- 相关企业 -->
-        <el-form-item prop="company"
-          :label="$t('device.company')"
-          :label-width=" '150px' ">
-          <el-select style="width:200px;"
-            size="small"
-            v-model="regform.company "
-            :placeholder="$t('device.company')">
-            <el-option v-for="item in companyArr"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"></el-option>
+        <el-form-item prop="company" :label="$t('device.company')" :label-width=" '150px' ">
+          <el-select style="width:200px;" size="small" v-model="regform.company " :placeholder="$t('device.company')">
+            <el-option v-for="item in companyArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </el-form-item>
       </el-form>
-      <div slot="footer"
-        class="dialog-footer">
-        <el-button size="small"
-          @click="resetRegform('regform')">{{$t('timeBtn.cancle')}}</el-button>
-        <el-button :loading="createDevice"
-          size="small"
-          type="primary "
-          @click="submitRegForm('regform')">{{$t('timeBtn.sure')}}</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="resetRegform('regform')">{{$t('timeBtn.cancle')}}</el-button>
+        <el-button :loading="createDevice" size="small" type="primary " @click="submitRegForm('regform')">{{$t('timeBtn.sure')}}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -100,7 +58,6 @@ let rABS = false; // 是否将文件读取为二进制字符串
 export default {
   data () {
     return {
-      manufacturerName: true,
       regDevice: false,
       storge: '',
       createDevice: false,
@@ -126,14 +83,7 @@ export default {
     }),
   },
   mounted () {
-    // this.storge = JSON.parse(utils.getStorage("loginData"));
-    if (
-      this.userData.type === 1 ||
-      (this.userData.type === 3 && this.userData.layerName === "平台")
-    ) {
-      this.manufacturerName = true;
-      this.getCompany();
-    }
+    this.getCompany();
   },
 
   methods: {

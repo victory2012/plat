@@ -32,14 +32,16 @@ export default {
       polygon: null,
       fencePonter: '',
       selectPonter: [],
+      routeName: ''
     };
   },
   mounted () {
-    console.log(this.$route)
+    this.routeName = this.$route.name;
     this.init();
   },
   methods: {
     init () {
+      console.log('route', this.$route)
       try {
         map = new google.maps.Map(document.getElementById('AddContainer'), {
           center: {
@@ -134,29 +136,31 @@ export default {
       pointer.forEach((key) => {
         gpsList += `${key};`;
       });
-      const gpsObj = {
-        deviceId: this.clickItme.deviceId,
-        batteryId: this.clickItme.batteryId,
-        gpsList,
-      };
-      addFence(gpsObj).then((res) => {
-        console.log(res);
-        if (res.data.code === 0) {
-          google.maps.event.clearListeners(map, 'click');
-          if (this.markers.length > 0) {
-            this.markers.forEach((key) => {
-              key.setMap(null);
-            });
-            this.markers = [];
-          }
-          // drawingManager.setDrawingMode(null);
-          onSuccess(`${this.$t('fence.tipMsg.addSuccess')}`);
-          this.getData({
-            batteryId: this.clickItme.batteryId,
-            deviceId: this.clickItme.deviceId,
-          });
-        }
-      });
+      // const gpsObj = {
+      //   deviceId: this.clickItme.deviceId,
+      //   batteryId: this.clickItme.batteryId,
+      //   gpsList,
+      // };
+      console.log('gpsObj', gpsList);
+      console.log('routeName', this.routeName);
+      // addFence(gpsObj).then((res) => {
+      //   console.log(res);
+      //   if (res.data.code === 0) {
+      //     google.maps.event.clearListeners(map, 'click');
+      //     if (this.markers.length > 0) {
+      //       this.markers.forEach((key) => {
+      //         key.setMap(null);
+      //       });
+      //       this.markers = [];
+      //     }
+      //     // drawingManager.setDrawingMode(null);
+      //     onSuccess(`${this.$t('fence.tipMsg.addSuccess')}`);
+      //     this.getData({
+      //       batteryId: this.clickItme.batteryId,
+      //       deviceId: this.clickItme.deviceId,
+      //     });
+      //   }
+      // });
     },
     /* 取消设置 */
     cancelSetings () {

@@ -8,11 +8,14 @@ import { Message, MessageBox } from 'element-ui';
 import XLSX from 'xlsx';
 import App from '@/App';
 import router from '@/router';
-import ElementUI from '@/UI-component/element';
 import CreateStore from '@/store';
 import i18n from '@/i18n';
 import api from '@/api/index';
+import '@/element/element';
 import './assets/font/iconfont.css';
+
+promise.polyfill();
+Vue.use(Vuex);
 
 const store = CreateStore();
 const outputXlsxFile = (data, xlsxName) => {
@@ -25,12 +28,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$message = Message;
 Vue.prototype.$messageBox = MessageBox;
 Vue.prototype.$api = api;
-
 Vue.prototype.$outputXlsxFile = outputXlsxFile;
-
-ElementUI();
-promise.polyfill();
-Vue.use(Vuex);
 
 router.beforeEach((to, from, next) => {
   const loginData = sessionStorage.getItem('loginData');

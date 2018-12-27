@@ -73,10 +73,6 @@
     </div>
     <div class="tables">
       <i-alarm :alarmData="alarmData" v-show="active === 'alarm'"></i-alarm>
-      <!-- <i-alarm :alarmData="alarmData"
-        v-show="active === 'alarm'"></i-alarm>
-      <liquid :liquidData="liquidData"
-        v-show="active === 'liquid'"></liquid> -->
       <div class="page">
         <el-pagination @current-change="handleCurrentChange" :current-page.sync="currentPage" layout="prev, pager, next" :total="total">
         </el-pagination>

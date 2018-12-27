@@ -3,6 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path');
+// const apiPath = 'http://192.168.1.151:8000';
 const apiPath = 'http://47.96.8.239:8000';
 // const apiPath = 'https://www.myriadiot.net/api';
 
@@ -60,7 +61,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/pc/',
 
     /**
      * Source Maps

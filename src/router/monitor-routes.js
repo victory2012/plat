@@ -3,7 +3,7 @@ const monitorOverview = () =>
 const monitorBatteryList = () =>
   import(/* webpackChunkName: "monitorBatteryList" */ '../view/Monitor/batteryList/index.vue');
 const monitorBatteryFence = () =>
-  import(/* webpackChunkName: "BatteryHis" */ '../view/Monitor/fence/battery-fence.vue');
+  import(/* webpackChunkName: "monitorBatteryFence" */ '../view/Monitor/fence/battery-fence.vue');
 const monitorCompanyFence = () =>
   import(/* webpackChunkName: "BatteryReal" */ '../view/Monitor/fence/company-fence.vue');
 const monitorBatteryBlack = () =>
@@ -11,7 +11,7 @@ const monitorBatteryBlack = () =>
 const realData = () =>
   import(/* webpackChunkName: "realData" */ '../view/Monitor/run-state/index.vue');
 const compare = () =>
-  import(/* webpackChunkName: "compareData" */ '../view/Monitor/compare/index.vue');
+  import(/* webpackChunkName: "compare" */ '../view/Monitor/compare/index.vue');
 const Alarm = () =>
   import(/* webpackChunkName: "Alarm" */ '../view/Monitor/alarm/index.vue');
 const SetModel = () =>
@@ -36,8 +36,8 @@ const HistoryTrak = () =>
   import(/* webpackChunkName: "HistoryTrak" */ '../view/Monitor/batteryMap/history/history.vue');
 const MonitorUser = () =>
   import(/* webpackChunkName: "MonitorUser" */ '../view/Monitor/user/user.vue');
-// const userInfo = () =>
-//   import(/* webpackChunkName: "userInfo" */ '../view/User/user.vue');
+const TestTemp = () =>
+  import(/* webpackChunkName: "TestTemp" */ '../view/test.vue');
 // const Password = () =>
 //   import(/* webpackChunkName: "Password" */ '../view/User/password.vue');
 
@@ -45,6 +45,11 @@ const route = [
   {
     path: '/',
     component: monitorOverview,
+  },
+  {
+    path: '/monitor/TestTemp',
+    name: 'TestTemp',
+    component: TestTemp,
   },
   {
     path: '/monitor/real-position',

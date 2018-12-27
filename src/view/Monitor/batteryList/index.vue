@@ -34,7 +34,7 @@
             </el-option>
           </el-select>
         </div>
-        <div class="item">
+        <div class="item searchBtns">
           <el-button @click="getBatteryList" size="mini" type="primary">{{$t('batteryList.search')}}</el-button>
           <el-button @click="clearOptions" size="small" plain>{{$t('batteryList.clear')}}</el-button>
         </div>
@@ -494,6 +494,9 @@ export default {
       .item {
         flex: 1;
         padding: 10px 5px;
+        &.searchBtns {
+          flex: 0 0 140px;
+        }
       }
     }
   }

@@ -98,11 +98,11 @@ module.exports = {
   externals: {
     AMap: 'window.AMap',
     AMapUI: 'window.AMapUI',
-    echarts: 'echarts',
-    xlsx: 'XLSX',
+    echarts: 'window.echarts',
+    xlsx: 'window.XLSX',
     Paho: 'window.Paho',
-    google: 'window.google'
-    // axios: 'axios',
+    google: 'window.google',
+    qiniu: 'window.qiniu'
     // 'vuex': 'Vuex',
     // 'vue-router': 'VueRouter',
   }

@@ -50,11 +50,12 @@
   </div>
 </template>
 <script>
-// import { mapGetters } from 'vuex';
+/* eslint-disable */
+import * as qiniu from 'qiniu';
 import t from '@/utils/translate';
 
 export default {
-  data() {
+  data () {
     return {
       getloginLoading: false,
       localLanguge: '',
@@ -105,7 +106,8 @@ export default {
       },
     };
   },
-  created() {
+  created () {
+    console.log('qiniu ===>>> ', qiniu);
     const locallanguage = localStorage.getItem('locale');
     if (locallanguage) {
       this.localLanguge = locallanguage === 'zh' ? '中文' : 'English';
@@ -127,7 +129,7 @@ export default {
     }
   },
   methods: {
-    accountLogin(LoginForm) {
+    accountLogin (LoginForm) {
       this.$refs[LoginForm].validate((valid) => {
         if (valid) {
           this.getloginLoading = true;
@@ -150,7 +152,7 @@ export default {
         }
       });
     },
-    getSmsCode() {
+    getSmsCode () {
       this.$refs.smsPhone.validateField('phone', (opts) => {
         console.log(opts);
         if (opts === '' || opts === undefined || opts === null) {
@@ -177,7 +179,7 @@ export default {
         }
       });
     },
-    getPermission(data) {
+    getPermission (data) {
       /* 根据公司ID 获取公司权限 */
       this.$api.getCompanyRole(data.companyId).then((companyRole) => {
         console.log('company role', companyRole);
@@ -197,7 +199,7 @@ export default {
         }
       });
     },
-    checkSmsCode() {
+    checkSmsCode () {
       this.$refs.smsPhone.validate((valid) => {
         if (valid) {
           this.getloginLoading = true;
@@ -219,7 +221,7 @@ export default {
         }
       });
     },
-    handleCommand(cammand) {
+    handleCommand (cammand) {
       if (cammand === 'zh') {
         this.localLanguge = '中文';
         this.$i18n.locale = 'zh';

@@ -131,7 +131,6 @@ const Allocation = {
 
 /* 平台 */
 export const trackPlat = () => {
-  console.log(permissionFun());
   platadmin[1].children.splice(4, 2);
   return {
     title,

@@ -2,111 +2,63 @@
   <div class="device">
     <div class="topTab">
       <div class="icons">
-        <reg-btn></reg-btn>
+        <reg-btn v-if="manufacturerName"></reg-btn>
       </div>
       <div class="select">
         <div class="item">
           <!-- 设备编号 -->
-          <el-input size="small"
-            style="width:100%"
-            v-model.trim="content"
-            :placeholder="$t('device.deviceCode')"></el-input>
+          <el-input size="small" style="width:100%" v-model.trim="content" :placeholder="$t('device.deviceCode')"></el-input>
         </div>
-        <div class="item"
-          v-if="manufacturerName">
+        <div class="item" v-if="manufacturerName">
           <!-- 生产企业 -->
-          <el-select size="small"
-            style="width:100%"
-            v-model="manufactur"
-            :placeholder="$t('device.enterprise')">
-            <el-option v-for="item in companyArr"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"></el-option>
+          <el-select size="small" style="width:100%" v-model="manufactur" :placeholder="$t('device.enterprise')">
+            <el-option v-for="item in companyArr" :key="item.id" :label="item.name" :value="item.id"></el-option>
           </el-select>
         </div>
         <div class="item">
           <!-- 绑定状态 -->
-          <el-select size="small"
-            style="width:100%"
-            v-model="bindState"
-            :placeholder="$t('device.bindStatus')">
-            <el-option v-for="item in bindOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+          <el-select size="small" style="width:100%" v-model="bindState" :placeholder="$t('device.bindStatus')">
+            <el-option v-for="item in bindOptions" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </div>
         <div class="item">
           <!-- 确定 -->
-          <el-button @click="searchList"
-            size="small"
-            type="primary">{{$t('timeBtn.sure')}}</el-button>
+          <el-button @click="searchList" size="small" type="primary">{{$t('timeBtn.sure')}}</el-button>
           <!-- 清空 -->
-          <el-button @click="clearAll"
-            size="small"
-            plain>{{$t('timeBtn.clear')}}</el-button>
+          <el-button @click="clearAll" size="small" plain>{{$t('timeBtn.clear')}}</el-button>
         </div>
       </div>
     </div>
     <div class="tableContent">
-      <el-table v-loading="loading"
-        :data="tableData"
-        style="width: 100%">
-        <el-table-column prop="code"
-          align="center"
-          :label="$t('device.deviceCode')">
-        </el-table-column>
+      <el-table v-loading="loading" :data="tableData" style="width: 100%">
+        <el-table-column prop="code" align="center" :label="$t('device.deviceCode')" />
         <!-- 企业名称 -->
-        <el-table-column prop="companyName"
-          align="center"
-          :label="$t('batteryList.name')">
-        </el-table-column>
+        <el-table-column prop="companyName" align="center" :label="$t('batteryList.name')" />
         <!-- 客户企业 -->
-        <el-table-column prop="subCompanyName"
-          align="center"
-          :label="$t('batteryList.customer')">
-        </el-table-column>
+        <el-table-column prop="subCompanyName" align="center" :label="$t('batteryList.customer')" />
         <!-- 电池绑定状态 -->
-        <el-table-column prop="bindState"
-          align="center"
-          :label="$t('device.bindStatus')">
-        </el-table-column>
+        <el-table-column prop="bindState" align="center" :label="$t('device.bindStatus')" />
         <!-- 监测设备 -->
-        <el-table-column align="center"
-          :label="$t('device.handel')">
+        <el-table-column align="center" :label="$t('device.handel')">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="MonitorDevice(scope.row)"
-              type="text"
-              size="small">
+            <el-button @click.native.prevent="MonitorDevice(scope.row)" type="text" size="small">
               {{$t('batteryList.view')}}
             </el-button>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('batteryList.handle')"
-          align="center"
-          width="200px">
+        <el-table-column :label="$t('batteryList.handle')" align="center" width="200px">
           <template slot-scope="scope">
             <!-- 拉黑 -->
-            <el-button @click.native.prevent="addBlack(scope.row)"
-              type="text"
-              :disabled="scope.row.blackStatus"
-              size="small">
+            <el-button @click.native.prevent="addBlack(scope.row)" type="text" :disabled="scope.row.blackStatus" size="small">
               {{$t('batteryList.black')}}
             </el-button>
             <!-- 删除 -->
-            <el-button @click.native.prevent="deleteRow(scope.row)"
-              :disabled="scope.row.delete"
-              type="text"
-              size="small">
+            <el-button @click.native.prevent="deleteRow(scope.row)" :disabled="scope.row.delete" type="text" size="small">
               {{$t('batteryList.detele')}}
             </el-button>
             <!-- 设备升级 -->
-            <el-button @click.native.prevent="uplevel(scope.row)"
-              :disabled="scope.row.uplevels"
-              type="text"
-              size="small">
+            <el-button @click.native.prevent="uplevel(scope.row)" :disabled="scope.row.uplevels" type="text" size="small">
               {{$t('device.upLevel')}}
             </el-button>
           </template>
@@ -114,13 +66,7 @@
       </el-table>
     </div>
     <div class="page">
-      <el-pagination @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-sizes="['10','20','30','50']"
-        :page-size="pageSize"
-        layout="sizes, prev, pager, next"
-        :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="['10','20','30','50']" :page-size="pageSize" layout="sizes, prev, pager, next" :total="total">
       </el-pagination>
     </div>
   </div>
@@ -313,10 +259,7 @@ export default {
   },
   mounted() {
     this.getDeviceList();
-    if (
-      this.userData.type === 1 ||
-      (this.userData.type === 3 && this.userData.layerName === '平台')
-    ) {
+    if (this.userData.layerName === '平台') {
       this.manufacturerName = true;
       this.getCompany();
     }

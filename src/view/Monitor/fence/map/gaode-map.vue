@@ -50,17 +50,6 @@ export default {
         lang,
         zoom: 5,
       });
-
-      // this.buildFence();
-      // map.on('click', this.callBackFn); // 地图的点击事件
-      // map.setDefaultCursor('pointer'); // 手势
-      // map.on('rightclick', () => {
-      //   // map.setDefaultCursor(); // 手势
-      //   map.off('click', this.callBackFn); // 移除地图点击事件
-      //   if (this.mouseTool) {
-      //     this.mouseTool.close(false); // 移除 画多边形的功能
-      //   }
-      // });
     },
     // 没有设置过围栏
     buildFence () {
@@ -74,6 +63,12 @@ export default {
       map.on('click', this.callBackFn); // 地图的点击事件
       /* 鼠标右击事件 右击后 要移除地图的点击事件 和画多边形的事件 */
       map.on('rightclick', () => {
+        map.setDefaultCursor(); // 手势
+        map.off('click', this.callBackFn); // 移除地图点击事件
+        this.mouseTool.close(false); // 移除 画多边形的功能
+      });
+      /* 鼠标右击事件 右击后 要移除地图的点击事件 和画多边形的事件 */
+      map.on('dblclick', () => {
         map.setDefaultCursor(); // 手势
         map.off('click', this.callBackFn); // 移除地图点击事件
         this.mouseTool.close(false); // 移除 画多边形的功能

@@ -253,4 +253,9 @@ export default {
 
   /* websoket */
   Socket: () => new WebSocket(socketUrl),
+  /* websoket */
+  qiniuToken: () => http.get('/qiniu/up_token'),
+
+  /* 修改公司名称 */
+  companyName: params => http.put('company', params),
 };

@@ -12,105 +12,63 @@
         <p>{{key.text}}</p>
       </div>
     </div> -->
-    <el-table v-loading="loading"
-      :data="tableData"
-      style="width: 100%">
+    <el-table v-loading="loading" :data="tableData" style="width: 100%">
       <!-- 用户名 -->
-      <el-table-column prop="account"
-        align="center"
-        :label="$t('useMsg.name')">
+      <el-table-column prop="account" align="center" :label="$t('useMsg.name')">
       </el-table-column>
       <!-- 昵称 -->
-      <el-table-column prop="nickName"
-        align="center"
-        :label="$t('useMsg.nickName')">
+      <el-table-column prop="nickName" align="center" :label="$t('useMsg.nickName')">
       </el-table-column>
       <!-- 账户身份 -->
-      <el-table-column prop="role"
-        align="center"
-        :label="$t('useMsg.accountRole')">
+      <el-table-column prop="role" align="center" :label="$t('useMsg.accountRole')">
       </el-table-column>
       <!-- 企业身份 -->
-      <el-table-column prop="layerName"
-        align="center"
-        :label="$t('useMsg.enterpriseRole')">
+      <el-table-column prop="layerName" align="center" :label="$t('useMsg.enterpriseRole')">
       </el-table-column>
       <!-- 企业名称 -->
-      <el-table-column prop="companyName"
-        align="center"
-        :label="$t('useMsg.enterpriseName')">
+      <el-table-column prop="companyName" align="center" :label="$t('useMsg.enterpriseName')">
       </el-table-column>
       <!-- 手机号码 -->
-      <el-table-column prop="phone"
-        align="center"
-        :label="$t('useMsg.phone')">
+      <el-table-column prop="phone" align="center" :label="$t('useMsg.phone')">
       </el-table-column>
       <!-- 邮箱 -->
-      <el-table-column prop="email"
-        align="center"
-        :label="$t('useMsg.email')"
-        width="240">
+      <el-table-column prop="email" align="center" :label="$t('useMsg.email')" width="240">
       </el-table-column>
       <!-- 操作 -->
-      <el-table-column align="center"
-        :label="$t('batteryList.handle')"
-        :width="width">
+      <el-table-column align="center" :label="$t('batteryList.handle')" :width="width">
         <template slot-scope="scope">
           <!-- 修改权限 -->
-          <el-button :disabled="!scope.row.userType"
-            size="small"
-            class="limite"
-            @click.native.prevent="changeQuanxian(scope.row)"
-            type="text">
+          <el-button :disabled="!scope.row.changePermison" size="small" class="limite" @click.native.prevent="changeQuanxian(scope.row)" type="text">
             {{$t('useMsg.changeRole')}}
           </el-button>
           <!-- 删除 -->
-          <el-button size="small"
-            type="text"
-            @click="secondary(scope.row)"
-            :disabled="!scope.row.canNotDelete">{{$t('timeBtn.del')}}</el-button>
+          <el-button size="small" type="text" @click="secondary(scope.row)" :disabled="!scope.row.canNotDelete">{{$t('timeBtn.del')}}</el-button>
         </template>
       </el-table-column>
     </el-table>
     <div class="page">
-      <el-pagination @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page.sync="currentPage"
-        :page-sizes="[10, 20, 30, 50]"
-        :page-size="pageSize"
-        layout="sizes, prev, pager, next"
-        :total="total">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-sizes="[10, 20, 30, 50]" :page-size="pageSize" layout="sizes, prev, pager, next" :total="total">
       </el-pagination>
     </div>
     <!-- 权限 -->
-    <div>
-      <el-dialog :title="$t('useMsg.changeRole')"
-        width="600px"
-        :visible.sync="jurisdiction">
-        <div>
-          <ul class="jurisdiction-warrp">
-            <li v-for="key in userRole"
-              :key="key.id"
-              class="jurisdiction-itme">
-              <div class="pre">{{key.label}}</div>
-              <div class="pre">
-                <el-checkbox v-model="key.value"></el-checkbox>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div slot="footer"
-          class="dialog-footer">
-          <!-- 取消 -->
-          <el-button size="small"
-            @click="jurisdiction = false">{{$t('timeBtn.cancle')}}</el-button>
-          <el-button size="small"
-            type="primary"
-            @click="doChangeJur">{{$t('timeBtn.sure')}}</el-button>
-          <!-- 确定 -->
-        </div>
-      </el-dialog>
-    </div>
+    <el-dialog :title="$t('useMsg.changeRole')" width="600px" :visible.sync="jurisdiction">
+      <div>
+        <ul class="jurisdiction-warrp">
+          <li v-for="key in userRole" :key="key.id" class="jurisdiction-itme">
+            <div class="pre">{{key.label}}</div>
+            <div class="pre">
+              <el-checkbox v-model="key.value"></el-checkbox>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <!-- 取消 -->
+        <el-button size="small" @click="jurisdiction = false">{{$t('timeBtn.cancle')}}</el-button>
+        <el-button size="small" type="primary" @click="doChangeJur">{{$t('timeBtn.sure')}}</el-button>
+        <!-- 确定 -->
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -121,6 +79,7 @@ import permissionFun from "@/permision/monitor-valated";
 import defaultPermision from "@/permision/Monitor-permision";
 import t from "@/utils/translate";
 import adduserInfo from "./addUser"
+import defaultPerList from '@/utils/permisionList'
 
 export default {
   components: {
@@ -146,38 +105,7 @@ export default {
       addType: null, // 添加公司的类型
       tableData: [],
       storge: "",
-      userRole: [
-        {
-          label: t('defaultRole.addBatteries'), // "电池登记",
-          id: "AddBatteries",
-          value: false
-        },
-        {
-          label: t('defaultRole.addblack'), // "拉黑及恢复电池",
-          id: "addblack",
-          value: false
-        },
-        {
-          label: t('defaultRole.historyData'), // "历史数据",
-          id: "historyData",
-          value: false
-        },
-        {
-          label: t('defaultRole.alarm'), // "告警事件",
-          id: "alarm",
-          value: false
-        },
-        {
-          label: t('defaultRole.sameAnalysis'), // "数据对比",
-          id: "sameAnalysis",
-          value: false
-        },
-        {
-          label: t('defaultRole.personalInfo'), // "个人信息维护",
-          id: "personalInfo",
-          value: false
-        }
-      ]
+      userRole: []
     };
   },
   mounted () {
@@ -247,25 +175,10 @@ export default {
     },
     /* 修改权限 -- 按钮 */
     changeQuanxian (item) {
-      if (
-        (item.type === 2 && item.layerName === "生产企业") ||
-        (item.type === 3 && item.layerName === "生产企业")
-      ) {
-        if (this.userRole.length === 6) {
-          this.userRole.push({
-            label: `${t('defaultRole.allocation')}`, //"电池调配",
-            id: "allocation",
-            value: false
-          });
-        }
-      } else {
-        if (this.userRole.length > 6) {
-          this.userRole.splice(6, 1);
-        }
-      }
+      this.userRole = defaultPerList(item);
+      console.log(item)
       this.userId = item.id;
       this.$api.permissions(item.id).then(res => {
-        // console.log(res);
         if (res.data && res.data.code === 0) {
           if (res.data.data !== null) {
             let permis = JSON.parse(res.data.data);
@@ -335,7 +248,7 @@ export default {
       this.currentPage = val;
       this.getUserList();
     },
-    reloadData (data) {
+    reloadData () {
       this.getUserList();
     },
     getUserList () {
@@ -358,74 +271,45 @@ export default {
               key.role = utils.accountType(key.type);
               key.userType = this.AdminRoles.deleteAdmin;
               key.email = key.email || "-";
-              if (
-                this.storge.companyId === key.companyId &&
-                this.storge.type === key.type
-              ) {
+              if (this.storge.companyId === key.companyId && this.storge.type === key.type) {
                 key.canNotDelete = false;
-                key.userType = false;
+                key.changePermison = false;
               } else {
-                if (
-                  key.type === 1 ||
-                  (key.type === 3 && key.layerName === "平台")
-                ) {
-                  // 平台
-                  key.userType = false;
+                key.changePermison = false;
+                key.canNotDelete = false;
+                if (key.layerName === "平台") {
+                  key.changePermison = false;
                   key.canNotDelete = false;
                 }
-                if (
-                  (this.storge.type === 1 ||
-                    (this.storge.type === 3 &&
-                      this.storge.layerName === "平台")) &&
-                  key.type === 2 &&
-                  key.layerName === "生产企业"
-                ) {
+                if (this.storge.layerName === "平台" && key.type === 2 && key.layerName === "生产企业") {
+                  key.canNotDelete = true;
+                  key.changePermison = false;
+                }
+                if (this.storge.type === 2 && this.storge.layerName === "生产企业" && key.type === 2 && key.layerName === "采购企业") {
+                  key.canNotDelete = true;
+                  key.changePermison = true;
+                }
+                if (this.storge.type === 2 && this.storge.layerName === "生产企业" && key.type === 3 && key.layerName === "生产企业") {
+                  key.canNotDelete = true;
+                  key.changePermison = true;
+                }
+                if (this.storge.type === 2 && this.storge.layerName === "生产企业" && key.type === 2 && key.layerName === "采购企业") {
+                  key.canNotDelete = true;
+                  key.changePermison = true;
+                }
+                if (this.storge.type === 2 && this.storge.layerName === "采购企业" && key.type === 3 && key.layerName === "采购企业") {
+                  key.changePermison = true;
                   key.canNotDelete = true;
                 }
-                if (
-                  this.storge.type === 2 &&
-                  this.storge.layerName === "生产企业" &&
-                  key.type === 2 &&
-                  key.layerName === "采购企业"
-                ) {
-                  key.canNotDelete = true;
-                }
-                if (
-                  this.storge.type === 2 &&
-                  this.storge.layerName === "生产企业" &&
-                  key.type === 3
-                ) {
-                  key.canNotDelete = true;
-                }
-                if (
-                  this.storge.type === 2 &&
-                  this.storge.layerName === "采购企业" &&
-                  key.type === 3
-                ) {
-                  key.userType = true;
-                  key.canNotDelete = true;
-                }
-                if (
-                  this.storge.type === 3 &&
-                  // storge.layerName === "采购企业" &&
-                  key.type === 3 &&
-                  key.layerName === "采购企业"
-                ) {
-                  key.userType = false;
+                if (this.storge.type === 3 && this.storge.layerName !== "生产企业" && key.type === 3 && key.layerName === "采购企业") {
+                  key.changePermison = false;
                   key.canNotDelete = false;
                 }
-                if (
-                  this.storge.type === 3 &&
-                  this.storge.layerName !== "平台" &&
-                  (key.type === 2 ||
-                    (key.type === 1 ||
-                      (key.type === 3 && key.layerName === "平台")))
-                ) {
-                  key.userType = false;
+                if (this.storge.type === 3 && this.storge.layerName !== "平台") {
+                  key.changePermison = false;
                   key.canNotDelete = false;
                 }
               }
-
               this.tableData.push(key);
             });
           }
