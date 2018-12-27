@@ -14,6 +14,10 @@
               <el-form-item :label="$t('loginMsg.passwordPlace')" prop="password">
                 <el-input type="password" v-model="LoginForm.password" @keyup.enter.native="accountLogin('LoginForm')"></el-input>
               </el-form-item>
+              <template>
+                <!-- 记住账户密码 -->
+                <el-checkbox v-model="checked">{{$t('loginMsg.RememberPassword')}}</el-checkbox>
+              </template>
               <el-form-item>
                 <el-button :loading="getloginLoading" type="primary" class="accpwsBtn" @click="accountLogin('LoginForm')" round>{{$t('loginMsg.loginBtn')}}</el-button>
               </el-form-item>
@@ -57,6 +61,7 @@ import t from '@/utils/translate';
 export default {
   data () {
     return {
+      checked: true,
       getloginLoading: false,
       localLanguge: '',
       hasGetSms: false,
@@ -65,6 +70,9 @@ export default {
       smsForm: {
         phone: '',
         smsCode: '',
+      },
+      accountRules: {
+
       },
       phoneRules: {
         phone: [
@@ -94,14 +102,32 @@ export default {
             required: true,
             message: t('loginMsg.errorMsg.account'),
             trigger: 'blur',
-          },
+          }, {
+            min: 4,
+            max: 20,
+            message: '用户名长度为4~20',
+            trigger: 'blur'
+          }, {
+            pattern: /^[a-zA-Z0-9]\\w{3,19}$/,
+            message: '用户名格式有误',
+            trigger: 'change'
+          }
         ],
         password: [
           {
             required: true,
             message: t('loginMsg.errorMsg.password'),
             trigger: 'blur',
-          },
+          }, {
+            min: 6,
+            max: 20,
+            message: '密码长度为6~20',
+            trigger: 'blur'
+          }, {
+            pattern: /^[a-zA-Z0-9][a-zA-Z0-9!@#$%^&*]{5,19}$/,
+            message: '密码格式有误',
+            trigger: 'change'
+          }
         ],
       },
     };
@@ -147,6 +173,11 @@ export default {
               sessionStorage.setItem('loginData', JSON.stringify(userData));
               this.$store.commit('setUserData', userData);
               this.getPermission(userData);
+              if (this.checked) {
+                var storage = { "account": person.account, "password": person.password };
+                var userInfo = JSON.stringify(storage);
+                localStorage.setItem("user", userInfo);
+              }
             }
           });
         }
@@ -239,14 +270,14 @@ export default {
             required: true,
             message: this.$t('loginMsg.errorMsg.account'),
             trigger: 'blur',
-          },
+          }
         ],
         password: [
           {
             required: true,
             message: this.$t('loginMsg.errorMsg.password'),
             trigger: 'blur',
-          },
+          }
         ],
       };
       this.phoneRules = {
@@ -272,6 +303,13 @@ export default {
       };
     },
   },
+  created () {
+    if (localStorage.getItem('user')) {
+      var userInfo = JSON.parse(localStorage.getItem('user'))
+      this.LoginForm.account = userInfo.account
+      this.LoginForm.password = userInfo.password
+    }
+  }
 };
 </script>
 <style lang="scss" scoped>

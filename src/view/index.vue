@@ -11,18 +11,16 @@
 import infoSidebar from './infoSideBar';
 
 export default {
-  data() {
-    return {
+  // data () {
+  //   return {
 
-    };
-  },
+  //   };
+  // },
   components: {
     infoSidebar,
   },
-  mounted() { },
-
-  methods: {},
-
+  // mounted () { },
+  // methods: {},
 };
 
 </script>

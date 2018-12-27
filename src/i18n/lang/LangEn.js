@@ -21,10 +21,8 @@ module.exports = {
     accountOrPwdErr: 'Invalid account or password.', // 104001
     userNotExist: 'The user does not exist.', // `104002`: 用户不存在
     companyExists: 'The company already exists.', // 201001
-    hasInvalidDevice:
-      'There are still valid devices that must be deleted first, please delete them.', // 202001
-    hasInvalidHost:
-      'There are still valid batteries that must be deleted first, please delete them.', // 202002
+    hasInvalidDevice: 'There are still valid devices that must be deleted first, please delete them.', // 202001
+    hasInvalidHost: 'There are still valid batteries that must be deleted first, please delete them.', // 202002
     notFindCompany: 'The company not found.', // 204001
     deviceExists: 'The device already exists.', // 301001
     notFindDevice: 'The device not found.', // 301002
@@ -41,15 +39,11 @@ module.exports = {
     batterySpecNotFind: 'The battery pack specification not found.', // 401214
     batterySingleModelExists: 'The battery unit specification already exists.', // 401215
     batterySingleModelNotFind: 'The battery unit specification not found.', // 401216
-    innerNoticeExists:
-      'The notification rule of this platform for abnormal alarms already exists.', // 501211
+    innerNoticeExists: 'The notification rule of this platform for abnormal alarms already exists.', // 501211
     InnerNoticeUserExists: 'The notified user of this platform already exists.', // 501221
-    InnerNoticeOverrun:
-      'The number of notified users of this platform exceeds the maximum.', // 501222
-    outerNoticeUserExists:
-      'The Mobile phone number used by the notified person who is outside the platform already exists.', // 501231
-    outerNoticeOverrun:
-      'The number of notified persons outside the platform exceeds the maximum.', // 501232
+    InnerNoticeOverrun: 'The number of notified users of this platform exceeds the maximum.', // 501222
+    outerNoticeUserExists: 'The Mobile phone number used by the notified person who is outside the platform already exists.', // 501231
+    outerNoticeOverrun: 'The number of notified persons outside the platform exceeds the maximum.', // 501232
   },
   loginMsg: {
     userNameMsg: 'Please enter user id.',
@@ -63,6 +57,7 @@ module.exports = {
     tips: 'Prompt',
     sortage: 'Please close the invisible mode before you visit.',
     loginBtn: 'Login',
+    RememberPassword: 'Remember your account password',
     errorMsg: {
       account: 'Please enter user id.',
       password: 'Please enter password.',
@@ -101,8 +96,7 @@ module.exports = {
     volumeErr: 'The imported data files cannot be larger than 1M.',
     nodata: 'The uploaded file is empty, please check and correct it.',
     complete: 'Please complete the file data.',
-    betteryCodeRepeat:
-      'Battery id cannot be duplicated, please check and correct it.',
+    betteryCodeRepeat: 'Battery id cannot be duplicated, please check and correct it.',
     timeFormatErr: 'Time format is invalid, please change to text format.',
   },
   menu: {
@@ -299,10 +293,8 @@ module.exports = {
       batteryVoltage: 'Please enter the rated voltage.',
       batteryCapacity: 'Please enter the rated capacity.',
       singleBattery: 'Please choose battery unit specification.',
-      CheckmanufactureDate:
-        'The date of production must before the date of manufacture.',
-      CheckWarrantyDate:
-        'The date of manufacture must before the date of warranty.',
+      CheckmanufactureDate: 'The date of production must before the date of manufacture.',
+      CheckWarrantyDate: 'The date of manufacture must before the date of warranty.',
     },
     batteries: 'New Battery',
     batchImport: 'Batch Import',
@@ -426,10 +418,8 @@ module.exports = {
     no: 'No Data',
     nickName: 'Nickname',
     changeRole: 'Change Permission',
-    delUserWarn:
-      'Your Operation will delete this user. Do you want to continue?',
-    delCompanyWarn:
-      'Your Operation will delete this company and all users under it. Do you want to continue?',
+    delUserWarn: 'Your Operation will delete this user. Do you want to continue?',
+    delCompanyWarn: 'Your Operation will delete this company and all users under it. Do you want to continue?',
   },
   defaultRole: {
     addBatteries: 'Register Battery',
@@ -577,31 +567,19 @@ module.exports = {
     maxCCapacity: 'Upper Threshold Coefficient of Capacity in Charging',
     minCCapacity: 'Lower Threshold Coefficient of Capacity in Charging',
     warn: {
-      singleVoltage:
-        'Please enter the upper threshold value of unit voltage in charging.',
-      singleDisVoltage:
-        'Please enter the lower threshold value of unit voltage in discharging.',
-      maxColtage:
-        'Please enter the upper threshold value of voltage in charging.',
-      minDVoltage:
-        'Please enter the lower threshold value of voltage in discharging.',
-      maxCCurrent:
-        'Please enter the upper threshold coefficient of current in charging.',
-      maxDCurrent:
-        'Please enter the upper threshold coefficient of current in discharging.',
-      maxCTemperat:
-        'Please enter the upper threshold value of temperature in charging.',
-      minCTemperat:
-        'Please enter the lower threshold value of temperature in charging.',
-      maxDTemperat:
-        'Please enter the upper threshold value of temperature in discharging.',
-      minDTemperat:
-        'Please enter the lower threshold value of temperature in discharging.',
+      singleVoltage: 'Please enter the upper threshold value of unit voltage in charging.',
+      singleDisVoltage: 'Please enter the lower threshold value of unit voltage in discharging.',
+      maxColtage: 'Please enter the upper threshold value of voltage in charging.',
+      minDVoltage: 'Please enter the lower threshold value of voltage in discharging.',
+      maxCCurrent: 'Please enter the upper threshold coefficient of current in charging.',
+      maxDCurrent: 'Please enter the upper threshold coefficient of current in discharging.',
+      maxCTemperat: 'Please enter the upper threshold value of temperature in charging.',
+      minCTemperat: 'Please enter the lower threshold value of temperature in charging.',
+      maxDTemperat: 'Please enter the upper threshold value of temperature in discharging.',
+      minDTemperat: 'Please enter the lower threshold value of temperature in discharging.',
       maxFODays: 'Please enter the days of lack of electrolyte.',
-      maxCCapacity:
-        'Please enter the upper threshold coefficient of capacity in charging.',
-      minCCapacity:
-        'Please enter the lower threshold coefficient of capacity in charging.',
+      maxCCapacity: 'Please enter the upper threshold coefficient of capacity in charging.',
+      minCCapacity: 'Please enter the lower threshold coefficient of capacity in charging.',
       selectBatModel: 'Please select battery model.',
       modelNoThres: 'The threshold on this battery model is not deployed.',
       NOverall: 'The universal threshold is not deployed.',

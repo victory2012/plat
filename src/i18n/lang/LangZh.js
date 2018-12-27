@@ -57,6 +57,7 @@ module.exports = {
     tips: '提示',
     sortage: '请关闭无痕模式后，再访问',
     loginBtn: '登录',
+    RememberPassword: '记住账户密码',
     errorMsg: {
       account: '请输入账号',
       password: '请输入密码',
