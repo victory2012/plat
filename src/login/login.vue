@@ -59,7 +59,7 @@ import * as qiniu from 'qiniu';
 import t from '@/utils/translate';
 
 export default {
-  data () {
+  data() {
     return {
       checked: true,
       getloginLoading: false,
@@ -101,14 +101,14 @@ export default {
           {
             required: true,
             message: t('loginMsg.errorMsg.account'),
-            trigger: 'blur',
+            trigger: 'change',
           }, {
             min: 4,
             max: 20,
             message: '用户名长度为4~20',
-            trigger: 'blur'
+            trigger: 'change'
           }, {
-            pattern: /^[a-zA-Z0-9]\\w{3,19}$/,
+            pattern: /^[a-zA-Z][a-zA-Z0-9]{3,19}$/,
             message: '用户名格式有误',
             trigger: 'change'
           }
@@ -117,12 +117,12 @@ export default {
           {
             required: true,
             message: t('loginMsg.errorMsg.password'),
-            trigger: 'blur',
+            trigger: 'change',
           }, {
             min: 6,
             max: 20,
             message: '密码长度为6~20',
-            trigger: 'blur'
+            trigger: 'change'
           }, {
             pattern: /^[a-zA-Z0-9][a-zA-Z0-9!@#$%^&*]{5,19}$/,
             message: '密码格式有误',
@@ -132,7 +132,7 @@ export default {
       },
     };
   },
-  created () {
+  created() {
     console.log('qiniu ===>>> ', qiniu);
     const locallanguage = localStorage.getItem('locale');
     if (locallanguage) {
@@ -155,7 +155,7 @@ export default {
     }
   },
   methods: {
-    accountLogin (LoginForm) {
+    accountLogin(LoginForm) {
       this.$refs[LoginForm].validate((valid) => {
         if (valid) {
           this.getloginLoading = true;
@@ -183,7 +183,7 @@ export default {
         }
       });
     },
-    getSmsCode () {
+    getSmsCode() {
       this.$refs.smsPhone.validateField('phone', (opts) => {
         console.log(opts);
         if (opts === '' || opts === undefined || opts === null) {
@@ -210,7 +210,7 @@ export default {
         }
       });
     },
-    getPermission (data) {
+    getPermission(data) {
       /* 根据公司ID 获取公司权限 */
       this.$api.getCompanyRole(data.companyId).then((companyRole) => {
         console.log('company role', companyRole);
@@ -230,7 +230,7 @@ export default {
         }
       });
     },
-    checkSmsCode () {
+    checkSmsCode() {
       this.$refs.smsPhone.validate((valid) => {
         if (valid) {
           this.getloginLoading = true;
@@ -252,7 +252,7 @@ export default {
         }
       });
     },
-    handleCommand (cammand) {
+    handleCommand(cammand) {
       if (cammand === 'zh') {
         this.localLanguge = '中文';
         this.$i18n.locale = 'zh';
@@ -303,7 +303,7 @@ export default {
       };
     },
   },
-  created () {
+  created() {
     if (localStorage.getItem('user')) {
       var userInfo = JSON.parse(localStorage.getItem('user'))
       this.LoginForm.account = userInfo.account
