@@ -338,7 +338,7 @@ export default {
   }
   .item {
     position: relative;
-    top: -80px;
+    // top: -80px;
     // float: left;
     flex: 1;
     // width: 35%;

@@ -1,6 +1,6 @@
 <template>
   <div class="alarmTable">
-    <adduser-info @hasCreated="reloadData"></adduser-info>
+    <!-- <adduser-info @hasCreated="reloadData"></adduser-info> -->
     <!-- <div class="addWarrp">
       <div @click="adduser(index, key)"
         v-for="(key, index) in userData"
