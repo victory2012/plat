@@ -1,8 +1,10 @@
-import { deepClone } from '@/utils/functions';
+/* eslint-disable */
+import {
+  deepClone
+} from '@/utils/functions';
 import permissionFun from '@/permision/monitor-valated';
 
-const montorData = [
-  {
+const montorData = [{
     text: '概览', // 'menu.overview', // 概览
     link: '/monitor',
     icon: 'iconfont icon-allnormal',
@@ -10,14 +12,11 @@ const montorData = [
   {
     text: '电池管理', // 'menu.batteryManage', // 电池管理
     icon: 'iconfont icon-monitor1',
-    children: [
-      {
+    children: [{
         text: '电池信息', // 'menu.batteryInfo', // 电池信息
-        children: [
-          {
+        children: [{
             text: '电池地图', // 'menu.batteryList', // 电池地图
-            children: [
-              {
+            children: [{
                 text: '实时位置', // 'menu.batteryList', // 实时位置
                 link: '/monitor/real-position',
               },
@@ -59,11 +58,9 @@ const montorData = [
   {
     text: '配置管理', // 'menu.threshold', // 报警阈值
     icon: 'iconfont icon-electricfence',
-    children: [
-      {
+    children: [{
         text: '报警阈值', // 'menu.threshold', // 报警阈值
-        children: [
-          {
+        children: [{
             text: '按电池型号分类', // 'menu.sortByModel', // 按电池型号分类
             link: '/monitor/set/model',
           },
@@ -75,8 +72,7 @@ const montorData = [
       },
       {
         text: '告警通知', // 'menu.WarningNotice', // 告警通知
-        children: [
-          {
+        children: [{
             text: '告警接收人', // 'menu.receiveList', // 告警接收人
             link: '/monitor/set/receive',
           },
@@ -92,8 +88,7 @@ const montorData = [
       },
       {
         text: '地理围栏', // 'menu.threshold', // 报警阈值
-        children: [
-          {
+        children: [{
             text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
             link: '/monitor/company/fence',
           },
@@ -108,8 +103,7 @@ const montorData = [
   {
     text: '设备管理', // 'menu.device', // 设备管理
     icon: 'iconfont icon-device',
-    children: [
-      {
+    children: [{
         text: '设备列表', // 'menu.deviceList', // 设备列表
         link: '/monitor/device/list',
       },

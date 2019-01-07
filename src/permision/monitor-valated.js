@@ -30,7 +30,7 @@ export default function permissionFun() {
     allocation: false, // 电池调配
   };
   if (role == null) {
-    if (userData.type === 1) {
+    if (userData.layerName === '平台') {
       permissions.type = 'plat';
       permissions.AddBatteries = false;
       permissions.info = false;
@@ -46,22 +46,22 @@ export default function permissionFun() {
       permissions.allocation = false;
       permissions.threshold = false;
     }
-    if (userData.type === 3 && userData.layerName === '平台') {
-      permissions.type = 'plat';
-      permissions.AddBatteries = false;
-      permissions.info = false;
-      permissions.runState = true;
-      permissions.recovery = false;
-      permissions.addblack = false;
-      permissions.deleteBattery = false;
-      permissions.addCompany = false;
-      permissions.deleteCompany = false;
-      permissions.addAdmin = false;
-      permissions.deleteAdmin = false;
-      permissions.notice = false;
-      permissions.allocation = false;
-      permissions.threshold = false;
-    }
+    // if (userData.type === 3 && userData.layerName === '平台') {
+    //   permissions.type = 'plat';
+    //   permissions.AddBatteries = false;
+    //   permissions.info = false;
+    //   permissions.runState = true;
+    //   permissions.recovery = false;
+    //   permissions.addblack = false;
+    //   permissions.deleteBattery = false;
+    //   permissions.addCompany = false;
+    //   permissions.deleteCompany = false;
+    //   permissions.addAdmin = false;
+    //   permissions.deleteAdmin = false;
+    //   permissions.notice = false;
+    //   permissions.allocation = false;
+    //   permissions.threshold = false;
+    // }
     if (userData.type === 2 && userData.layerName === '生产企业') {
       permissions.type = 'manufactur';
       permissions.allocation = true;

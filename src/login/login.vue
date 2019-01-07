@@ -105,12 +105,12 @@ export default {
           }, {
             min: 4,
             max: 20,
-            message: '用户名长度为4~20',
-            trigger: 'change'
+            message: t('loginMsg.errorMsg.checkAccount'),
+            trigger: 'change',
           }, {
             pattern: /^[a-zA-Z][a-zA-Z0-9]{3,19}$/,
-            message: '用户名格式有误',
-            trigger: 'change'
+            message: t('loginMsg.errorMsg.checkFormat'),
+            trigger: 'change',
           }
         ],
         password: [
@@ -121,12 +121,12 @@ export default {
           }, {
             min: 6,
             max: 20,
-            message: '密码长度为6~20',
-            trigger: 'change'
+            message: t('loginMsg.errorMsg.checkPassWord'),
+            trigger: 'change',
           }, {
             pattern: /^[a-zA-Z0-9][a-zA-Z0-9!@#$%^&*]{5,19}$/,
-            message: '密码格式有误',
-            trigger: 'change'
+            message: t('loginMsg.errorMsg.checkPasswordFormat'),
+            trigger: 'change',
           }
         ],
       },
@@ -152,6 +152,11 @@ export default {
         localStorage.setItem('locale', 'en');
         this.$i18n.locale = 'en';
       }
+    };
+    if (localStorage.getItem('user')) {
+      var userInfo = JSON.parse(localStorage.getItem('user'));
+      this.LoginForm.account = userInfo.account;
+      this.LoginForm.password = userInfo.password;
     }
   },
   methods: {
@@ -302,13 +307,6 @@ export default {
         ],
       };
     },
-  },
-  created() {
-    if (localStorage.getItem('user')) {
-      var userInfo = JSON.parse(localStorage.getItem('user'))
-      this.LoginForm.account = userInfo.account
-      this.LoginForm.password = userInfo.password
-    }
   }
 };
 </script>
@@ -340,6 +338,7 @@ export default {
   }
   .item {
     position: relative;
+    top: -80px;
     // float: left;
     flex: 1;
     // width: 35%;

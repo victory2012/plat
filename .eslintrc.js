@@ -60,6 +60,7 @@ module.exports = {
     'no-param-reassign': 0,
     'max-len': 0,
     'no-unused-expressions': 0,
-    'linebreak-style': 0
+    'linebreak-style': 0,
+    'space-in-parens': 0,
   }
 };

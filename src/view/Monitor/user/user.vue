@@ -85,7 +85,7 @@ export default {
   components: {
     adduserInfo
   },
-  data () {
+  data() {
     return {
       width: localStorage.getItem('locale') === 'en' ? 230 : 150,
       AdminRoles: permissionFun(),
@@ -108,13 +108,13 @@ export default {
       userRole: []
     };
   },
-  mounted () {
+  mounted() {
     this.storge = JSON.parse(utils.getStorage("loginData"));
     this.getUserList();
   },
   methods: {
     /* 删除按钮 */
-    secondary (item) {
+    secondary(item) {
       console.log(item);
       if (item.type === 2) {
         this.deleteAdmin(item);
@@ -124,7 +124,7 @@ export default {
       }
     },
     /* 删除用户 */
-    deleteUser (item) {
+    deleteUser(item) {
       // 此操作将删除该用户, 是否继续?
       this.$messageBox
         .confirm(`${t('useMsg.delUserWarn')}`, `${t('loginMsg.tips')}`, {
@@ -148,7 +148,7 @@ export default {
         });
     },
     /* 刪除企业 */
-    deleteAdmin (item) {
+    deleteAdmin(item) {
       // 此操作将删除该企业以及该企业下的所有用户, 是否继续?
       this.$messageBox
         .confirm(
@@ -174,7 +174,7 @@ export default {
         });
     },
     /* 修改权限 -- 按钮 */
-    changeQuanxian (item) {
+    changeQuanxian(item) {
       this.userRole = defaultPerList(item);
       console.log(item)
       this.userId = item.id;
@@ -199,10 +199,7 @@ export default {
             if (item.type === 3 && item.layerName === "采购企业") {
               defaus = defaultPermision.custormPer();
             }
-            if (item.type === 2 && item.layerName === "生产企业") {
-              defaus = defaultPermision.productPer();
-            }
-            if (item.type === 3 && item.layerName === "生产企业") {
+            if (item.layerName === "生产企业") {
               defaus = defaultPermision.productPer();
             }
             let defaultValues = Object.keys(defaus);
@@ -219,7 +216,7 @@ export default {
       });
     },
     /* 修改权限 -- 方法 */
-    doChangeJur () {
+    doChangeJur() {
       let permission = {};
       this.userRole.forEach(key => {
         permission[key.id] = key.value;
@@ -239,19 +236,19 @@ export default {
         }
       });
     },
-    handleSizeChange (val) {
+    handleSizeChange(val) {
       console.log(val);
       this.pageSize = val;
       this.getUserList();
     },
-    handleCurrentChange (val) {
+    handleCurrentChange(val) {
       this.currentPage = val;
       this.getUserList();
     },
-    reloadData () {
+    reloadData() {
       this.getUserList();
     },
-    getUserList () {
+    getUserList() {
       this.loading = true;
       let pageObj = {
         pageSize: this.pageSize,

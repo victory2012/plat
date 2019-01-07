@@ -49,6 +49,8 @@ export default {
   },
   mounted() {
     // this.menus = barData();
+    /* eslint-disable */
+    console.log(this.platadmin)
   },
   methods: {
     chooseProject(key) {
@@ -69,6 +71,7 @@ export default {
         }
         if (this.getloginData.layerName === '生产企业' && this.getloginData.type === 3) {
           menuData = projectType ? getManifactorCus() : trackManufacturUser();
+          console.log(JSON.stringify(trackManufacturUser().data) + '生产用户列表');
         }
         if (this.getloginData.layerName === '采购企业' && this.getloginData.type === 3) {
           menuData = projectType ? purchaseCus() : trackPurchaseUser();

@@ -9,7 +9,7 @@
       <el-form :model="adminForm" :rules="customerRules" ref="adminForm">
         <el-row :gutter="40">
           <el-col :span="12">
-            <!-- 用户名 -->
+            <!-- 上传头像 -->
             <el-form-item :label="'上传头像'" prop="imageUrl">
               <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                 <img v-if="imageUrl" :src="imageUrl" class="avatar">
@@ -150,7 +150,7 @@ export default {
         ],
         password: [
           { required: true, message: t('useMsg.warn.password'), trigger: 'change' },
-          { min: 4, max: 20, message: t('password.passwordLimit'), trigger: 'change' },
+          { min: 6, max: 20, message: t('password.passwordLimit'), trigger: 'change' },
         ],
         phone: [
           { required: true, message: t('useMsg.warn.phone'), trigger: 'change' },
@@ -204,10 +204,7 @@ export default {
       const getLayerName = JSON.parse(loginData);
       // console.log(getLayerName);
       let UserLimet;
-      if (
-        getLayerName.layerName === '平台' &&
-        (getLayerName.type === 1 || getLayerName.type === 3)
-      ) {
+      if (getLayerName.layerName === '平台') {
         UserLimet = addData.getPlat();
       }
       if (getLayerName.layerName === '生产企业' && getLayerName.type === 2) {
@@ -220,7 +217,7 @@ export default {
       this.userData.forEach((key) => {
         key.text = t(`${key.text}`);
       });
-      console.log(this.userData);
+      // console.log(this.userData);
     },
     adduser(key) {
       this.userText = key.text;

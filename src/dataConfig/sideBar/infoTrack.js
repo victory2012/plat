@@ -1,8 +1,10 @@
-import { deepClone } from '@/utils/functions';
+/* eslint-disable */
+import {
+  deepClone
+} from '@/utils/functions';
 import permissionFun from '@/permision/monitor-valated';
 
-const trackMenu = [
-  {
+const trackMenu = [{
     text: '概览', // 'menu.overview', // 概览
     link: '/track',
     icon: 'iconfont icon-allnormal',
@@ -10,14 +12,11 @@ const trackMenu = [
   {
     text: '电池管理', // 'menu.batteryManage', // 电池管理
     icon: 'iconfont icon-dashboard',
-    children: [
-      {
+    children: [{
         text: '电池信息', // 'menu.batteryInfo', // 电池信息
-        children: [
-          {
+        children: [{
             text: '电池地图', // 'menu.batteryList', // 电池地图
-            children: [
-              {
+            children: [{
                 text: '实时位置', // 'menu.batteryList', // 实时位置
                 link: '/track/real/position',
               },
@@ -51,8 +50,7 @@ const trackMenu = [
       },
       {
         text: '报警阈值', // 'menu.threshold', // 报警阈值
-        children: [
-          {
+        children: [{
             text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
             link: '/track/set/company',
           },
@@ -65,8 +63,7 @@ const trackMenu = [
 
       {
         text: '告警通知', // 'menu.WarningNotice', // 告警通知
-        children: [
-          {
+        children: [{
             text: '告警接收人', // 'menu.receiveList', // 告警接收人
             link: '/track/set/receive',
           },
@@ -84,8 +81,7 @@ const trackMenu = [
   },
   {
     text: '地理围栏', // 'menu.threshold', // 报警阈值
-    children: [
-      {
+    children: [{
         text: '企业全局通用', // 'menu.sortByModel', // 按电池型号分类
         link: '/track/company/fence',
       },
@@ -103,8 +99,7 @@ const trackMenu = [
   {
     text: '设备管理', // 'menu.device', // 设备管理
     icon: 'iconfont icon-device',
-    children: [
-      {
+    children: [{
         text: '设备列表', // 'menu.deviceList', // 设备列表
         link: '/device/list',
       },
@@ -132,6 +127,7 @@ const Allocation = {
 /* 平台 */
 export const trackPlat = () => {
   platadmin[1].children.splice(4, 2);
+  platadmin[1].children[0].children.splice(3, 1);
   return {
     title,
     data: platadmin,
@@ -167,6 +163,7 @@ export const trackManufacturUser = () => {
 
   manufacturUser[1].children.splice(4, 2);
   manufacturUser[3].children.splice(1, 1);
+  // manufacturUser[1].children[0].children.splice(3, 1);
   return {
     title,
     data: manufacturUser,
@@ -186,6 +183,7 @@ export const trackPurchaseAdmin = () => {
   }
   purchaseAdmin[1].children.splice(2, 1);
   purchaseAdmin.splice(3, 1);
+  purchaseAdmin[1].children[0].children.splice(3, 1);
   return {
     title,
     data: purchaseAdmin,
@@ -205,6 +203,7 @@ export const trackPurchaseUser = () => {
     purchaseUser[1].children.splice(3, 1);
   }
   purchaseUser.splice(3, 1);
+  purchaseUser[1].children[0].children.splice(3, 1);
   return {
     title,
     data: purchaseUser,

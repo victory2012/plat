@@ -1,7 +1,6 @@
 <template>
   <div class="warrp">
-    <div id="container"
-      class="mapWarrp"></div>
+    <div id="container" class="mapWarrp"></div>
   </div>
 </template>
 <script>
@@ -11,7 +10,7 @@ import AMap from 'AMap';
 let map;
 export default {
   props: ['propData'],
-  data () {
+  data() {
     return {
       markers: [],
     };
@@ -19,14 +18,14 @@ export default {
 
   watch: {
     propData: {
-      handler (val) {
+      handler(val) {
         this.mapInit(val.data, val.type);
       },
       deep: true,
     },
   },
   methods: {
-    mapInit (obj, type) {
+    mapInit(obj, type) {
       console.log(obj);
       if (this.markers.length > 0) {
         map.remove(this.markers);
@@ -52,7 +51,7 @@ export default {
         map.setFitView(); // 地图自适应
       }
     },
-    init () {
+    init() {
       // const lang = sessionStorage.getItem("locale") === "en" ? "en" : "zh_cn";
       map = new AMap.Map('container', {
         resizeEnable: true,
@@ -61,10 +60,10 @@ export default {
       });
     },
   },
-  mounted () {
+  mounted() {
     this.init();
   },
-  beforeDestroy () {
+  beforeDestroy() {
     map.destroy();
   },
 };

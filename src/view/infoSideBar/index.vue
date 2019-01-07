@@ -22,9 +22,9 @@ export default {
   computed: {
     ...mapGetters(['getInfoMenu']),
   },
-  // mounted() {
-  //   console.log('getInfoMenu', this.getInfoMenu);
-  // },
+  mounted() {
+    console.log('getInfoMenu', this.getInfoMenu);
+  },
   methods: {
     handleNodeClick(data) {
       if (data.link) {

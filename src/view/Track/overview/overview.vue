@@ -1,10 +1,8 @@
 <template>
   <div>
-    <el-row :gutter="20"
-      class="mgb20">
+    <el-row :gutter="20" class="mgb20">
       <el-col :span="6">
-        <el-card shadow="hover"
-          :body-style="{padding: '0px'}">
+        <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-1">
             <i class="grid-con-icon icon-total iconfont"></i>
             <div class="grid-cont-right">
@@ -15,8 +13,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card shadow="hover"
-          :body-style="{padding: '0px'}">
+        <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-2">
             <i class="grid-con-icon icon-online iconfont"></i>
             <div class="grid-cont-right">
@@ -27,8 +24,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card shadow="hover"
-          :body-style="{padding: '0px'}">
+        <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-3">
             <i class="grid-con-icon iconfont icon-offline"></i>
             <div class="grid-cont-right">
@@ -39,8 +35,7 @@
         </el-card>
       </el-col>
       <el-col :span="6">
-        <el-card shadow="hover"
-          :body-style="{padding: '0px'}">
+        <el-card shadow="hover" :body-style="{padding: '0px'}">
           <div class="grid-content grid-con-4">
             <i class="grid-con-icon iconfont icon-icon_operate_invalid"></i>
             <div class="grid-cont-right">
@@ -51,10 +46,8 @@
         </el-card>
       </el-col>
     </el-row>
-    <gaode-map v-if="mapType.type === 1"
-      :propData="propData"></gaode-map>
-    <google-map v-else
-      :propData="propData"></google-map>
+    <gaode-map v-if="mapType.type === 1" :propData="propData"></gaode-map>
+    <google-map v-else :propData="propData"></google-map>
   </div>
 </template>
 <script>
@@ -142,6 +135,7 @@ export default {
       websockets 请求
      */
     sockets(result) {
+      console.log('open....');
       this.WX = this.$api.Socket();
       this.WX.onopen = () => {
         console.log('open....');
@@ -177,6 +171,9 @@ export default {
       this.WX.close();
     },
   },
+  // created() {
+  //   this.sockets();
+  // },
   mounted() {
     this.init();
   },

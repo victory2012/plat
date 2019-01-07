@@ -1,10 +1,9 @@
 import t from '@/utils/translate';
-
+/* eslint-disable */
 export default (item) => {
   let defaultList;
   if (item.type === 2 && item.layerName === '采购企业') {
-    defaultList = [
-      {
+    defaultList = [{
         label: t('defaultRole.addblack'), // "拉黑及恢复电池",
         id: 'addblack',
         value: false,
@@ -32,27 +31,49 @@ export default (item) => {
     ];
   }
   if (item.type === 3 && item.layerName === '采购企业') {
-    defaultList = [
-      { label: t('defaultRole.historyData'), id: 'historyData', value: false },
-      { label: t('defaultRole.alarm'), id: 'alarm', value: false },
+    defaultList = [{
+        label: t('defaultRole.historyData'),
+        id: 'historyData',
+        value: false
+      },
+      {
+        label: t('defaultRole.alarm'),
+        id: 'alarm',
+        value: false
+      },
       {
         label: t('defaultRole.sameAnalysis'),
         id: 'sameAnalysis',
         value: false,
       },
-      { label: t('defaultRole.personalInfo'), id: 'personalInfo', value: false },
+      {
+        label: t('defaultRole.personalInfo'),
+        id: 'personalInfo',
+        value: false
+      },
     ];
   }
   if (item.type === 2 && item.layerName === '生产企业') {
-    defaultList = [
-      {
+    defaultList = [{
         label: t('defaultRole.addBatteries'),
         id: 'AddBatteries',
         value: false,
       },
-      { label: t('defaultRole.addblack'), id: 'addblack', value: false },
-      { label: t('defaultRole.historyData'), id: 'historyData', value: false },
-      { label: t('defaultRole.alarm'), id: 'alarm', value: false },
+      {
+        label: t('defaultRole.addblack'),
+        id: 'addblack',
+        value: false
+      },
+      {
+        label: t('defaultRole.historyData'),
+        id: 'historyData',
+        value: false
+      },
+      {
+        label: t('defaultRole.alarm'),
+        id: 'alarm',
+        value: false
+      },
       {
         label: t('defaultRole.sameAnalysis'),
         id: 'sameAnalysis',
@@ -63,18 +84,29 @@ export default (item) => {
         id: 'allocation',
         value: false,
       },
-      { label: t('defaultRole.personalInfo'), id: 'personalInfo', value: false },
+      {
+        label: t('defaultRole.personalInfo'),
+        id: 'personalInfo',
+        value: false
+      },
     ];
   }
   if (item.type === 3 && item.layerName === '生产企业') {
-    defaultList = [
-      {
+    defaultList = [{
         label: t('defaultRole.addBatteries'),
         id: 'AddBatteries',
         value: false,
       },
-      { label: t('defaultRole.historyData'), id: 'historyData', value: false },
-      { label: t('defaultRole.alarm'), id: 'alarm', value: false },
+      {
+        label: t('defaultRole.historyData'),
+        id: 'historyData',
+        value: false
+      },
+      {
+        label: t('defaultRole.alarm'),
+        id: 'alarm',
+        value: false
+      },
       {
         label: t('defaultRole.sameAnalysis'),
         id: 'sameAnalysis',
@@ -85,7 +117,11 @@ export default (item) => {
         id: 'allocation',
         value: false,
       },
-      { label: t('defaultRole.personalInfo'), id: 'personalInfo', value: false },
+      {
+        label: t('defaultRole.personalInfo'),
+        id: 'personalInfo',
+        value: false
+      },
     ]; // "电池调配",
   }
   return defaultList;

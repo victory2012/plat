@@ -2,17 +2,19 @@ import monitorRoutes from './monitor-routes';
 import trackRoutes from './track-toutes';
 
 const Login = () =>
-  import(/* webpackChunkName: "login" */ '../login/login.vue');
-const Home = () => import(/* webpackChunkName: "Home" */ '../layout/index.vue');
+  import( /* webpackChunkName: "login" */ '../login/login.vue');
+const Home = () => import( /* webpackChunkName: "Home" */ '../layout/index.vue');
 const SubComponent = () =>
-  import(/* webpackChunkName: "monitor" */ '../view/index.vue');
+  import( /* webpackChunkName: "monitor" */ '../view/index.vue');
 
 const userInfo = () =>
-  import(/* webpackChunkName: "userInfo" */ '../view/User/user.vue');
+  import( /* webpackChunkName: "userInfo" */ '../view/User/user.vue');
 const Password = () =>
-  import(/* webpackChunkName: "Password" */ '../view/User/password.vue');
-const routes = [
-  {
+  import( /* webpackChunkName: "Password" */ '../view/User/password.vue');
+// const userManage = () =>
+//   import( /* webpackChunkName: "userManage" */ '../view/Monitor/user/user');
+/* eslint-disable */
+const routes = [{
     path: '/',
     redirect: 'login',
   },
@@ -25,8 +27,7 @@ const routes = [
     path: '/main',
     name: 'main',
     component: Home,
-    children: [
-      {
+    children: [{
         path: '/monitor',
         component: SubComponent,
         children: [...monitorRoutes],

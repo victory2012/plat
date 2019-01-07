@@ -24,7 +24,7 @@ export default {
         password: [
           { required: true, message: t('password.error'), trigger: 'blur' },
           {
-            min: 4,
+            min: 6,
             max: 20,
             message: t('password.passwordLimit'),
             trigger: 'change',
